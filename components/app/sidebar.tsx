@@ -30,11 +30,13 @@ import {
   Zap,
   Trophy,
   ShoppingBag,
+  Layers,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 
 const mainRoutes = [
+  { label: 'Mis espacios', href: '/espacios', icon: Layers },
   { label: 'Dashboard', href: '/app', icon: Home },
   { label: 'Mi Perfil', href: '/app/profile', icon: User },
   { label: 'Maniobras', href: '/app/maneuvers', icon: Zap },

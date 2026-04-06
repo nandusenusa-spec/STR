@@ -100,11 +100,12 @@ export default function HomePage() {
                 height={40}
                 className="h-10 w-10 object-contain"
               />
-              <span className="font-[var(--font-display)] text-2xl tracking-wider hidden sm:block bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent group-hover:from-neon-cyan group-hover:to-neon-magenta transition-all duration-500">COMUNIDAD</span>
+              <span className="font-[var(--font-display)] text-2xl tracking-wider hidden sm:block bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent group-hover:from-neon-cyan group-hover:to-neon-magenta transition-all duration-500">STR</span>
             </Link>
             
             <nav className="hidden md:flex items-center gap-8">
               {[
+                { label: 'ENTRENADORES', href: '/entrenadores', color: 'hover:text-neon-lime' },
                 { label: 'COMUNIDAD', href: '/app', color: 'hover:text-neon-cyan' },
                 { label: 'FEED', href: '/app/feed', color: 'hover:text-neon-magenta' },
                 { label: 'EVENTOS', href: '/app/events', color: 'hover:text-neon-lime' },
@@ -189,9 +190,14 @@ export default function HomePage() {
               <span className="block text-glow-lime text-neon-lime drop-shadow-[0_0_30px_rgba(0,255,0,0.5)] animate-entry-title animate-entry-delay-3">COMUNIDAD</span>
             </h1>
 
-            <p className="text-base sm:text-2xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed animate-entry-subtitle px-2">
-              La comunidad de action sports de Uruguay.
-              <span className="text-foreground font-medium"> Clases en vivo, videos, chat y viajes.</span>
+            <p className="text-base sm:text-2xl text-muted-foreground max-w-2xl mx-auto mb-6 leading-relaxed animate-entry-subtitle px-2">
+              Plataforma STR: entrenadores abren su espacio e invitan a sus alumnos.
+              <span className="text-foreground font-medium"> Misma comunidad para surf, skate y SUP — clases, vivo, chat y viajes.</span>
+            </p>
+            <p className="text-sm text-muted-foreground/90 max-w-xl mx-auto mb-8 px-2">
+              <Link href="/entrenadores" className="text-neon-lime hover:underline font-medium">Soy entrenador</Link>
+              {' · '}
+              <Link href="/socios" className="text-neon-cyan hover:underline font-medium">Soy alumno / socio</Link>
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 animate-entry-buttons w-full px-4">
@@ -225,6 +231,28 @@ export default function HomePage() {
                   <div className="text-xs sm:text-sm text-muted-foreground mt-2 uppercase tracking-widest">{stat.label}</div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Fase 1 — caminos entrenador / alumno */}
+          <div className="relative z-10 mx-auto max-w-3xl px-4 mt-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 rounded-2xl border border-white/10 bg-background/40 backdrop-blur-md p-3 sm:p-4">
+              <Link
+                href="/entrenadores"
+                className="flex flex-col items-center sm:items-start rounded-xl border border-neon-lime/25 bg-neon-lime/5 px-4 py-4 hover:border-neon-lime/50 hover:bg-neon-lime/10 transition-colors text-center sm:text-left"
+              >
+                <span className="text-xs font-mono text-neon-lime tracking-wider mb-1">ENTRENADORES</span>
+                <span className="font-[var(--font-display)] text-lg text-foreground">Tu espacio en STR</span>
+                <span className="text-xs text-muted-foreground mt-1">Roadmap, registro y coordinación</span>
+              </Link>
+              <Link
+                href="/socios"
+                className="flex flex-col items-center sm:items-start rounded-xl border border-neon-cyan/25 bg-neon-cyan/5 px-4 py-4 hover:border-neon-cyan/50 hover:bg-neon-cyan/10 transition-colors text-center sm:text-left"
+              >
+                <span className="text-xs font-mono text-neon-cyan tracking-wider mb-1">ALUMNOS</span>
+                <span className="font-[var(--font-display)] text-lg text-foreground">Ser socio</span>
+                <span className="text-xs text-muted-foreground mt-1">Unite a la comunidad con tu grupo</span>
+              </Link>
             </div>
           </div>
 
@@ -266,13 +294,13 @@ export default function HomePage() {
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neon-cyan/10 border border-neon-cyan/30 mb-6">
                 <Zap className="w-4 h-4 text-neon-cyan" />
-                <span className="text-xs sm:text-sm font-mono text-neon-cyan">PLATAFORMA TODO-EN-UNO</span>
+                <span className="text-xs sm:text-sm font-mono text-neon-cyan">FASE 1 — BASE COMPARTIDA</span>
               </div>
               <h2 className="font-[var(--font-display)] text-4xl sm:text-7xl text-foreground mb-4">
                 NIVEL <span className="text-neon-magenta text-glow-magenta">SIGUIENTE</span>
               </h2>
               <p className="text-muted-foreground text-base sm:text-xl max-w-2xl mx-auto px-2">
-                Chat en vivo, clases en video, eventos y una comunidad que comparte tu pasion
+                Hoy todos comparten la misma instancia mientras sumamos espacios por entrenador. Chat, video, eventos y comunidad.
               </p>
             </div>
 
@@ -510,12 +538,13 @@ export default function HomePage() {
                 className="h-12 w-12 object-contain"
               />
               <div>
-                <span className="font-[var(--font-display)] text-xl">COMUNIDAD</span>
-                <p className="text-sm text-muted-foreground">Montevideo, Uruguay</p>
+                <span className="font-[var(--font-display)] text-xl">STR COMUNIDAD</span>
+                <p className="text-sm text-muted-foreground">Plataforma para entrenadores y alumnos · Uruguay</p>
               </div>
             </div>
             
             <div className="flex items-center gap-6 text-sm text-muted-foreground flex-wrap justify-center">
+              <Link href="/entrenadores" className="hover:text-neon-lime transition-colors">Entrenadores</Link>
               <Link href="/app" className="hover:text-neon-cyan transition-colors">Comunidad</Link>
               <Link href="/tienda" className="hover:text-neon-magenta transition-colors">Shop</Link>
               <a href="https://instagram.com/comunidad_str" target="_blank" rel="noopener noreferrer" className="hover:text-neon-lime transition-colors">Instagram</a>

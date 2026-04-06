@@ -158,9 +158,13 @@ export default function LoginPage() {
       const next = params.get('redirect')
       const safeNext =
         next && next.startsWith('/') && !next.startsWith('//') ? next : '/app'
-      const redirectTo =
-        process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
-        `${window.location.origin}/auth/login?redirect=${encodeURIComponent(safeNext)}`
+
+      const appBase = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, '')
+      const base = appBase || window.location.origin
+      const configured = process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL?.trim()
+      const redirectTo = configured
+        ? `${configured.split('?')[0]}?next=${encodeURIComponent(safeNext)}`
+        : `${base}/auth/callback?next=${encodeURIComponent(safeNext)}`
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',

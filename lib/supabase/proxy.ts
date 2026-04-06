@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import { applySecurityHeaders } from '@/lib/security/http-headers'
+import { isBanExemptPath } from '@/lib/security/ban-middleware'
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -55,6 +56,34 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   const path = request.nextUrl.pathname
+
+  if (user && !isBanExemptPath(path)) {
+    const { data: isBanned, error: banRpcError } = await supabase.rpc(
+      'auth_is_user_banned',
+    )
+    if (banRpcError) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[ban] auth_is_user_banned:', banRpcError.message)
+      }
+    } else if (isBanned) {
+      if (path.startsWith('/api/')) {
+        return applySecurityHeaders(
+          NextResponse.json(
+            { error: 'Tu acceso a la comunidad fue revocado.' },
+            { status: 403 },
+          ),
+        )
+      }
+      const deny = NextResponse.redirect(
+        new URL('/auth/expulsado', request.url),
+      )
+      supabaseResponse.cookies.getAll().forEach((c) => {
+        deny.cookies.set(c.name, c.value)
+      })
+      return applySecurityHeaders(deny)
+    }
+  }
+
   const needsAuth =
     path.startsWith('/app') ||
     path.startsWith('/admin') ||
@@ -65,6 +94,29 @@ export async function updateSession(request: NextRequest) {
     url.pathname = '/auth/login'
     url.searchParams.set('redirect', `${path}${request.nextUrl.search}`)
     return applySecurityHeaders(NextResponse.redirect(url))
+  }
+
+  // Solo `admin_profiles` puede usar /admin y /api/admin (RLS: cada uno ve su fila)
+  const isAdminPath = path.startsWith('/admin') || path.startsWith('/api/admin')
+  if (isAdminPath && user) {
+    const { data: adminRow } = await supabase
+      .from('admin_profiles')
+      .select('id')
+      .eq('id', user.id)
+      .maybeSingle()
+
+    if (!adminRow) {
+      if (path.startsWith('/api/admin')) {
+        return applySecurityHeaders(
+          NextResponse.json({ error: 'Forbidden' }, { status: 403 }),
+        )
+      }
+      const deny = NextResponse.redirect(new URL('/app?admin=forbidden', request.url))
+      supabaseResponse.cookies.getAll().forEach((c) => {
+        deny.cookies.set(c.name, c.value)
+      })
+      return applySecurityHeaders(deny)
+    }
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.

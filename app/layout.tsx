@@ -16,8 +16,9 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "700"]
 });
 export const metadata: Metadata = {
-  title: 'Comunidad | Surf Skate',
-  description: 'Comunidad de entrenamientos para Surf y Skate en Montevideo. Clases, viajes y tienda.',
+  title: 'STR Comunidad | Surf Skate SUP',
+  description:
+    'Plataforma para entrenadores y alumnos: espacio compartido, clases, eventos, comunidad y tienda. Empezá en Fase 1 con la base actual.',
   icons: {
     icon: [{ url: '/images/logo.png', type: 'image/png', sizes: 'any' }],
     apple: '/images/logo.png',

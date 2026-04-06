@@ -7,6 +7,7 @@ import { Menu, X, ShoppingBag, Search, User } from 'lucide-react'
 import { useCartStore } from '@/lib/cart-store'
 
 const navLinks = [
+  { href: '/entrenadores', label: 'Entrenadores' },
   { href: '/clases', label: 'Clases' },
   { href: '/viajes', label: 'Viajes' },
   { href: '/tienda', label: 'Tienda' },
@@ -50,8 +51,8 @@ export function Header() {
               className="h-10 w-10 object-contain"
             />
             <div className="hidden sm:flex flex-col">
-              <span className="font-[var(--font-display)] text-base font-bold text-foreground">COMMUNITY</span>
-              <span className="text-xs text-neon-lime">En línea</span>
+              <span className="font-[var(--font-display)] text-base font-bold text-foreground">STR</span>
+              <span className="text-xs text-neon-lime">Comunidad</span>
             </div>
           </Link>
 
@@ -116,7 +117,7 @@ export function Header() {
       {/* Mobile Menu */}
       <div 
         className={`lg:hidden overflow-hidden transition-all duration-300 bg-background ${
-          mobileMenuOpen ? 'max-h-[300px] border-b border-border' : 'max-h-0'
+          mobileMenuOpen ? 'max-h-[380px] border-b border-border' : 'max-h-0'
         }`}
       >
         <nav className="flex flex-col px-4 py-4">

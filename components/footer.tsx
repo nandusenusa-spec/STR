@@ -12,6 +12,7 @@ const footerLinks = {
     { label: 'Accesorios', href: '/tienda/accesorios' },
   ],
   experience: [
+    { label: 'Entrenadores', href: '/entrenadores' },
     { label: 'Clases', href: '/clases' },
     { label: 'Viajes', href: '/viajes' },
     { label: 'Portal Alumnos', href: '/portal' },
@@ -43,7 +44,7 @@ export function Footer() {
               <span className="font-[var(--font-display)] text-2xl font-bold">STR</span>
             </Link>
             <p className="text-background/60 text-sm leading-relaxed mb-6 max-w-xs">
-              Comunidad de entrenamientos para Surf, Skate y Stand Up Paddle en Montevideo.
+              Plataforma STR: entrenadores con su espacio e invitación a alumnos. Surf, skate y SUP.
             </p>
             <div className="flex gap-4">
               <a 

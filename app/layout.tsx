@@ -19,8 +19,9 @@ export const metadata: Metadata = {
   title: 'Comunidad | Surf Skate',
   description: 'Comunidad de entrenamientos para Surf y Skate en Montevideo. Clases, viajes y tienda.',
   icons: {
-    icon: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: [{ url: '/images/logo.png', type: 'image/png', sizes: 'any' }],
+    apple: '/images/logo.png',
+    shortcut: '/images/logo.png',
   },
 }
 

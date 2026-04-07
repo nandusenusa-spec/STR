@@ -119,19 +119,9 @@ export default function HomePage() {
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-end">
-              <Link href="/socios" className="hidden sm:inline-flex">
-                <Button variant="outline" size="sm" className="border-neon-lime/40 text-neon-lime hover:bg-neon-lime/10">
-                  Ser socio
-                </Button>
-              </Link>
               <Link href="/auth/login">
-                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                  Ingresar
-                </Button>
-              </Link>
-              <Link href="/auth/sign-up">
                 <Button size="sm" className="relative overflow-hidden bg-gradient-to-r from-neon-cyan to-neon-magenta text-background font-bold hover:opacity-90 glow-cyan group">
-                  <span className="relative z-10">Unirse</span>
+                  <span className="relative z-10">Ingresar</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-neon-magenta to-neon-cyan opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Button>
               </Link>

@@ -21,23 +21,24 @@ const fases = [
     activa: false,
   },
   {
-    fase: 'Fase 2 — Ahora',
+    fase: 'Fase 2',
     titulo: 'Espacio por entrenador',
     items: [
       'Creá tu espacio en Mis espacios → Nuevo (/espacios/nuevo) con URL /e/tu-slug.',
       'Alumnos con cuenta se unen desde la página del espacio si es público.',
-      'RLS en Supabase: miembros y dueño; invitaciones dedicadas vienen en Fase 3.',
-    ],
-    activa: true,
-  },
-  {
-    fase: 'Fase 3 — Próximo',
-    titulo: 'Invitaciones y contenido por espacio',
-    items: [
-      'Links o códigos solo para tu espacio; alumnos sin fricción.',
-      'Feed, foros o chat filtrados por space_id donde aplique.',
+      'RLS en Supabase: miembros y dueño.',
     ],
     activa: false,
+  },
+  {
+    fase: 'Fase 3 — Ahora',
+    titulo: 'Invitaciones y contenido por espacio',
+    items: [
+      'Link con código de invitación para espacios privados (dueño activa en la página del espacio).',
+      'Feed, foros y chat por espacio: /e/tu-slug/feed, /forums, /chat — migración SQL 022 en Supabase.',
+      'La comunidad global sigue en /app.',
+    ],
+    activa: true,
   },
 ]
 

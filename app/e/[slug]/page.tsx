@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { SpaceJoinButton } from '@/components/spaces/space-join-button'
+import { SpaceInvitePanel } from '@/components/spaces/space-invite-panel'
 import type { Space } from '@/lib/types'
 
 type Props = { params: Promise<{ slug: string }> }
@@ -63,64 +64,83 @@ export default async function EspacioPublicPage({ params }: Props) {
   const isOwner = user?.id === space.owner_id
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="border-b border-white/10">
-        <div className="mx-auto max-w-3xl px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">
-            STR
-          </Link>
-          {user ? (
-            <Link href="/espacios" className="text-sm text-neon-cyan hover:underline">
-              Mis espacios
-            </Link>
-          ) : (
-            <Link href="/auth/login" className="text-sm text-neon-cyan hover:underline">
-              Ingresar
-            </Link>
-          )}
-        </div>
+    <div className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
+      <p className="text-xs font-mono text-neon-magenta tracking-wider mb-3">ESPACIO</p>
+      <h1 className="font-[var(--font-display)] text-4xl sm:text-6xl mb-4">{space.name}</h1>
+      {space.description && (
+        <p className="text-lg text-muted-foreground mb-8 whitespace-pre-wrap">{space.description}</p>
+      )}
+
+      <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-10">
+        <span
+          className={`px-3 py-1 rounded-full border ${space.is_public ? 'border-neon-lime/40 text-neon-lime' : 'border-border'}`}
+        >
+          {space.is_public ? 'Público' : 'Privado'}
+        </span>
+        {memberCount !== null && (
+          <span className="px-3 py-1 rounded-full border border-white/10">
+            {memberCount} {memberCount === 1 ? 'miembro' : 'miembros'}
+          </span>
+        )}
+        {isOwner && (
+          <span className="px-3 py-1 rounded-full border border-neon-cyan/40 text-neon-cyan">Sos el dueño</span>
+        )}
       </div>
 
-      <div className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
-        <p className="text-xs font-mono text-neon-magenta tracking-wider mb-3">ESPACIO</p>
-        <h1 className="font-[var(--font-display)] text-4xl sm:text-6xl mb-4">{space.name}</h1>
-        {space.description && (
-          <p className="text-lg text-muted-foreground mb-8 whitespace-pre-wrap">{space.description}</p>
-        )}
-
-        <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-10">
-          <span
-            className={`px-3 py-1 rounded-full border ${space.is_public ? 'border-neon-lime/40 text-neon-lime' : 'border-border'}`}
-          >
-            {space.is_public ? 'Público' : 'Privado'}
-          </span>
-          {memberCount !== null && (
-            <span className="px-3 py-1 rounded-full border border-white/10">
-              {memberCount} {memberCount === 1 ? 'miembro' : 'miembros'}
-            </span>
-          )}
-          {isOwner && (
-            <span className="px-3 py-1 rounded-full border border-neon-cyan/40 text-neon-cyan">Sos el dueño</span>
-          )}
-        </div>
-
-        <div className="rounded-2xl border border-white/10 bg-card/30 p-6 sm:p-8 mb-8">
-          <h2 className="font-[var(--font-display)] text-xl mb-4">Participar</h2>
-          <SpaceJoinButton
+      {isOwner && (
+        <div className="mb-8">
+          <SpaceInvitePanel
             spaceId={space.id}
             slug={space.slug}
-            isPublic={space.is_public}
-            isMember={isMember}
-            isLoggedIn={!!user}
+            initialInviteEnabled={Boolean(space.invite_enabled)}
+            initialInviteCode={space.invite_code ?? null}
           />
         </div>
+      )}
 
-        <p className="text-xs text-muted-foreground font-mono">Compartí este espacio: /e/{space.slug}</p>
+      <div className="rounded-2xl border border-white/10 bg-card/30 p-6 sm:p-8 mb-8">
+        <h2 className="font-[var(--font-display)] text-xl mb-4">Participar</h2>
+        <SpaceJoinButton
+          spaceId={space.id}
+          slug={space.slug}
+          isPublic={space.is_public}
+          isMember={isMember}
+          isLoggedIn={!!user}
+        />
+      </div>
 
-        <div className="mt-10 rounded-xl border border-white/5 bg-card/20 p-4 text-sm text-muted-foreground">
-          El feed, foros y chat global siguen en <Link href="/app" className="text-neon-cyan hover:underline">/app</Link>
-          . La Fase 2 conecta primero identidad y membresía por espacio; el contenido por espacio viene después.
-        </div>
+      <p className="text-xs text-muted-foreground font-mono mb-6">
+        Compartí: <span className="text-foreground">/e/{space.slug}</span>
+        {space.invite_enabled && space.invite_code && (
+          <span className="block mt-1">
+            Con invitación:{' '}
+            <span className="text-neon-cyan">
+              …/e/{space.slug}?invite={space.invite_code}
+            </span>
+          </span>
+        )}
+      </p>
+
+      <div className="rounded-xl border border-white/5 bg-card/20 p-4 text-sm text-muted-foreground space-y-2">
+        <p>
+          <strong className="text-foreground">Fase 3:</strong> feed, foros y chat por espacio:{' '}
+          <Link href={`/e/${space.slug}/feed`} className="text-neon-cyan hover:underline">
+            Feed
+          </Link>
+          {' · '}
+          <Link href={`/e/${space.slug}/forums`} className="text-neon-cyan hover:underline">
+            Foros
+          </Link>
+          {' · '}
+          <Link href={`/e/${space.slug}/chat`} className="text-neon-cyan hover:underline">
+            Chat
+          </Link>
+          . La comunidad global sigue en{' '}
+          <Link href="/app" className="text-neon-cyan hover:underline">
+            /app
+          </Link>
+          .
+        </p>
       </div>
     </div>
   )

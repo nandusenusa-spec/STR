@@ -46,9 +46,15 @@ const FORUM_SLUG_BY_UI_ID: Record<string, string> = {
 interface CreatePostDialogProps {
   userId: string
   onPostCreated: (post: any) => void
+  /** Foro de un espacio: categoría única (omitir selector) */
+  fixedCategoryId?: string
 }
 
-export default function CreatePostDialog({ userId, onPostCreated }: CreatePostDialogProps) {
+export default function CreatePostDialog({
+  userId,
+  onPostCreated,
+  fixedCategoryId,
+}: CreatePostDialogProps) {
   const supabase = createClient()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -65,15 +71,18 @@ export default function CreatePostDialog({ userId, onPostCreated }: CreatePostDi
 
     setLoading(true)
     try {
-      // Get category ID
-      const slug = FORUM_SLUG_BY_UI_ID[category] || category
-      const { data: categoryData } = await supabase
-        .from('forum_categories')
-        .select('id')
-        .eq('slug', slug)
-        .single()
+      let categoryId: string | undefined = fixedCategoryId
 
-      const categoryId = categoryData?.id
+      if (!categoryId) {
+        const slug = FORUM_SLUG_BY_UI_ID[category] || category
+        const { data: categoryData } = await supabase
+          .from('forum_categories')
+          .select('id')
+          .eq('slug', slug)
+          .single()
+        categoryId = categoryData?.id
+      }
+
       if (!categoryId) {
         toast.error('Categoría no encontrada')
         setLoading(false)
@@ -135,22 +144,23 @@ export default function CreatePostDialog({ userId, onPostCreated }: CreatePostDi
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Category */}
-          <div className="space-y-2">
-            <Label htmlFor="category">Categoría</Label>
-            <Select value={category} onValueChange={setCategory}>
-              <SelectTrigger id="category">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((cat) => (
-                  <SelectItem key={cat.id} value={cat.id}>
-                    {cat.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          {!fixedCategoryId && (
+            <div className="space-y-2">
+              <Label htmlFor="category">Categoría</Label>
+              <Select value={category} onValueChange={setCategory}>
+                <SelectTrigger id="category">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((cat) => (
+                    <SelectItem key={cat.id} value={cat.id}>
+                      {cat.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
 
           {/* Title */}
           <div className="space-y-2">

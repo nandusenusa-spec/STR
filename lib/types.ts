@@ -161,6 +161,9 @@ export interface Space {
   description: string | null
   owner_id: string
   is_public: boolean
+  /** Fase 3: invitación por código/link */
+  invite_code?: string | null
+  invite_enabled?: boolean
   created_at: string
   updated_at: string
 }

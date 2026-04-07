@@ -25,6 +25,31 @@ const footerLinks = {
 
 const WHATSAPP_NUMBER = '598099046165'
 
+/** URL para Meta/Facebook: env absoluto o /privacidad */
+function privacyHref(): string {
+  const u = process.env.NEXT_PUBLIC_PRIVACY_POLICY_URL?.trim()
+  if (u && /^https?:\/\//i.test(u)) return u
+  return '/privacidad'
+}
+
+function PrivacyLink({ className }: { className?: string }) {
+  const href = privacyHref()
+  const external = href.startsWith('http')
+  const cls = className ?? 'hover:text-background/70 transition-colors'
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
+        Política de privacidad
+      </a>
+    )
+  }
+  return (
+    <Link href={href} className={cls}>
+      Política de privacidad
+    </Link>
+  )
+}
+
 export function Footer() {
   return (
     <footer className="bg-foreground text-background">
@@ -144,7 +169,8 @@ export function Footer() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-background/40">
             <p>© {new Date().getFullYear()} STR Comunidad. Todos los derechos reservados.</p>
-            <div className="flex items-center gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+              <PrivacyLink />
               <Link href="/admin" className="hover:text-background/70 transition-colors">
                 Admin
               </Link>

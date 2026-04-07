@@ -30,10 +30,16 @@ import {
 
 interface CreatePostDialogProps {
   userId: string
+  /** Feed del espacio (Fase 3); si no, post global */
+  spaceId?: string
   onPostCreated: (post: any) => void
 }
 
-export default function CreatePostDialog({ userId, onPostCreated }: CreatePostDialogProps) {
+export default function CreatePostDialog({
+  userId,
+  spaceId: spaceIdProp,
+  onPostCreated,
+}: CreatePostDialogProps) {
   const supabase = createClient()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -90,6 +96,7 @@ export default function CreatePostDialog({ userId, onPostCreated }: CreatePostDi
             media_url: publicUrl,
             thumbnail_url: postType === 'story' ? publicUrl : null,
             status: 'published',
+            ...(spaceIdProp ? { space_id: spaceIdProp } : {}),
           },
         ])
         .select('*')

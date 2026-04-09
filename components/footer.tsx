@@ -20,6 +20,7 @@ const footerLinks = {
   info: [
     { label: 'Contacto', href: '#contacto' },
     { label: 'Sobre Nosotros', href: '#' },
+    { label: 'Privacidad', href: '/privacidad' },
   ],
 }
 
@@ -55,12 +56,12 @@ export function Footer() {
     <footer className="bg-foreground text-background">
       {/* Main Footer */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-6">
               <Image
-                src="/images/logo.png"
+                src="/images/logo.svg"
                 alt="STR"
                 width={40}
                 height={40}
@@ -116,6 +117,23 @@ export function Footer() {
             <ul className="space-y-3">
               {footerLinks.experience.map((link) => (
                 <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-background/60 hover:text-background transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Info */}
+          <div>
+            <h4 className="text-sm font-medium mb-4">Info</h4>
+            <ul className="space-y-3">
+              {footerLinks.info.map((link) => (
+                <li key={link.label}>
                   <Link
                     href={link.href}
                     className="text-sm text-background/60 hover:text-background transition-colors"

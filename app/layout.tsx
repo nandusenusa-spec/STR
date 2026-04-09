@@ -20,9 +20,9 @@ export const metadata: Metadata = {
   description:
     'Plataforma para entrenadores y alumnos: espacio compartido, clases, eventos, comunidad y tienda. Empezá en Fase 1 con la base actual.',
   icons: {
-    icon: [{ url: '/images/logo.png', type: 'image/png', sizes: 'any' }],
-    apple: '/images/logo.png',
-    shortcut: '/images/logo.png',
+    icon: [{ url: '/images/logo.svg', type: 'image/svg+xml', sizes: 'any' }],
+    apple: '/images/logo.svg',
+    shortcut: '/images/logo.svg',
   },
 }
 

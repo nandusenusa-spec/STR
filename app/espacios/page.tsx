@@ -55,7 +55,7 @@ export default async function EspaciosPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:py-16">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
           <div>
             <p className="text-xs font-mono text-neon-cyan tracking-wider mb-2">FASE 2</p>
@@ -92,30 +92,36 @@ export default async function EspaciosPage() {
           </div>
         )}
 
-        <ul className="space-y-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 list-none p-0 m-0">
           {spaces.map((s) => (
-            <li
-              key={s.id}
-              className="rounded-2xl border border-white/10 bg-card/30 p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
-            >
-              <div>
-                <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-1">
-                  {s.role}
-                </p>
-                <h2 className="font-[var(--font-display)] text-2xl">{s.name}</h2>
-                {s.description && (
-                  <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{s.description}</p>
-                )}
-                <p className="text-xs text-muted-foreground mt-2">
-                  /e/{s.slug} · {s.is_public ? 'Público' : 'Privado'}
-                </p>
+            <li key={s.id} className="h-full min-h-0">
+              <div className="rounded-2xl border border-white/10 bg-card/30 p-5 flex flex-col h-full gap-4">
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-1">
+                    {s.role}
+                  </p>
+                  <h2 className="font-[var(--font-display)] text-2xl">{s.name}</h2>
+                  {s.description && (
+                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2 flex-1">
+                      {s.description}
+                    </p>
+                  )}
+                  <p className="text-xs text-muted-foreground mt-2">
+                    /e/{s.slug} · {s.is_public ? 'Público' : 'Privado'}
+                  </p>
+                </div>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="shrink-0 border-neon-cyan/40 w-full sm:w-auto self-stretch sm:self-end"
+                >
+                  <Link href={`/e/${s.slug}`}>
+                    Abrir
+                    <ExternalLink className="h-4 w-4 ml-2" />
+                  </Link>
+                </Button>
               </div>
-              <Button asChild variant="outline" size="sm" className="shrink-0 border-neon-cyan/40">
-                <Link href={`/e/${s.slug}`}>
-                  Abrir
-                  <ExternalLink className="h-4 w-4 ml-2" />
-                </Link>
-              </Button>
             </li>
           ))}
         </ul>

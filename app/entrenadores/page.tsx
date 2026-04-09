@@ -48,7 +48,7 @@ export default function EntrenadoresPage() {
       <header className="border-b border-white/10 bg-background/80 backdrop-blur-md sticky top-0 z-40">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.png" alt="STR" width={36} height={36} className="h-9 w-9 object-contain" />
+            <Image src="/logo.svg" alt="STR" width={36} height={36} className="h-9 w-9 object-contain" />
             <span className="font-[var(--font-display)] text-lg tracking-wide">STR</span>
           </Link>
           <div className="flex items-center gap-2">

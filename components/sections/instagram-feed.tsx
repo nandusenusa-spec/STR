@@ -53,7 +53,7 @@ const instagramPosts = [
 
 // Demo stories data
 const stories = [
-  { id: '1', username: 'comunidad_str', avatar: '/images/logo.png', isLive: true },
+  { id: '1', username: 'comunidad_str', avatar: '/images/logo.svg', isLive: true },
   { id: '2', username: 'martin_surf', avatar: null, hasNew: true },
   { id: '3', username: 'lu_skate', avatar: null, hasNew: true },
   { id: '4', username: 'santi_sup', avatar: null, hasNew: false },

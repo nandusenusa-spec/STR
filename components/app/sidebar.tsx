@@ -62,7 +62,7 @@ export default function AppSidebar() {
       <SidebarHeader className="border-b border-sidebar-border p-4">
         <Link href="/app" className="flex items-center gap-3">
           <Image
-            src="/logo.png"
+            src="/logo.svg"
             alt="Comunidad"
             width={40}
             height={40}
@@ -142,7 +142,7 @@ export default function AppSidebar() {
       <SidebarFooter className="border-t border-sidebar-border p-3">
         <div className="flex items-center gap-3 p-2 rounded-lg bg-card/30">
           <Image
-            src="/logo.png"
+            src="/logo.svg"
             alt="Comunidad"
             width={40}
             height={40}

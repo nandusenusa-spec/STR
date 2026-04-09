@@ -97,7 +97,7 @@ export default function PortalDashboard() {
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-3">
               <Image
-                src="/images/logo.png"
+                src="/images/logo.svg"
                 alt="STR"
                 width={40}
                 height={40}

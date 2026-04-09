@@ -216,7 +216,7 @@ export default function TiendaPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              <Image src="/logo.png" alt="Comunidad" width={40} height={40} className="h-10 w-10 object-contain" />
+              <Image src="/logo.svg" alt="Comunidad" width={40} height={40} className="h-10 w-10 object-contain" />
               <div>
                 <span className="font-[var(--font-display)] text-lg">COMUNIDAD</span>
                 <p className="text-xs text-muted-foreground">Montevideo, Uruguay</p>

@@ -94,7 +94,7 @@ export default function HomePage() {
           <div className="flex h-16 items-center justify-between">
             <Link href="/" className="flex items-center gap-3 group">
               <Image
-                src="/logo.png"
+                src="/logo.svg"
                 alt="Comunidad"
                 width={40}
                 height={40}
@@ -521,7 +521,7 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="flex items-center gap-4">
               <Image
-                src="/logo.png"
+                src="/logo.svg"
                 alt="Comunidad"
                 width={48}
                 height={48}

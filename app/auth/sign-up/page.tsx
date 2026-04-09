@@ -87,7 +87,7 @@ export default function Page() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4 sm:p-6 lg:p-8 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 grid-bg opacity-20" />
@@ -97,18 +97,19 @@ export default function Page() {
 
       <div className="relative w-full max-w-md">
         {/* Logo */}
-        <Link href="/" className="flex items-center justify-center mb-8 group">
+        <Link href="/" className="flex items-center justify-center mb-10 group">
           <Image
-            src="/logo.png"
+            src="/logo.svg"
             alt="Comunidad"
-            width={64}
-            height={64}
-            className="h-16 w-16 object-contain transition-transform duration-300 group-hover:scale-110"
+            width={215}
+            height={48}
+            className="h-12 w-auto max-w-[200px] object-contain object-center transition-transform duration-300 group-hover:scale-105"
+            priority
           />
         </Link>
 
         {/* Card */}
-        <div className="relative rounded-2xl border border-white/10 bg-card/80 backdrop-blur-xl p-8">
+        <div className="relative rounded-2xl border border-white/10 bg-card/80 backdrop-blur-xl p-8 shadow-lg">
           <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-neon-cyan/5 via-transparent to-neon-magenta/5" />
 
           <div className="relative">
@@ -119,7 +120,7 @@ export default function Page() {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full h-12 bg-white/5 border-white/10 hover:bg-white/10"
+                className="w-full h-12 bg-white/5 border-white/10 hover:bg-card/50"
                 onClick={handleGoogleSignUp}
                 disabled={!!loadingProvider || isLoading}
               >
@@ -217,7 +218,7 @@ export default function Page() {
               </Button>
             </form>
 
-            <p className="text-center text-sm text-muted-foreground mt-6">
+            <p className="text-center text-sm text-muted-foreground mt-8">
               Ya tienes cuenta?{' '}
               <Link href="/auth/login" className="text-neon-cyan hover:underline">
                 Ingresar

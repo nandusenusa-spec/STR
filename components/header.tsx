@@ -44,7 +44,7 @@ export function Header() {
             className="flex items-center gap-2"
           >
             <Image
-              src="/logo.png"
+              src="/logo.svg"
               alt="Comunidad"
               width={40}
               height={40}

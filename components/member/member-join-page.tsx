@@ -160,7 +160,7 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
         <div className="relative z-10 p-12 flex flex-col justify-between h-full">
           <Link href="/" className="flex items-center gap-3 group">
             <Image
-              src="/logo.png"
+              src="/logo.svg"
               alt="Comunidad"
               width={56}
               height={56}
@@ -211,7 +211,7 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
           </Link>
 
           <div className="lg:hidden flex items-center gap-3 mb-8">
-            <Image src="/logo.png" alt="Comunidad" width={48} height={48} />
+            <Image src="/logo.svg" alt="Comunidad" width={48} height={48} />
             <span className="font-[var(--font-display)] text-2xl bg-gradient-to-r from-neon-cyan to-neon-magenta bg-clip-text text-transparent">
               {copy.mobileBrand}
             </span>

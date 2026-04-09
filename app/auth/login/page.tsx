@@ -15,7 +15,6 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [loadingProvider, setLoadingProvider] = useState<string | null>(null)
-  const [mounted, setMounted] = useState(false)
   const router = useRouter()
   const supabase = createClient()
   const configuredAdminEmails = (
@@ -79,10 +78,6 @@ export default function LoginPage() {
       console.warn('[auth] No se pudo sincronizar user_profiles:', error.message)
     }
   }
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   useEffect(() => {
     const checkExistingSession = async () => {
@@ -178,19 +173,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4 overflow-hidden relative">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden relative">
       {/* Animated background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div 
-          className={`absolute -top-1/2 -left-1/2 w-full h-full bg-[radial-gradient(circle,oklch(0.7_0.25_180/0.15),transparent_50%)] transition-all duration-1000 ${mounted ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}
+        <div
+          className="absolute -top-1/2 -left-1/2 w-full h-full bg-[radial-gradient(circle,oklch(0.7_0.25_180/0.15),transparent_50%)] opacity-100 scale-100 transition-all duration-1000"
           style={{ animationDelay: '0ms' }}
         />
-        <div 
-          className={`absolute -bottom-1/2 -right-1/2 w-full h-full bg-[radial-gradient(circle,oklch(0.6_0.25_320/0.15),transparent_50%)] transition-all duration-1000 delay-200 ${mounted ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}
-        />
-        <div 
-          className={`absolute top-1/4 right-1/4 w-96 h-96 bg-[radial-gradient(circle,oklch(0.65_0.2_85/0.1),transparent_60%)] transition-all duration-1000 delay-500 ${mounted ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}
-        />
+        <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-[radial-gradient(circle,oklch(0.6_0.25_320/0.15),transparent_50%)] opacity-100 scale-100 transition-all duration-1000 delay-200" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[radial-gradient(circle,oklch(0.65_0.2_85/0.1),transparent_60%)] opacity-100 scale-100 transition-all duration-1000 delay-500" />
         
         {/* Grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
@@ -199,28 +190,24 @@ export default function LoginPage() {
         <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.05)_50%)] bg-[size:100%_4px] pointer-events-none" />
       </div>
 
-      <div 
-        className={`w-full max-w-md relative z-10 transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-      >
-        {/* Logo */}
-        <Link href="/" className="flex items-center justify-center gap-3 mb-8 group">
+      <div className="w-full max-w-md relative z-10 transition-all duration-700 opacity-100 translate-y-0">
+        <Link href="/" className="flex items-center justify-center gap-3 mb-10 group">
           <Image
-            src="/logo.png"
+            src="/logo.svg"
             alt="Comunidad"
-            width={80}
-            height={80}
-            className="h-20 w-20 object-contain transition-transform duration-300 group-hover:scale-110"
+            width={215}
+            height={48}
+            className="h-12 w-auto max-w-[200px] object-contain object-center transition-transform duration-300 group-hover:scale-105"
+            priority
           />
         </Link>
 
         {/* Card */}
-        <div 
-          className={`relative transition-all duration-700 delay-200 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-        >
+        <div className="relative transition-all duration-700 delay-200 opacity-100 translate-y-0">
           {/* Glow effect behind card */}
           <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-xl opacity-50" />
           
-          <div className="relative bg-card/80 backdrop-blur-xl border border-border/50 rounded-2xl p-8">
+          <div className="relative bg-card/80 backdrop-blur-xl border border-border/50 rounded-2xl p-8 shadow-lg">
             {/* Header */}
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs mb-4">
@@ -240,7 +227,7 @@ export default function LoginPage() {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full h-12 bg-white/5 border-border/50 hover:bg-white/10 hover:border-white/20 transition-all duration-300 group relative overflow-hidden"
+                className="w-full h-12 bg-white/5 border-border/50 hover:bg-card/50 hover:border-white/20 transition-all duration-300 group relative overflow-hidden"
                 onClick={handleGoogleLogin}
                 disabled={!!loadingProvider}
               >
@@ -281,7 +268,7 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="pl-11 h-12 bg-white/5 border-border/50 focus:border-cyan-500/50 focus:ring-cyan-500/20 transition-all"
+                  className="pl-11 h-12 bg-background/50 border-border/50 focus:border-cyan-500/50 focus:ring-cyan-500/20 transition-all"
                 />
               </div>
               
@@ -293,7 +280,7 @@ export default function LoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pl-11 h-12 bg-white/5 border-border/50 focus:border-cyan-500/50 focus:ring-cyan-500/20 transition-all"
+                  className="pl-11 h-12 bg-background/50 border-border/50 focus:border-cyan-500/50 focus:ring-cyan-500/20 transition-all"
                 />
               </div>
 
@@ -332,7 +319,7 @@ export default function LoginPage() {
             </form>
             
             {/* Footer */}
-            <div className="mt-6 text-center space-y-2">
+            <div className="mt-8 text-center space-y-2">
               <p className="text-sm text-muted-foreground">
                 ¿No tienes cuenta?{' '}
                 <Link
@@ -353,9 +340,7 @@ export default function LoginPage() {
         </div>
 
         {/* Trust badges */}
-        <div 
-          className={`mt-8 flex items-center justify-center gap-6 text-muted-foreground text-xs transition-all duration-700 delay-500 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-        >
+        <div className="mt-8 flex items-center justify-center gap-6 text-muted-foreground text-xs transition-all duration-700 delay-500 opacity-100 translate-y-0">
           <div className="flex items-center gap-1">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
             <span>Seguro</span>

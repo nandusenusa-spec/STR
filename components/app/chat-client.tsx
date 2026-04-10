@@ -15,6 +15,7 @@ import {
   enrichRowsWithUsers,
   fetchProfilesByIds,
 } from '@/lib/supabase/enrich-profiles'
+import { toast } from 'sonner'
 
 const globalChannels = [
   { id: 'general', name: 'General', discipline: 'general' },
@@ -165,17 +166,20 @@ function ChatInner({ spaceId, spaceSlug, showComposer = true }: ChatClientProps)
     e.preventDefault()
     if (!newMessage.trim() || !user || !channelId || !showComposer) return
 
-    const { error } = await supabase.from('chat_messages').insert([
-      {
-        channel_id: channelId,
-        user_id: user.id,
-        content: newMessage,
-      },
-    ])
+    const res = await fetch('/api/community/chat-message', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ channel_id: channelId, content: newMessage.trim() }),
+    })
+    const data = (await res.json().catch(() => ({}))) as { error?: string }
 
-    if (!error) {
-      setNewMessage('')
+    if (!res.ok) {
+      toast.error(data.error || 'No se pudo enviar el mensaje.')
+      return
     }
+
+    setNewMessage('')
   }
 
   return (

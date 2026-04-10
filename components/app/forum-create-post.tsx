@@ -89,21 +89,24 @@ export default function CreatePostDialog({
         return
       }
 
-      // Create post
-      const { data: post, error } = await supabase
-        .from('forum_posts')
-        .insert([
-          {
-            user_id: userId,
-            category_id: categoryId,
-            title: title.trim(),
-            content: content.trim(),
-          },
-        ])
-        .select('*')
-        .single()
-
-      if (error) throw error
+      const postRes = await fetch('/api/community/forum-post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          category_id: categoryId,
+          title: title.trim(),
+          content: content.trim(),
+        }),
+      })
+      const postJson = (await postRes.json().catch(() => ({}))) as {
+        error?: string
+        post?: Record<string, unknown>
+      }
+      if (!postRes.ok || !postJson.post) {
+        throw new Error(postJson.error || 'No se pudo crear el post')
+      }
+      const post = postJson.post
 
       const { data: cat } = await supabase
         .from('forum_categories')

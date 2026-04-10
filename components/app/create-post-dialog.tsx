@@ -69,6 +69,20 @@ export default function CreatePostDialog({
 
     setLoading(true)
     try {
+      if (file.type.startsWith('image/')) {
+        const scanData = new FormData()
+        scanData.append('file', file)
+        const scanRes = await fetch('/api/moderation/scan-image', {
+          method: 'POST',
+          body: scanData,
+          credentials: 'include',
+        })
+        const scanJson = (await scanRes.json().catch(() => ({}))) as { ok?: boolean; error?: string }
+        if (!scanRes.ok || !scanJson.ok) {
+          throw new Error(scanJson.error || 'La imagen no pasó la revisión de contenido.')
+        }
+      }
+
       // Upload file to storage
       const fileExt = file.name.split('.').pop()
       const fileName = `${Date.now()}.${fileExt}`

@@ -74,18 +74,18 @@ export default function ValidationPage() {
   return (
     <div className="min-h-screen bg-background p-4 sm:p-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="font-[var(--font-display)] text-4xl text-neon-lime mb-8">
+        <h1 className="font-[var(--font-display)] text-4xl text-primary mb-8">
           Centro de Validaciones
         </h1>
 
         <div className="mb-6 flex items-center gap-4">
           <div className="flex-1">
             <div className="text-sm text-muted-foreground">Videos Pendientes</div>
-            <div className="font-[var(--font-display)] text-3xl text-neon-magenta">{pendingCount}</div>
+            <div className="font-[var(--font-display)] text-3xl text-primary">{pendingCount}</div>
           </div>
           <div className="flex-1">
             <div className="text-sm text-muted-foreground">Aprobados Hoy</div>
-            <div className="font-[var(--font-display)] text-3xl text-neon-cyan">{approvedCount}</div>
+            <div className="font-[var(--font-display)] text-3xl text-primary">{approvedCount}</div>
           </div>
         </div>
 
@@ -95,8 +95,8 @@ export default function ValidationPage() {
               key={validation.id}
               className={`p-6 border transition-all ${
                 validation.status === 'pending'
-                  ? 'border-neon-magenta/50 bg-neon-magenta/5'
-                  : 'border-neon-cyan/50 bg-neon-cyan/5'
+                  ? 'border-primary/50 bg-primary/5'
+                  : 'border-primary/50 bg-primary/5'
               }`}
             >
               <div className="flex items-start justify-between gap-4">
@@ -105,7 +105,7 @@ export default function ValidationPage() {
                     {validation.studentName}
                   </h3>
                   <p className="text-muted-foreground mb-3">
-                    Maniobra: <span className="text-neon-lime">{validation.maneuver}</span>
+                    Maniobra: <span className="text-primary">{validation.maneuver}</span>
                   </p>
                   <p className="text-sm text-muted-foreground">
                     Subido: {validation.submittedDate}
@@ -114,7 +114,7 @@ export default function ValidationPage() {
                   {validation.feedback && (
                     <div className="mt-4 bg-background/50 border border-white/10 rounded p-3">
                       <p className="text-sm">
-                        <span className="text-neon-cyan font-medium">Tu Feedback:</span> {validation.feedback}
+                        <span className="text-primary font-medium">Tu Feedback:</span> {validation.feedback}
                       </p>
                     </div>
                   )}
@@ -122,7 +122,7 @@ export default function ValidationPage() {
 
                 <div className="flex flex-col gap-2">
                   <Button
-                    className="bg-neon-cyan text-background hover:bg-neon-cyan/80 gap-2"
+                    className="bg-primary text-background hover:bg-primary/80 gap-2"
                   >
                     <Play className="w-4 h-4" />
                     Ver Video
@@ -131,7 +131,7 @@ export default function ValidationPage() {
                   {validation.status === 'pending' && (
                     <>
                       <Button
-                        className="bg-neon-lime text-background hover:bg-neon-lime/80 gap-2"
+                        className="bg-primary text-background hover:bg-primary/80 gap-2"
                         onClick={() => updateValidation(validation.id, 'approved')}
                       >
                         <CheckCircle className="w-4 h-4" />
@@ -160,7 +160,7 @@ export default function ValidationPage() {
                   )}
 
                   {validation.status === 'approved' && (
-                    <div className="flex items-center gap-2 text-neon-cyan text-sm font-medium">
+                    <div className="flex items-center gap-2 text-primary text-sm font-medium">
                       <CheckCircle className="w-4 h-4" />
                       Aprobado
                     </div>
@@ -172,8 +172,8 @@ export default function ValidationPage() {
         </div>
 
         {validations.every((v) => v.status !== 'pending') && (
-          <Card className="mt-8 p-8 border-neon-cyan/50 bg-neon-cyan/5 text-center">
-            <CheckCircle className="w-12 h-12 mx-auto text-neon-cyan mb-4" />
+          <Card className="mt-8 p-8 border-primary/50 bg-primary/5 text-center">
+            <CheckCircle className="w-12 h-12 mx-auto text-primary mb-4" />
             <p className="text-lg text-foreground font-medium">
               ¡Todos los videos han sido revisados!
             </p>

@@ -137,19 +137,19 @@ export default function MarketplacePage() {
                 {/* Listing Badge */}
                 <div className="absolute top-3 right-3">
                   {listing.type === 'rent' && (
-                    <span className="px-3 py-1 rounded-full bg-neon-cyan/90 text-background text-xs font-bold flex items-center gap-1">
+                    <span className="px-3 py-1 rounded-full bg-primary/90 text-background text-xs font-bold flex items-center gap-1">
                       <Clock className="w-3 h-3" />
                       Alquiler
                     </span>
                   )}
                   {listing.type === 'sale' && (
-                    <span className="px-3 py-1 rounded-full bg-neon-magenta/90 text-background text-xs font-bold flex items-center gap-1">
+                    <span className="px-3 py-1 rounded-full bg-primary/90 text-background text-xs font-bold flex items-center gap-1">
                       <Tag className="w-3 h-3" />
                       Venta
                     </span>
                   )}
                   {listing.type === 'both' && (
-                    <span className="px-3 py-1 rounded-full bg-neon-lime/90 text-background text-xs font-bold">
+                    <span className="px-3 py-1 rounded-full bg-primary/90 text-background text-xs font-bold">
                       Venta + Alquiler
                     </span>
                   )}
@@ -160,7 +160,7 @@ export default function MarketplacePage() {
                   type="button"
                   className="absolute bottom-3 right-3 bg-background/80 backdrop-blur-sm rounded-full p-2 hover:bg-background transition-all"
                 >
-                  <Heart className="w-4 h-4 text-neon-magenta" />
+                  <Heart className="w-4 h-4 text-primary" />
                   <span className="text-xs text-muted-foreground ml-1">{listing.likes}</span>
                 </button>
               </div>
@@ -177,7 +177,7 @@ export default function MarketplacePage() {
                     <div className="flex-1">
                       <p className="text-sm font-medium text-foreground">{listing.seller.name}</p>
                       <div className="flex items-center gap-1">
-                        <Star className="w-3 h-3 text-neon-lime fill-neon-lime" />
+                        <Star className="w-3 h-3 text-primary fill-primary" />
                         <span className="text-xs text-muted-foreground">{listing.seller.rating}</span>
                       </div>
                     </div>
@@ -201,29 +201,29 @@ export default function MarketplacePage() {
                     <>
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">Por día:</span>
-                        <span className="font-mono font-bold text-neon-cyan">${listing.rentPriceDay}</span>
+                        <span className="font-mono font-bold text-primary">${listing.rentPriceDay}</span>
                       </div>
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">Por semana:</span>
-                        <span className="font-mono font-bold text-neon-cyan">${listing.rentPriceWeek}</span>
+                        <span className="font-mono font-bold text-primary">${listing.rentPriceWeek}</span>
                       </div>
                     </>
                   )}
                   {listing.type === 'sale' && (
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">Precio:</span>
-                      <span className="font-mono text-2xl font-bold text-neon-magenta">${listing.salePrice}</span>
+                      <span className="font-mono text-2xl font-bold text-primary">${listing.salePrice}</span>
                     </div>
                   )}
                   {listing.type === 'both' && (
                     <>
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">Venta:</span>
-                        <span className="font-mono font-bold text-neon-magenta">${listing.salePrice}</span>
+                        <span className="font-mono font-bold text-primary">${listing.salePrice}</span>
                       </div>
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-muted-foreground">Alquiler/día:</span>
-                        <span className="font-mono font-bold text-neon-cyan">${listing.rentPriceDay}</span>
+                        <span className="font-mono font-bold text-primary">${listing.rentPriceDay}</span>
                       </div>
                     </>
                   )}
@@ -241,7 +241,7 @@ export default function MarketplacePage() {
                     target="_blank"
                     className="flex-1"
                   >
-                  <Button className="w-full gap-2 bg-neon-lime hover:bg-neon-lime/90 text-background">
+                  <Button className="w-full gap-2 bg-primary hover:bg-primary/90 text-background">
                     <MessageCircle className="w-4 h-4" />
                     Contactar
                   </Button>

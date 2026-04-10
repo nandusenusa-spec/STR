@@ -224,7 +224,7 @@ export default async function AdminSecurityPage() {
                 href="/api/admin/security/health"
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs text-neon-cyan hover:underline"
+                className="text-xs text-primary hover:underline"
               >
                 Ver health JSON
               </a>

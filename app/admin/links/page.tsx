@@ -96,7 +96,7 @@ export default function AdminLinksPage() {
         </div>
         <Button 
           onClick={() => { setShowForm(!showForm); setEditingId(null); setFormData({ title: '', url: '', icon: 'link' }) }}
-          className="bg-neon-cyan text-background hover:bg-neon-cyan/80"
+          className="bg-primary text-background hover:bg-primary/80"
         >
           <Plus className="w-4 h-4 mr-2" />
           Agregar Link
@@ -104,7 +104,7 @@ export default function AdminLinksPage() {
       </div>
 
       {showForm && (
-        <Card className="mb-8 border-neon-cyan/30 bg-card/50">
+        <Card className="mb-8 border-primary/30 bg-card/50">
           <CardHeader>
             <CardTitle>{editingId ? 'Editar Link' : 'Nuevo Link'}</CardTitle>
           </CardHeader>
@@ -138,7 +138,7 @@ export default function AdminLinksPage() {
                 </select>
               </div>
               <div className="flex gap-2">
-                <Button type="submit" className="bg-neon-lime text-background hover:bg-neon-lime/80">
+                <Button type="submit" className="bg-primary text-background hover:bg-primary/80">
                   {editingId ? 'Guardar Cambios' : 'Agregar'}
                 </Button>
                 <Button type="button" variant="outline" onClick={() => { setShowForm(false); setEditingId(null) }}>
@@ -156,8 +156,8 @@ export default function AdminLinksPage() {
             <CardContent className="flex items-center justify-between p-4">
               <div className="flex items-center gap-4">
                 <GripVertical className="w-5 h-5 text-muted-foreground/50 cursor-grab" />
-                <div className="w-10 h-10 rounded-lg bg-neon-lime/20 flex items-center justify-center">
-                  <LinkIcon className="w-5 h-5 text-neon-lime" />
+                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                  <LinkIcon className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <h3 className="font-medium text-foreground">{link.title}</h3>

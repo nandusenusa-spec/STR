@@ -5,10 +5,7 @@ import Image from 'next/image'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { CartDrawer } from '@/components/cart-drawer'
-import Link from 'next/link'
-import { Instagram, Phone, CheckCircle, Loader2, Calendar, ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { Instagram, Phone, CheckCircle, Loader2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
 const fallbackDisciplines = [
@@ -126,112 +123,92 @@ export default function ClasesPage() {
   return (
     <>
       <Header />
-      <main className="pt-16">
-        {/* Hero */}
-        <section className="relative h-[60vh] min-h-[400px]">
-          <Image
-            src="/images/hero-community.jpg"
-            alt="Clases STR"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-foreground/40" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-            <p className="text-background/80 text-sm tracking-[0.2em] mb-4">
-              MONTEVIDEO, URUGUAY
-            </p>
-            <h1 className="font-[var(--font-display)] text-5xl sm:text-6xl lg:text-7xl text-background mb-4">
-              CLASES
-            </h1>
-            <p className="text-background/80 max-w-lg">
-              Entrenamientos en tierra para surf, skate y SUP. Mejora tu tecnica y lleva tu nivel al siguiente paso.
-            </p>
-          </div>
-        </section>
-
-        {/* Coming Soon Banner */}
-        <section className="bg-accent text-foreground py-4">
-          <div className="mx-auto max-w-7xl px-4 text-center">
-            <div className="flex items-center justify-center gap-2">
-              <Calendar className="h-4 w-4" />
-              <span className="text-sm font-medium">Clases presenciales desde Marzo 2026</span>
+      <main>
+        {/* Header Section - ESPACIOS Style */}
+        <div className="pt-32 px-4 sm:px-6 lg:px-8 pb-8 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-8">
+              <h1 className="text-5xl sm:text-7xl font-bold mb-2 uppercase tracking-wide text-black">
+                CLASES
+              </h1>
+              <p className="text-gray-600 text-lg">Entrenamientos en tierra para surf, skate y SUP</p>
             </div>
           </div>
-        </section>
+        </div>
 
-        {/* Disciplines — estilo “espacios” (cards) */}
-        <section className="py-16 sm:py-24 bg-background">
+        {/* Disciplines - ESPACIOS Style */}
+        <section className="py-8 bg-white">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <p className="text-sm tracking-[0.2em] text-muted-foreground mb-3">DISCIPLINAS</p>
-              <h2 className="font-[var(--font-display)] text-4xl sm:text-5xl text-foreground">
-                ENTRENA TU FLOW
-              </h2>
-            </div>
-
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 list-none p-0 m-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {disciplines.map((discipline) => (
-                <li key={discipline.id} className="h-full min-h-0">
-                  <div className="rounded-2xl border border-white/10 bg-card/30 overflow-hidden flex flex-col h-full">
-                    <div className="relative aspect-[16/10] w-full">
+                <div key={discipline.id} className="group">
+                  <div className="h-full bg-white border border-black/10 overflow-hidden hover:border-black transition-colors">
+                    {/* Image */}
+                    <div className="relative h-48 overflow-hidden bg-gray-100">
                       <Image
                         src={discipline.image}
                         alt={discipline.title}
                         fill
-                        className="object-cover"
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      <div className="absolute top-3 left-3">
-                        <Badge className="bg-background/80 text-foreground border border-white/20 font-[var(--font-display)] tracking-wide">
-                          {discipline.title}
-                        </Badge>
+                      <span className="absolute bottom-3 right-3 px-2 py-1 bg-black text-white text-xs font-medium uppercase tracking-wider">
+                        {discipline.id === 'surf' ? 'Todos los niveles' : discipline.id === 'skate' ? 'Intermedio' : 'Principiante'}
+                      </span>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-4 flex flex-col flex-1">
+                      <h3 className="text-lg font-bold text-black mb-1 uppercase tracking-wide">
+                        {discipline.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-4 line-clamp-2 flex-1">
+                        {discipline.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-gray-500">
+                          12 miembros
+                        </span>
+                        <span className="text-xs px-2 py-1 bg-black text-white uppercase tracking-wider cursor-pointer hover:bg-gray-800 transition-colors">
+                          Entrar →
+                        </span>
                       </div>
                     </div>
-                    <div className="p-5 flex flex-col flex-1 gap-4">
-                      <p className="text-sm text-muted-foreground flex-1">{discipline.description}</p>
-                      <Button asChild variant="outline" className="w-full border-neon-cyan/40 text-neon-cyan shrink-0">
-                        <Link href="/auth/login?redirect=/app">
-                          Entrar
-                          <ArrowRight className="h-4 w-4 ml-2" />
-                        </Link>
-                      </Button>
-                    </div>
                   </div>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </section>
 
         {/* Subscription Form */}
-        <section className="py-16 sm:py-24 bg-foreground text-background">
+        <section className="py-16 sm:py-24 bg-white">
           <div className="mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="font-[var(--font-display)] text-4xl sm:text-5xl mb-4">
+              <h2 className="font-bold text-4xl sm:text-5xl mb-4 text-black uppercase tracking-wide">
                 QUIERO INFO
               </h2>
-              <p className="text-background/70">
+              <p className="text-gray-600">
                 Dejanos tu Instagram y WhatsApp para recibir informacion sobre horarios, 
                 ubicaciones y novedades.
               </p>
             </div>
 
             {isSuccess ? (
-              <div className="bg-green-500/10 border border-green-500/30 p-8 text-center">
-                <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
-                <h3 className="font-[var(--font-display)] text-2xl mb-2">Listo!</h3>
-                <p className="text-background/70">
+              <div className="bg-green-50 border border-green-200 p-8 text-center">
+                <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                <h3 className="font-bold text-2xl mb-2 text-black">Listo!</h3>
+                <p className="text-gray-600">
                   Te contactaremos por WhatsApp con toda la informacion.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="instagram" className="block text-sm text-background/70 mb-2">
+                  <label htmlFor="instagram" className="block text-sm text-gray-700 mb-2 font-medium">
                     Instagram
                   </label>
                   <div className="relative">
-                    <Instagram className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-background/40" />
+                    <Instagram className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <input
                       type="text"
                       id="instagram"
@@ -239,17 +216,17 @@ export default function ClasesPage() {
                       onChange={(e) => setInstagram(e.target.value)}
                       placeholder="@tuusuario"
                       required
-                      className="w-full bg-background/10 border border-background/20 py-3 pl-10 pr-4 text-background placeholder:text-background/40 focus:outline-none focus:border-accent transition-colors"
+                      className="w-full bg-white border border-black/20 py-3 pl-10 pr-4 text-black placeholder:text-gray-400 focus:outline-none focus:border-black transition-colors"
                     />
                   </div>
                 </div>
                 
                 <div>
-                  <label htmlFor="whatsapp" className="block text-sm text-background/70 mb-2">
+                  <label htmlFor="whatsapp" className="block text-sm text-gray-700 mb-2 font-medium">
                     WhatsApp
                   </label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-background/40" />
+                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <input
                       type="tel"
                       id="whatsapp"
@@ -257,29 +234,29 @@ export default function ClasesPage() {
                       onChange={(e) => setWhatsapp(e.target.value)}
                       placeholder="+598 99 123 456"
                       required
-                      className="w-full bg-background/10 border border-background/20 py-3 pl-10 pr-4 text-background placeholder:text-background/40 focus:outline-none focus:border-accent transition-colors"
+                      className="w-full bg-white border border-black/20 py-3 pl-10 pr-4 text-black placeholder:text-gray-400 focus:outline-none focus:border-black transition-colors"
                     />
                   </div>
                 </div>
 
                 {error && (
-                  <p className="text-red-400 text-sm">{error}</p>
+                  <p className="text-red-600 text-sm">{error}</p>
                 )}
 
-                <Button
+                <button
                   type="submit"
                   disabled={isSubmitting || !instagram || !whatsapp}
-                  className="w-full bg-background text-foreground hover:bg-background/90 py-6 font-medium"
+                  className="w-full bg-black text-white hover:bg-gray-800 py-3 font-bold uppercase tracking-wider disabled:opacity-50 transition-colors"
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                      <Loader2 className="h-5 w-5 animate-spin mr-2 inline" />
                       Enviando...
                     </>
                   ) : (
                     'Enviar'
                   )}
-                </Button>
+                </button>
               </form>
             )}
           </div>

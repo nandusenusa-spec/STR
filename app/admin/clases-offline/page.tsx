@@ -175,9 +175,9 @@ export default function AdminClasesOfflinePage() {
 
   const getColorByType = (tipo: string) => {
     switch (tipo) {
-      case 'Surf': return { bg: 'bg-neon-cyan/20', text: 'text-neon-cyan', border: 'border-neon-cyan/30' }
-      case 'Skate': return { bg: 'bg-neon-magenta/20', text: 'text-neon-magenta', border: 'border-neon-magenta/30' }
-      case 'Fitness': return { bg: 'bg-neon-lime/20', text: 'text-neon-lime', border: 'border-neon-lime/30' }
+      case 'Surf': return { bg: 'bg-primary/20', text: 'text-primary', border: 'border-primary/30' }
+      case 'Skate': return { bg: 'bg-primary/20', text: 'text-primary', border: 'border-primary/30' }
+      case 'Fitness': return { bg: 'bg-primary/20', text: 'text-primary', border: 'border-primary/30' }
       default: return { bg: 'bg-white/20', text: 'text-white', border: 'border-white/30' }
     }
   }
@@ -205,7 +205,7 @@ export default function AdminClasesOfflinePage() {
               precio: 0
             })
           }}
-          className="bg-neon-lime text-background hover:bg-neon-lime/80"
+          className="bg-primary text-background hover:bg-primary/80"
         >
           <Plus className="w-4 h-4 mr-2" />
           Nueva Clase
@@ -213,7 +213,7 @@ export default function AdminClasesOfflinePage() {
       </div>
 
       {showForm && (
-        <Card className="mb-8 border-neon-lime/30 bg-card/50">
+        <Card className="mb-8 border-primary/30 bg-card/50">
           <CardHeader>
             <CardTitle>{editingId ? 'Editar Clase' : 'Nueva Clase'}</CardTitle>
           </CardHeader>
@@ -287,7 +287,7 @@ export default function AdminClasesOfflinePage() {
                 />
               </div>
               <div className="flex gap-2">
-                <Button type="submit" className="bg-neon-cyan text-background hover:bg-neon-cyan/80">
+                <Button type="submit" className="bg-primary text-background hover:bg-primary/80">
                   {editingId ? 'Guardar Cambios' : 'Crear Clase'}
                 </Button>
                 <Button type="button" variant="outline" onClick={() => { setShowForm(false); setEditingId(null) }}>
@@ -358,7 +358,7 @@ export default function AdminClasesOfflinePage() {
                     size="sm" 
                     variant={clase.activo ? 'outline' : 'default'}
                     onClick={() => toggleActivo(clase.id)}
-                    className={!clase.activo ? 'bg-neon-lime text-background' : ''}
+                    className={!clase.activo ? 'bg-primary text-background' : ''}
                   >
                     {clase.activo ? 'Desactivar' : 'Activar'}
                   </Button>

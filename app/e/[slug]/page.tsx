@@ -1,147 +1,194 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
-import type { Metadata } from 'next'
-import { createClient } from '@/lib/supabase/server'
+import { ArrowLeft, Users, Calendar, MessageCircle } from 'lucide-react'
+import { Header } from '@/components/header'
+import { Footer } from '@/components/footer'
 import { SpaceJoinButton } from '@/components/spaces/space-join-button'
-import { SpaceInvitePanel } from '@/components/spaces/space-invite-panel'
-import type { Space } from '@/lib/types'
 
-type Props = { params: Promise<{ slug: string }> }
+export default function EspacioDetailPage({ params }: { params: { slug: string } }) {
+  const [space, setSpace] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isMember, setIsMember] = useState(false)
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  const supabase = await createClient()
-  const { data: space } = await supabase.from('spaces').select('name').eq('slug', slug).maybeSingle()
-  if (!space) return { title: 'Espacio | STR' }
-  return { title: `${(space as { name: string }).name} | STR` }
-}
-
-export default async function EspacioPublicPage({ params }: Props) {
-  const { slug } = await params
-  const supabase = await createClient()
-
-  const { data: spaceRow, error: spaceError } = await supabase
-    .from('spaces')
-    .select('*')
-    .eq('slug', slug)
-    .maybeSingle()
-
-  if (spaceError) {
-    console.error('[e/[slug]] spaces', spaceError.message)
-    notFound()
-  }
-  if (!spaceRow) {
-    notFound()
-  }
-
-  const space = spaceRow as Space
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  let isMember = false
-  let memberCount: number | null = null
-
-  if (user) {
-    const { data: mem } = await supabase
-      .from('space_members')
-      .select('id')
-      .eq('space_id', space.id)
-      .eq('user_id', user.id)
-      .maybeSingle()
-    isMember = !!mem
-
-    if (isMember) {
-      const { count } = await supabase
-        .from('space_members')
-        .select('id', { count: 'exact', head: true })
-        .eq('space_id', space.id)
-      memberCount = count ?? null
+  useEffect(() => {
+    // Fetch space details
+    const fetchSpace = async () => {
+      try {
+        // TODO: Replace with actual API call to fetch space by slug
+        setSpace({
+          id: '1',
+          name: 'Iniciación Surf',
+          slug: params.slug,
+          description: 'Aprende los fundamentos del surf en nuestras clases iniciales',
+          fullDescription: 'En este espacio nos enfocamos en enseñar los principios básicos del surf. Cubrimos: postura, remar, pop-up, giros básicos y seguridad acuática.',
+          members: 24,
+          image: 'https://images.unsplash.com/photo-1502933691298-84fc14542831?w=1200&h=600&fit=crop',
+          level: 'Principiante',
+          createdAt: '2024-01-15',
+          schedule: 'Lunes y miércoles, 10:00-12:00',
+          location: 'Playa Pocitos',
+          instructor: 'Juan García',
+          updates: [
+            { id: 1, date: '2024-04-05', title: 'Nueva clase de iniciación', content: 'Comenzamos nuevas clases el próximo lunes.' },
+            { id: 2, date: '2024-04-02', title: 'Evento especial', content: 'Tendremos una sesión de práctica libre en la playa.' },
+          ]
+        })
+        setIsMember(false) // TODO: Check if current user is member
+      } catch (error) {
+        console.error('Error fetching space:', error)
+      } finally {
+        setIsLoading(false)
+      }
     }
+
+    fetchSpace()
+  }, [params.slug])
+
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-background">
+        <Header />
+        <div className="pt-32 px-4 sm:px-6 lg:px-8 pb-12 max-w-7xl mx-auto">
+          <p className="text-muted-foreground">Cargando...</p>
+        </div>
+        <Footer />
+      </main>
+    )
   }
 
-  const isOwner = user?.id === space.owner_id
+  if (!space) {
+    return (
+      <main className="min-h-screen bg-background">
+        <Header />
+        <div className="pt-32 px-4 sm:px-6 lg:px-8 pb-12 max-w-7xl mx-auto">
+          <p className="text-muted-foreground text-lg">Espacio no encontrado</p>
+        </div>
+        <Footer />
+      </main>
+    )
+  }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
-      <p className="text-xs font-mono text-neon-magenta tracking-wider mb-3">ESPACIO</p>
-      <h1 className="font-[var(--font-display)] text-4xl sm:text-6xl mb-4">{space.name}</h1>
-      {space.description && (
-        <p className="text-lg text-muted-foreground mb-8 whitespace-pre-wrap">{space.description}</p>
-      )}
-
-      <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-10">
-        <span
-          className={`px-3 py-1 rounded-full border ${space.is_public ? 'border-neon-lime/40 text-neon-lime' : 'border-border'}`}
-        >
-          {space.is_public ? 'Público' : 'Privado'}
-        </span>
-        {memberCount !== null && (
-          <span className="px-3 py-1 rounded-full border border-white/10">
-            {memberCount} {memberCount === 1 ? 'miembro' : 'miembros'}
-          </span>
-        )}
-        {isOwner && (
-          <span className="px-3 py-1 rounded-full border border-neon-cyan/40 text-neon-cyan">Sos el dueño</span>
-        )}
-      </div>
-
-      {isOwner && (
-        <div className="mb-8">
-          <SpaceInvitePanel
-            spaceId={space.id}
-            slug={space.slug}
-            initialInviteEnabled={Boolean(space.invite_enabled)}
-            initialInviteCode={space.invite_code ?? null}
+    <main className="min-h-screen bg-background">
+      <Header />
+      
+      <div className="pt-24 pb-12">
+        {/* Hero Image */}
+        <div className="relative h-80 overflow-hidden">
+          <img
+            src={space.image}
+            alt={space.name}
+            className="w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/20 to-background" />
         </div>
-      )}
 
-      <div className="rounded-2xl border border-white/10 bg-card/30 p-6 sm:p-8 mb-8">
-        <h2 className="font-[var(--font-display)] text-xl mb-4">Participar</h2>
-        <SpaceJoinButton
-          spaceId={space.id}
-          slug={space.slug}
-          isPublic={space.is_public}
-          isMember={isMember}
-          isLoggedIn={!!user}
-        />
+        {/* Content */}
+        <div className="px-4 sm:px-6 lg:px-8 -mt-16 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            {/* Back button */}
+            <Link
+              href="/espacios"
+              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Volver a espacios
+            </Link>
+
+            {/* Header card */}
+            <div className="bg-card border border-border rounded-lg p-6 sm:p-8 mb-8">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+                <div>
+                  <h1 className="text-4xl sm:text-5xl font-[var(--font-display)] font-bold mb-2">
+                    {space.name}
+                  </h1>
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 bg-primary text-background text-xs font-medium rounded-full">
+                      {space.level}
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      {space.members} miembros
+                    </span>
+                  </div>
+                </div>
+                <SpaceJoinButton
+                  spaceId={space.id}
+                  isMember={isMember}
+                  onJoin={() => setIsMember(true)}
+                />
+              </div>
+              <p className="text-muted-foreground">{space.description}</p>
+            </div>
+
+            {/* Info Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              <div className="bg-card border border-border rounded-lg p-4 flex gap-3">
+                <Calendar className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <p className="text-xs text-muted-foreground mb-1">HORARIO</p>
+                  <p className="text-foreground font-medium">{space.schedule}</p>
+                </div>
+              </div>
+              <div className="bg-card border border-border rounded-lg p-4 flex gap-3">
+                <Users className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <p className="text-xs text-muted-foreground mb-1">INSTRUCTOR</p>
+                  <p className="text-foreground font-medium">{space.instructor}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Full Description */}
+            <div className="bg-card border border-border rounded-lg p-6 sm:p-8 mb-8">
+              <h2 className="text-2xl font-[var(--font-display)] font-bold mb-4">
+                Sobre este espacio
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                {space.fullDescription}
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-xs text-muted-foreground mb-1">UBICACIÓN</p>
+                  <p className="text-foreground font-medium">{space.location}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground mb-1">CREADO</p>
+                  <p className="text-foreground font-medium">
+                    {new Date(space.createdAt).toLocaleDateString('es-UY')}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Updates */}
+            {isMember && (
+              <div className="bg-card border border-border rounded-lg p-6 sm:p-8">
+                <div className="flex items-center gap-2 mb-6">
+                  <MessageCircle className="w-5 h-5 text-primary" />
+                  <h2 className="text-2xl font-[var(--font-display)] font-bold">
+                    Actualizaciones
+                  </h2>
+                </div>
+                <div className="space-y-4">
+                  {space.updates.map((update) => (
+                    <div key={update.id} className="border-l-2 border-primary pl-4 py-2">
+                      <p className="text-xs text-muted-foreground mb-1">
+                        {new Date(update.date).toLocaleDateString('es-UY')}
+                      </p>
+                      <h3 className="font-medium text-foreground mb-1">{update.title}</h3>
+                      <p className="text-sm text-muted-foreground">{update.content}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
-      <p className="text-xs text-muted-foreground font-mono mb-6">
-        Compartí: <span className="text-foreground">/e/{space.slug}</span>
-        {space.invite_enabled && space.invite_code && (
-          <span className="block mt-1">
-            Con invitación:{' '}
-            <span className="text-neon-cyan">
-              …/e/{space.slug}?invite={space.invite_code}
-            </span>
-          </span>
-        )}
-      </p>
-
-      <div className="rounded-xl border border-white/5 bg-card/20 p-4 text-sm text-muted-foreground space-y-2">
-        <p>
-          <strong className="text-foreground">Fase 3:</strong> feed, foros y chat por espacio:{' '}
-          <Link href={`/e/${space.slug}/feed`} className="text-neon-cyan hover:underline">
-            Feed
-          </Link>
-          {' · '}
-          <Link href={`/e/${space.slug}/forums`} className="text-neon-cyan hover:underline">
-            Foros
-          </Link>
-          {' · '}
-          <Link href={`/e/${space.slug}/chat`} className="text-neon-cyan hover:underline">
-            Chat
-          </Link>
-          . La comunidad global sigue en{' '}
-          <Link href="/app" className="text-neon-cyan hover:underline">
-            /app
-          </Link>
-          .
-        </p>
-      </div>
-    </div>
+      <Footer />
+    </main>
   )
 }

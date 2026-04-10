@@ -524,7 +524,7 @@ export default function ProfilePage() {
               </div>
             )}
             {saveMessage && (
-              <div className="rounded-lg border border-neon-lime/40 bg-neon-lime/10 p-4 text-sm text-neon-lime">
+              <div className="rounded-lg border border-primary/40 bg-primary/10 p-4 text-sm text-primary">
                 {saveMessage}
               </div>
             )}
@@ -532,7 +532,7 @@ export default function ProfilePage() {
               <Button
                 onClick={saveBio}
                 disabled={saving}
-                className="w-full gap-2 bg-neon-cyan hover:bg-neon-cyan/90"
+                className="w-full gap-2 bg-primary hover:bg-primary/90"
               >
                 <Save className="w-4 h-4" />
                 {saving ? 'Guardando...' : 'Guardar Cambios'}
@@ -630,14 +630,14 @@ export default function ProfilePage() {
                 </div>
               )}
               {quiverMessage && (
-                <div className="rounded-lg border border-neon-lime/40 bg-neon-lime/10 p-3 text-sm text-neon-lime">
+                <div className="rounded-lg border border-primary/40 bg-primary/10 p-3 text-sm text-primary">
                   {quiverMessage}
                 </div>
               )}
               <Button
                 onClick={addBoardToQuiver}
                 disabled={quiverSaving}
-                className="gap-2 bg-neon-cyan hover:bg-neon-cyan/90"
+                className="gap-2 bg-primary hover:bg-primary/90"
               >
                 <Waves className="w-4 h-4" />
                 {quiverSaving ? 'Agregando...' : 'Agregar tabla'}
@@ -730,7 +730,7 @@ export default function ProfilePage() {
                   <Button
                     onClick={publishBoardForSale}
                     disabled={selling}
-                    className="md:col-span-2 bg-neon-magenta hover:bg-neon-magenta/90"
+                    className="md:col-span-2 bg-primary hover:bg-primary/90"
                   >
                     {selling ? 'Publicando...' : 'Vender (publicar en tienda)'}
                   </Button>
@@ -743,7 +743,7 @@ export default function ProfilePage() {
               </div>
             )}
             {quiverMessage && (
-              <div className="rounded-lg border border-neon-lime/40 bg-neon-lime/10 p-3 text-sm text-neon-lime">
+              <div className="rounded-lg border border-primary/40 bg-primary/10 p-3 text-sm text-primary">
                 {quiverMessage}
               </div>
             )}
@@ -768,7 +768,7 @@ export default function ProfilePage() {
                           setSelectedQuiverId(q.id)
                           setSellPrice(0)
                         }}
-                        className="bg-neon-cyan hover:bg-neon-cyan/90"
+                        className="bg-primary hover:bg-primary/90"
                       >
                         Ver detalle
                       </Button>
@@ -827,14 +827,14 @@ export default function ProfilePage() {
                 </div>
               )}
               {timelineMessage && (
-                <div className="rounded-lg border border-neon-lime/40 bg-neon-lime/10 p-3 text-sm text-neon-lime">
+                <div className="rounded-lg border border-primary/40 bg-primary/10 p-3 text-sm text-primary">
                   {timelineMessage}
                 </div>
               )}
               <Button
                 onClick={addTimelineVideo}
                 disabled={timelineSaving}
-                className="gap-2 bg-neon-cyan hover:bg-neon-cyan/90"
+                className="gap-2 bg-primary hover:bg-primary/90"
               >
                 <TrendingUp className="w-4 h-4" />
                 {timelineSaving ? 'Guardando...' : 'Agregar video al timeline'}
@@ -859,7 +859,7 @@ export default function ProfilePage() {
                       href={entry.media_url}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-block mt-3 text-sm text-neon-cyan hover:underline"
+                      className="inline-block mt-3 text-sm text-primary hover:underline"
                     >
                       Ver video
                     </a>
@@ -872,11 +872,11 @@ export default function ProfilePage() {
           <TabsContent value="metrics" className="space-y-6 mt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
-                ['Frecuencia Cardíaca (bpm)', metrics.heartRate, 'text-neon-cyan'],
-                ['VO2 Max', metrics.vo2Max, 'text-neon-magenta'],
-                ['Resistencia (1-10)', metrics.muscularEndurance, 'text-neon-lime'],
-                ['Flexibilidad (1-10)', metrics.flexibility, 'text-neon-cyan'],
-                ['% Grasa Corporal', `${metrics.bodyFatPercentage}%`, 'text-neon-magenta'],
+                ['Frecuencia Cardíaca (bpm)', metrics.heartRate, 'text-primary'],
+                ['VO2 Max', metrics.vo2Max, 'text-primary'],
+                ['Resistencia (1-10)', metrics.muscularEndurance, 'text-primary'],
+                ['Flexibilidad (1-10)', metrics.flexibility, 'text-primary'],
+                ['% Grasa Corporal', `${metrics.bodyFatPercentage}%`, 'text-primary'],
               ].map(([label, value, cls]) => (
                 <div key={label} className="rounded-lg border border-white/10 bg-card/50 p-6">
                   <label className="text-xs text-muted-foreground">{label}</label>
@@ -895,20 +895,20 @@ export default function ProfilePage() {
                 </div>
               )}
               {integrationMessage && (
-                <div className="rounded-lg border border-neon-lime/40 bg-neon-lime/10 p-3 text-sm text-neon-lime">
+                <div className="rounded-lg border border-primary/40 bg-primary/10 p-3 text-sm text-primary">
                   {integrationMessage}
                 </div>
               )}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="rounded-lg border border-white/10 bg-background p-4">
                   <p className="text-sm text-muted-foreground">Strava</p>
-                  <p className={connections.strava ? 'text-neon-lime text-sm mt-1' : 'text-muted-foreground text-sm mt-1'}>
+                  <p className={connections.strava ? 'text-primary text-sm mt-1' : 'text-muted-foreground text-sm mt-1'}>
                     {connections.strava ? `Conectado${connections.stravaAthleteId ? ` (ID ${connections.stravaAthleteId})` : ''}` : 'No conectado'}
                   </p>
                   {!connections.strava && (
                     <a
                       href="/api/integrations/strava/connect"
-                      className="inline-block mt-3 text-sm text-neon-cyan hover:underline"
+                      className="inline-block mt-3 text-sm text-primary hover:underline"
                     >
                       Conectar con Strava
                     </a>

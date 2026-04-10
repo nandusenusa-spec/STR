@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ShoppingBag, MessageCircle, Loader2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { Footer } from '@/components/footer'
 
 const categories = [
   { slug: 'todo', name: 'Todo' },
@@ -74,44 +75,32 @@ export default function TiendaPage() {
       : products.filter((p) => p.categorySlug === activeCategory)
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-white">
 
-      {/* Hero */}
-      <section className="relative h-[40vh] min-h-[300px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/tienda-hero.jpg"
-            alt="Tienda"
-            fill
-            className="object-cover opacity-40"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/50 to-background" />
-          <div className="absolute inset-0 grid-bg opacity-30" />
-        </div>
-        <div className="relative z-10 text-center px-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neon-magenta/10 border border-neon-magenta/30 mb-4">
-            <ShoppingBag className="w-4 h-4 text-neon-magenta" />
-            <span className="text-sm font-mono text-neon-magenta">SHOP OFICIAL</span>
+      {/* Header Section - ESPACIOS Style */}
+      <div className="pt-32 px-4 sm:px-6 lg:px-8 pb-12 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-8">
+            <h1 className="text-5xl sm:text-7xl font-bold mb-2 uppercase tracking-wide text-black">
+              SHOP
+            </h1>
+            <p className="text-gray-600 text-lg">Merch oficial, tablas y accesorios</p>
           </div>
-          <h1 className="font-[var(--font-display)] text-6xl sm:text-9xl leading-[0.85] tracking-tight">
-            <span className="block text-neon-cyan text-glow-cyan drop-shadow-[0_0_30px_rgba(0,255,255,0.5)]">TIENDA</span>
-          </h1>
         </div>
-      </section>
+      </div>
 
       {/* Category Nav Bar - sticky */}
-      <div className="border-b border-white/10 sticky top-0 z-40 bg-background/90 backdrop-blur-md">
+      <div className="border-b border-black/10 sticky top-0 z-40 bg-white/90 backdrop-blur-md">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-8 overflow-x-auto scrollbar-none py-4">
             {categories.map((cat) => (
               <button
                 key={cat.slug}
                 onClick={() => setActiveCategory(cat.slug)}
-                className={`text-sm font-medium whitespace-nowrap pb-1 border-b-2 shrink-0 transition-all ${
+                className={`text-sm font-medium whitespace-nowrap pb-1 border-b-2 shrink-0 transition-all uppercase tracking-wide ${
                   activeCategory === cat.slug
-                    ? 'text-neon-cyan border-neon-cyan'
-                    : 'text-muted-foreground border-transparent hover:text-foreground hover:border-neon-magenta'
+                    ? 'text-black border-black'
+                    : 'text-gray-500 border-transparent hover:text-black hover:border-black'
                 }`}
               >
                 {cat.name}
@@ -126,47 +115,46 @@ export default function TiendaPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="flex justify-center py-20">
-              <Loader2 className="h-10 w-10 animate-spin text-muted-foreground" />
+              <Loader2 className="h-10 w-10 animate-spin text-gray-500" />
             </div>
           ) : filtered.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {filtered.map((product) => (
                 <div
                   key={product.id}
-                  className="group relative bg-card/50 border border-white/5 hover:border-neon-cyan/30 rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+                  className="group relative bg-white border border-black/10 overflow-hidden transition-all duration-300 hover:border-black cursor-pointer"
                 >
                   <Link href={`/tienda/producto/${product.id}`} className="block">
-                    <div className="relative aspect-square overflow-hidden bg-white/5">
+                    <div className="relative aspect-square overflow-hidden bg-gray-50">
                       <Image
                         src={product.image_url || '/images/tienda-hero.jpg'}
                         alt={product.name}
                         fill
-                        className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
                     </div>
                   </Link>
                   <div className="p-3">
                     <Link href={`/tienda/producto/${product.id}`}>
-                      <h3 className="text-sm font-medium text-foreground group-hover:text-neon-cyan transition-colors line-clamp-1">
+                      <h3 className="text-sm font-medium text-black group-hover:text-gray-600 transition-colors line-clamp-1 uppercase tracking-wide">
                         {product.name}
                       </h3>
                     </Link>
-                    <p className="text-neon-magenta font-bold mt-1 text-sm">
+                    <p className="text-black font-bold mt-1 text-sm">
                       ${product.price.toLocaleString('es-UY')}
                     </p>
                     <div className="mt-2 grid grid-cols-2 gap-2">
                       <Link
                         href={`/tienda/producto/${product.id}`}
-                        className="text-center text-xs py-1.5 rounded-lg bg-white/5 border border-white/20 text-foreground hover:bg-white/10 transition-colors"
+                        className="text-center text-xs py-1.5 bg-white border border-black/20 text-black hover:bg-gray-50 transition-colors uppercase tracking-wider"
                       >
-                        Ver producto
+                        Ver
                       </Link>
                       <button
                         onClick={() =>
                           window.open(`https://wa.me/598099046165?text=Hola! Me interesa: ${product.name}`, '_blank')
                         }
-                        className="text-xs py-1.5 rounded-lg bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan hover:bg-neon-cyan/20 transition-colors"
+                        className="text-xs py-1.5 bg-black text-white hover:bg-gray-800 transition-colors uppercase tracking-wider"
                       >
                         Consultar
                       </button>
@@ -176,7 +164,7 @@ export default function TiendaPage() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 text-muted-foreground">
+            <div className="text-center py-20 text-gray-500">
               <ShoppingBag className="w-12 h-12 mx-auto mb-4 opacity-30" />
               <p className="text-lg">No hay productos en esta categoría aún</p>
             </div>
@@ -185,25 +173,19 @@ export default function TiendaPage() {
       </section>
 
       {/* WhatsApp CTA */}
-      <section className="py-16 sm:py-24 relative overflow-hidden">
-        <div className="absolute inset-0 grid-bg opacity-20" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-lime/10 rounded-full blur-[150px]" />
-        <div className="relative mx-auto max-w-xl px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neon-lime/10 border border-neon-lime/30 mb-6">
-            <MessageCircle className="w-4 h-4 text-neon-lime" />
-            <span className="text-sm font-mono text-neon-lime">CONSULTAS</span>
-          </div>
-          <h2 className="font-[var(--font-display)] text-4xl sm:text-5xl text-foreground mb-4">
-            BUSCAS <span className="text-neon-lime text-glow-lime">ALGO</span>?
+      <section className="py-16 sm:py-24 bg-black text-white">
+        <div className="mx-auto max-w-xl px-4 text-center">
+          <h2 className="font-bold text-4xl sm:text-5xl mb-4 uppercase tracking-wide">
+            BUSCAS ALGO?
           </h2>
-          <p className="text-muted-foreground mb-8 text-lg">
-            También tenemos tablas usadas que no están publicadas. Escribinos!
+          <p className="text-gray-300 mb-8 text-lg">
+            Tambien tenemos tablas usadas que no estan publicadas. Escribinos!
           </p>
           <a
             href="https://wa.me/598099046165?text=Hola!%20Quiero%20info%20sobre%20productos"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-neon-lime to-neon-cyan text-background px-8 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 font-bold text-lg hover:bg-gray-100 transition-colors uppercase tracking-wide"
           >
             <MessageCircle className="w-5 h-5" />
             Consultar por WhatsApp
@@ -211,25 +193,7 @@ export default function TiendaPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/10 py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
-              <Image src="/logo.svg" alt="Comunidad" width={40} height={40} className="h-10 w-10 object-contain" />
-              <div>
-                <span className="font-[var(--font-display)] text-lg">COMUNIDAD</span>
-                <p className="text-xs text-muted-foreground">Montevideo, Uruguay</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <Link href="/" className="hover:text-neon-cyan transition-colors">Inicio</Link>
-              <Link href="/portal" className="hover:text-neon-magenta transition-colors">Portal</Link>
-              <Link href="/admin" className="hover:text-foreground transition-colors opacity-50">Admin</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   )
 }

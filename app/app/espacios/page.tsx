@@ -1,131 +1,147 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
-import type { Metadata } from 'next'
-import { createClient } from '@/lib/supabase/server'
-import { Button } from '@/components/ui/button'
-import { PlusCircle, ExternalLink } from 'lucide-react'
+import { Plus, Search } from 'lucide-react'
+import { Header } from '@/components/header'
+import { Footer } from '@/components/footer'
 
-export const metadata: Metadata = {
-  title: 'Mis espacios | STR',
-  description: 'Espacios de entrenamiento donde participás o que administrás.',
-}
+export default function EspaciosPage() {
+  const [spaces, setSpaces] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
 
-export default async function AppEspaciosPage() {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  useEffect(() => {
+    // Fetch spaces from API
+    const fetchSpaces = async () => {
+      try {
+        // TODO: Replace with actual API call to fetch spaces
+        setSpaces([
+          {
+            id: '1',
+            name: 'Iniciación Surf',
+            slug: 'iniciacion-surf',
+            description: 'Aprende los fundamentos del surf en nuestras clases iniciales',
+            members: 24,
+            image: 'https://images.unsplash.com/photo-1502933691298-84fc14542831?w=500&h=300&fit=crop',
+            level: 'Principiante'
+          },
+          {
+            id: '2',
+            name: 'Skate Avanzado',
+            slug: 'skate-avanzado',
+            description: 'Para skaters con experiencia que buscan mejorar técnicas avanzadas',
+            members: 18,
+            image: 'https://images.unsplash.com/photo-1556091160-980a08062df7?w=500&h=300&fit=crop',
+            level: 'Avanzado'
+          },
+        ])
+      } catch (error) {
+        console.error('Error fetching spaces:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
 
-  if (!user) {
-    redirect('/auth/login?redirect=' + encodeURIComponent('/app/espacios'))
-  }
+    fetchSpaces()
+  }, [])
 
-  const { data: rows, error } = await supabase
-    .from('space_members')
-    .select(
-      `
-      role,
-      spaces ( id, slug, name, description, is_public, owner_id, created_at )
-    `,
-    )
-    .eq('user_id', user.id)
-
-  type SpaceRow = {
-    id: string
-    slug: string
-    name: string
-    description: string | null
-    is_public: boolean
-    owner_id: string
-    created_at: string
-  }
-
-  const spaces =
-    rows
-      ?.map((r) => {
-        const s = r.spaces as SpaceRow | SpaceRow[] | null
-        const one = Array.isArray(s) ? s[0] : s
-        if (!one) return null
-        return { ...one, role: r.role as string }
-      })
-      .filter((x): x is SpaceRow & { role: string } => x != null) ?? []
-
-  const missingTable =
-    error?.message?.includes('relation') && error?.message?.includes('does not exist')
+  const filteredSpaces = spaces.filter(space =>
+    space.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    space.description.toLowerCase().includes(searchTerm.toLowerCase())
+  )
 
   return (
-    <div className="pb-12">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:py-10">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
-          <div>
-            <p className="text-xs font-mono text-neon-cyan tracking-wider mb-2">FASE 2</p>
-            <h1 className="font-[var(--font-display)] text-4xl sm:text-5xl">Mis espacios</h1>
-            <p className="text-muted-foreground mt-2">
-              Creá tu espacio como entrenador o unite a los públicos desde su página.
-            </p>
-          </div>
-          <Button asChild className="bg-gradient-to-r from-neon-cyan to-neon-magenta text-background shrink-0">
-            <Link href="/app/espacios/nuevo">
-              <PlusCircle className="h-4 w-4 mr-2" />
-              Nuevo espacio
+    <main className="min-h-screen bg-white">
+      <Header />
+      
+      {/* Hero Section */}
+      <div className="pt-32 px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+            <div>
+              <h1 className="text-5xl sm:text-7xl font-[var(--font-display)] font-bold mb-2 uppercase tracking-wide">
+                <span className="text-black">ESPACIOS</span>
+              </h1>
+              <p className="text-gray-600 text-lg">Comunidades de entrenamientos especializadas</p>
+            </div>
+            <Link
+              href="/espacios/nuevo"
+              className="flex items-center gap-2 px-6 py-3 bg-black text-white hover:bg-gray-800 transition-colors font-medium uppercase tracking-wider"
+            >
+              <Plus className="w-5 h-5" />
+              Crear espacio
             </Link>
-          </Button>
-        </div>
-
-        {missingTable && (
-          <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm text-amber-200 mb-8">
-            Falta aplicar la migración en Supabase. Abrí el SQL Editor y ejecutá el archivo{' '}
-            <code className="text-amber-100">scripts/020_spaces_and_members.sql</code> del repositorio.
           </div>
-        )}
 
-        {error && !missingTable && (
-          <p className="text-destructive text-sm mb-6">{error.message}</p>
-        )}
-
-        {!error && spaces.length === 0 && (
-          <div className="rounded-2xl border border-white/10 bg-card/40 p-8 text-center">
-            <p className="text-muted-foreground mb-4">Todavía no tenés espacios.</p>
-            <Button asChild variant="outline" className="border-neon-lime/40 text-neon-lime">
-              <Link href="/app/espacios/nuevo">Crear mi primer espacio</Link>
-            </Button>
+          {/* Search */}
+          <div className="relative mb-8">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Buscar espacios..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-12 pr-4 py-3 bg-white border border-black/20 text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
+            />
           </div>
-        )}
 
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 list-none p-0 m-0">
-          {spaces.map((s) => (
-            <li key={s.id} className="h-full min-h-0">
-              <div className="rounded-2xl border border-white/10 bg-card/30 p-5 flex flex-col h-full gap-4">
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-1">
-                    {s.role}
-                  </p>
-                  <h2 className="font-[var(--font-display)] text-2xl">{s.name}</h2>
-                  {s.description && (
-                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2 flex-1">
-                      {s.description}
-                    </p>
-                  )}
-                  <p className="text-xs text-muted-foreground mt-2">
-                    /e/{s.slug} · {s.is_public ? 'Público' : 'Privado'}
-                  </p>
-                </div>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className="shrink-0 border-neon-cyan/40 w-full sm:w-auto self-stretch sm:self-end"
+          {/* Spaces Grid */}
+          {isLoading ? (
+            <div className="text-center py-12">
+              <p className="text-gray-500">Cargando espacios...</p>
+            </div>
+          ) : filteredSpaces.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-lg">No hay espacios que coincidan con tu búsqueda</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              {filteredSpaces.map((space) => (
+                <Link
+                  key={space.id}
+                  href={`/e/${space.slug}`}
+                  className="group"
                 >
-                  <Link href={`/e/${s.slug}`}>
-                    Abrir
-                    <ExternalLink className="h-4 w-4 ml-2" />
-                  </Link>
-                </Button>
-              </div>
-            </li>
-          ))}
-        </ul>
+                  <div className="h-full bg-white border border-black/10 overflow-hidden hover:border-black transition-colors">
+                    {/* Image */}
+                    <div className="relative h-40 overflow-hidden bg-gray-100">
+                      <img
+                        src={space.image}
+                        alt={space.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <span className="absolute bottom-3 right-3 px-2 py-1 bg-black text-white text-xs font-medium uppercase tracking-wider">
+                        {space.level}
+                      </span>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-4 flex flex-col flex-1">
+                      <h3 className="text-lg font-bold text-black mb-1 uppercase tracking-wide">
+                        {space.name}
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-4 line-clamp-2 flex-1">
+                        {space.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-gray-500">
+                          {space.members} miembros
+                        </span>
+                        <span className="text-xs px-2 py-1 bg-black text-white uppercase tracking-wider">
+                          Entrar →
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+
+      <Footer />
+    </main>
   )
 }

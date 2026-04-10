@@ -30,16 +30,10 @@ import {
 
 interface CreatePostDialogProps {
   userId: string
-  /** Feed del espacio (Fase 3); si no, post global */
-  spaceId?: string
   onPostCreated: (post: any) => void
 }
 
-export default function CreatePostDialog({
-  userId,
-  spaceId: spaceIdProp,
-  onPostCreated,
-}: CreatePostDialogProps) {
+export default function CreatePostDialog({ userId, onPostCreated }: CreatePostDialogProps) {
   const supabase = createClient()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -69,20 +63,6 @@ export default function CreatePostDialog({
 
     setLoading(true)
     try {
-      if (file.type.startsWith('image/')) {
-        const scanData = new FormData()
-        scanData.append('file', file)
-        const scanRes = await fetch('/api/moderation/scan-image', {
-          method: 'POST',
-          body: scanData,
-          credentials: 'include',
-        })
-        const scanJson = (await scanRes.json().catch(() => ({}))) as { ok?: boolean; error?: string }
-        if (!scanRes.ok || !scanJson.ok) {
-          throw new Error(scanJson.error || 'La imagen no pasó la revisión de contenido.')
-        }
-      }
-
       // Upload file to storage
       const fileExt = file.name.split('.').pop()
       const fileName = `${Date.now()}.${fileExt}`
@@ -110,7 +90,6 @@ export default function CreatePostDialog({
             media_url: publicUrl,
             thumbnail_url: postType === 'story' ? publicUrl : null,
             status: 'published',
-            ...(spaceIdProp ? { space_id: spaceIdProp } : {}),
           },
         ])
         .select('*')

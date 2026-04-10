@@ -86,7 +86,7 @@ export default function AdminContactoPage() {
         </div>
         <Button 
           onClick={handleSave}
-          className={`${saved ? 'bg-neon-lime' : 'bg-neon-cyan'} text-background hover:opacity-80`}
+          className={`${saved ? 'bg-primary' : 'bg-primary'} text-background hover:opacity-80`}
         >
           <Save className="w-4 h-4 mr-2" />
           {saved ? 'Guardado!' : 'Guardar Cambios'}
@@ -95,9 +95,9 @@ export default function AdminContactoPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* WhatsApp */}
-        <Card className="border-neon-lime/30">
+        <Card className="border-primary/30">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-neon-lime">
+            <CardTitle className="flex items-center gap-2 text-primary">
               <Phone className="w-5 h-5" />
               WhatsApp
             </CardTitle>
@@ -130,9 +130,9 @@ export default function AdminContactoPage() {
         </Card>
 
         {/* Email */}
-        <Card className="border-neon-cyan/30">
+        <Card className="border-primary/30">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-neon-cyan">
+            <CardTitle className="flex items-center gap-2 text-primary">
               <Mail className="w-5 h-5" />
               Email
             </CardTitle>
@@ -157,9 +157,9 @@ export default function AdminContactoPage() {
         </Card>
 
         {/* Instagram */}
-        <Card className="border-neon-magenta/30">
+        <Card className="border-primary/30">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-neon-magenta">
+            <CardTitle className="flex items-center gap-2 text-primary">
               <Instagram className="w-5 h-5" />
               Instagram
             </CardTitle>
@@ -222,14 +222,14 @@ export default function AdminContactoPage() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-neon-lime text-background font-medium hover:opacity-80 transition-opacity"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-background font-medium hover:opacity-80 transition-opacity"
             >
               <MessageCircle className="w-5 h-5" />
               WhatsApp
             </a>
             <a 
               href={`mailto:${contact.email}`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-neon-cyan text-background font-medium hover:opacity-80 transition-opacity"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-background font-medium hover:opacity-80 transition-opacity"
             >
               <Mail className="w-5 h-5" />
               Email
@@ -238,7 +238,7 @@ export default function AdminContactoPage() {
               href={`https://instagram.com/${contact.instagram.replace('@', '')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-neon-magenta text-background font-medium hover:opacity-80 transition-opacity"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-background font-medium hover:opacity-80 transition-opacity"
             >
               <Instagram className="w-5 h-5" />
               Instagram

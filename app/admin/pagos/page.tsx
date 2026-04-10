@@ -109,9 +109,9 @@ export default function AdminPagosPage() {
             <p className="text-xs text-muted-foreground">Total Alumnos</p>
           </CardContent>
         </Card>
-        <Card className="border-neon-lime/30 bg-neon-lime/5">
+        <Card className="border-primary/30 bg-primary/5">
           <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold text-neon-lime">{stats.pagados}</p>
+            <p className="text-2xl font-bold text-primary">{stats.pagados}</p>
             <p className="text-xs text-muted-foreground">Pagados</p>
           </CardContent>
         </Card>
@@ -127,9 +127,9 @@ export default function AdminPagosPage() {
             <p className="text-xs text-muted-foreground">Vencidos</p>
           </CardContent>
         </Card>
-        <Card className="border-neon-cyan/30 bg-neon-cyan/5">
+        <Card className="border-primary/30 bg-primary/5">
           <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold text-neon-cyan">${stats.ingresos.toLocaleString()}</p>
+            <p className="text-2xl font-bold text-primary">${stats.ingresos.toLocaleString()}</p>
             <p className="text-xs text-muted-foreground">Ingresos</p>
           </CardContent>
         </Card>
@@ -158,7 +158,7 @@ export default function AdminPagosPage() {
             variant={filterEstado === 'pagado' ? 'default' : 'outline'} 
             size="sm"
             onClick={() => setFilterEstado('pagado')}
-            className={filterEstado === 'pagado' ? 'bg-neon-lime text-background' : ''}
+            className={filterEstado === 'pagado' ? 'bg-primary text-background' : ''}
           >
             Pagados
           </Button>
@@ -211,7 +211,7 @@ export default function AdminPagosPage() {
                     <td className="p-4 text-foreground">${alumno.monto.toLocaleString()}</td>
                     <td className="p-4">
                       <span className={`px-2 py-1 rounded text-xs font-medium ${
-                        alumno.estado === 'pagado' ? 'bg-neon-lime/20 text-neon-lime' :
+                        alumno.estado === 'pagado' ? 'bg-primary/20 text-primary' :
                         alumno.estado === 'pendiente' ? 'bg-yellow-500/20 text-yellow-500' :
                         'bg-destructive/20 text-destructive'
                       }`}>
@@ -225,7 +225,7 @@ export default function AdminPagosPage() {
                         size="sm" 
                         variant={alumno.estado === 'pagado' ? 'outline' : 'default'}
                         onClick={() => togglePago(alumno.id)}
-                        className={alumno.estado !== 'pagado' ? 'bg-neon-lime text-background hover:bg-neon-lime/80' : ''}
+                        className={alumno.estado !== 'pagado' ? 'bg-primary text-background hover:bg-primary/80' : ''}
                       >
                         {alumno.estado === 'pagado' ? (
                           <><X className="w-4 h-4 mr-1" /> Desmarcar</>

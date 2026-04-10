@@ -14,9 +14,9 @@ try:
     subprocess.run(['git', 'commit', '-m', 'feat: UI/UX updates - landing video, stats, entrenadores, viajes carousel, panel admin'], check=True)
     print("[v0] Commit completed")
     
-    # Push to main
-    subprocess.run(['git', 'push', 'origin', 'main'], check=True)
-    print("[v0] Push to main completed successfully!")
+    # Push to nextjs-uiux
+    subprocess.run(['git', 'push', 'origin', 'nextjs-uiux'], check=True)
+    print("[v0] Push to nextjs-uiux completed successfully!")
     
 except Exception as e:
     print(f"[v0] Error: {e}")

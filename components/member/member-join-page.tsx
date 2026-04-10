@@ -137,8 +137,8 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
   }
 
   return (
-    <div className="min-h-screen bg-background flex">
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+    <div className="min-h-screen bg-white flex">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-white">
         <video
           autoPlay
           muted
@@ -152,36 +152,33 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
             type="video/mp4"
           />
         </video>
-        <div className="absolute inset-0 bg-background/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
-
-        <div className="absolute inset-0 grid-bg opacity-30" />
+        <div className="absolute inset-0 bg-black/60" />
 
         <div className="relative z-10 p-12 flex flex-col justify-between h-full">
           <Link href="/" className="flex items-center gap-3 group">
             <Image
-              src="/logo.svg"
+              src="/logo.png"
               alt="Comunidad"
               width={56}
               height={56}
-              className="group-hover:scale-110 transition-transform"
+              className="group-hover:scale-110 transition-transform filter invert"
             />
           </Link>
 
           <div className="space-y-8">
-            <h1 className="font-[var(--font-display)] text-7xl leading-[0.85] tracking-tight">
-              <span className="block text-neon-cyan text-glow-cyan drop-shadow-[0_0_30px_rgba(0,255,255,0.5)]">
+            <h1 className="text-7xl leading-[0.85] tracking-tight font-black">
+              <span className="block text-white">
                 {copy.leftLines[0]}
               </span>
-              <span className="block text-neon-magenta text-glow-magenta drop-shadow-[0_0_30px_rgba(255,0,255,0.5)]">
+              <span className="block text-white">
                 {copy.leftLines[1]}
               </span>
-              <span className="block text-neon-lime text-glow-lime drop-shadow-[0_0_30px_rgba(0,255,0,0.5)]">
+              <span className="block text-white">
                 {copy.leftLines[2]}
               </span>
             </h1>
 
-            <p className="text-muted-foreground max-w-sm">{copy.leftSub}</p>
+            <p className="text-white/70 max-w-sm">{copy.leftSub}</p>
           </div>
 
           <div className="flex items-center gap-4">
@@ -189,36 +186,36 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
               {[1, 2, 3, 4].map((i) => (
                 <div
                   key={i}
-                  className="w-8 h-8 rounded-full bg-gradient-to-br from-neon-cyan to-neon-magenta border-2 border-background"
+                  className="w-8 h-8 rounded-full bg-white/20 border-2 border-white"
                 />
               ))}
             </div>
-            <span className="text-muted-foreground text-sm">+500 miembros activos</span>
+            <span className="text-white/60 text-sm">+500 miembros activos</span>
           </div>
         </div>
 
-        <div className="absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-b from-neon-cyan via-neon-magenta to-neon-lime" />
+        <div className="absolute right-0 top-0 bottom-0 w-1 bg-white" />
       </div>
 
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-8">
         <div className="w-full max-w-md">
           <Link
             href="/"
-            className="lg:hidden flex items-center gap-2 text-muted-foreground hover:text-neon-cyan mb-8 transition-colors"
+            className="lg:hidden flex items-center gap-2 text-gray-600 hover:text-black mb-8 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Volver al inicio</span>
           </Link>
 
           <div className="lg:hidden flex items-center gap-3 mb-8">
-            <Image src="/logo.svg" alt="Comunidad" width={48} height={48} />
-            <span className="font-[var(--font-display)] text-2xl bg-gradient-to-r from-neon-cyan to-neon-magenta bg-clip-text text-transparent">
+            <Image src="/logo.png" alt="Comunidad" width={48} height={48} className="filter invert" />
+            <span className="text-2xl font-black text-black">
               {copy.mobileBrand}
             </span>
           </div>
 
           {variant === 'socios' && (
-            <p className="text-sm text-muted-foreground mb-4 -mt-2">
+            <p className="text-sm text-gray-600 mb-4 -mt-2">
               Completá el formulario para asociarte. Si ya tenés cuenta, usá{' '}
               <button
                 type="button"
@@ -227,7 +224,7 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
                   setError(null)
                   setSuccess(null)
                 }}
-                className="text-neon-cyan hover:underline font-medium"
+                className="text-black hover:underline font-bold"
               >
                 Ingresar
               </button>
@@ -235,7 +232,7 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
             </p>
           )}
 
-          <div className="flex mb-8 bg-card/50 border border-white/10 rounded-xl p-1">
+          <div className="flex mb-8 bg-gray-50 border border-black/10 p-1">
             <button
               type="button"
               onClick={() => {
@@ -244,10 +241,10 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
                 setSuccess(null)
               }}
               className={cn(
-                'flex-1 py-3 rounded-lg text-sm font-medium tracking-wide transition-all',
+                'flex-1 py-3 text-sm font-medium tracking-wide transition-all',
                 mode === 'login'
-                  ? 'bg-gradient-to-r from-neon-cyan to-neon-magenta text-background'
-                  : 'text-muted-foreground hover:text-foreground',
+                  ? 'bg-black text-white'
+                  : 'text-gray-500 hover:text-black',
               )}
             >
               INGRESAR
@@ -260,10 +257,10 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
                 setSuccess(null)
               }}
               className={cn(
-                'flex-1 py-3 rounded-lg text-sm font-medium tracking-wide transition-all',
+                'flex-1 py-3 text-sm font-medium tracking-wide transition-all',
                 mode === 'register'
-                  ? 'bg-gradient-to-r from-neon-cyan to-neon-magenta text-background'
-                  : 'text-muted-foreground hover:text-foreground',
+                  ? 'bg-black text-white'
+                  : 'text-gray-500 hover:text-black',
               )}
             >
               {variant === 'socios' ? 'ASOCIARME' : 'REGISTRARSE'}
@@ -271,13 +268,13 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
           </div>
 
           {error && (
-            <div className="mb-6 p-4 bg-destructive/10 border border-destructive/30 rounded-xl text-destructive text-sm">
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 text-sm">
               {error}
             </div>
           )}
 
           {success && (
-            <div className="mb-6 p-4 bg-neon-lime/10 border border-neon-lime/30 rounded-xl text-neon-lime text-sm">
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-600 text-sm">
               {success}
             </div>
           )}
@@ -285,17 +282,17 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
           {mode === 'login' ? (
             <form onSubmit={handleLogin} className="space-y-6">
               <div>
-                <Label htmlFor="email" className="text-foreground/80">
+                <Label htmlFor="email" className="text-black font-medium">
                   Email
                 </Label>
                 <div className="relative mt-2">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
                     id="email"
                     type="email"
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
-                    className="pl-12 py-6 bg-card/50 border-white/10 text-foreground placeholder:text-muted-foreground rounded-xl focus:border-neon-cyan focus:ring-neon-cyan/20"
+                    className="pl-12 py-6 bg-white border border-black/20 text-black placeholder:text-gray-400 focus:border-black focus:ring-black/20"
                     placeholder="tu@email.com"
                     required
                   />
@@ -303,39 +300,39 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
               </div>
 
               <div>
-                <Label htmlFor="password" className="text-foreground/80">
+                <Label htmlFor="password" className="text-black font-medium">
                   Contraseña
                 </Label>
                 <div className="relative mt-2">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
                     id="password"
                     type="password"
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
-                    className="pl-12 py-6 bg-card/50 border-white/10 text-foreground placeholder:text-muted-foreground rounded-xl focus:border-neon-cyan focus:ring-neon-cyan/20"
+                    className="pl-12 py-6 bg-white border border-black/20 text-black placeholder:text-gray-400 focus:border-black focus:ring-black/20"
                     placeholder="••••••••"
                     required
                   />
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-xs text-muted-foreground -mt-2">
+              <div className="flex items-center justify-between text-xs text-gray-600 -mt-2">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
                     defaultChecked
-                    className="h-4 w-4 rounded border-white/20 bg-transparent accent-neon-cyan"
+                    className="h-4 w-4 border-black/20 bg-white accent-black"
                   />
                   <span>Recordarme en este dispositivo</span>
                 </label>
-                <span className="text-neon-cyan/80">Sesion guardada automaticamente</span>
+                <span className="text-gray-500">Sesion guardada automaticamente</span>
               </div>
 
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-6 bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-lime text-background font-bold tracking-wider rounded-xl hover:opacity-90 transition-opacity"
+                className="w-full py-6 bg-black text-white font-bold tracking-wider hover:bg-gray-800 transition-opacity"
               >
                 {isLoading ? (
                   <>
@@ -353,16 +350,16 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
           ) : (
             <form onSubmit={handleRegister} className="space-y-5">
               <div>
-                <Label className="text-foreground/80">Nombre completo</Label>
+                <Label className="text-black font-medium">Nombre completo</Label>
                 <div className="relative mt-2">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
                     type="text"
                     value={registerData.fullName}
                     onChange={(e) =>
                       setRegisterData({ ...registerData, fullName: e.target.value })
                     }
-                    className="pl-12 py-6 bg-card/50 border-white/10 text-foreground placeholder:text-muted-foreground rounded-xl focus:border-neon-cyan"
+                    className="pl-12 py-6 bg-white border border-black/20 text-black placeholder:text-gray-400 focus:border-black"
                     placeholder="Tu nombre"
                     required
                   />
@@ -370,16 +367,16 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
               </div>
 
               <div>
-                <Label className="text-foreground/80">Email</Label>
+                <Label className="text-black font-medium">Email</Label>
                 <div className="relative mt-2">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
                     type="email"
                     value={registerData.email}
                     onChange={(e) =>
                       setRegisterData({ ...registerData, email: e.target.value })
                     }
-                    className="pl-12 py-6 bg-card/50 border-white/10 text-foreground placeholder:text-muted-foreground rounded-xl focus:border-neon-cyan"
+                    className="pl-12 py-6 bg-white border border-black/20 text-black placeholder:text-gray-400 focus:border-black"
                     placeholder="tu@email.com"
                     required
                   />
@@ -387,23 +384,23 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
               </div>
 
               <div>
-                <Label className="text-foreground/80">Teléfono</Label>
+                <Label className="text-black font-medium">Teléfono</Label>
                 <div className="relative mt-2">
-                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
                     type="tel"
                     value={registerData.phone}
                     onChange={(e) =>
                       setRegisterData({ ...registerData, phone: e.target.value })
                     }
-                    className="pl-12 py-6 bg-card/50 border-white/10 text-foreground placeholder:text-muted-foreground rounded-xl focus:border-neon-cyan"
+                    className="pl-12 py-6 bg-white border border-black/20 text-black placeholder:text-gray-400 focus:border-black"
                     placeholder="+598 99 123 456"
                   />
                 </div>
               </div>
 
               <div>
-                <Label className="text-foreground/80">Disciplina favorita</Label>
+                <Label className="text-black font-medium">Disciplina favorita</Label>
                 <div className="grid grid-cols-2 gap-3 mt-2">
                   <button
                     type="button"
@@ -411,14 +408,14 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
                       setRegisterData({ ...registerData, favoriteDiscipline: 'Surf' })
                     }
                     className={cn(
-                      'p-4 rounded-xl flex flex-col items-center gap-2 transition-all border',
+                      'p-4 flex flex-col items-center gap-2 transition-all border',
                       registerData.favoriteDiscipline === 'Surf'
-                        ? 'bg-neon-cyan/20 border-neon-cyan text-neon-cyan'
-                        : 'bg-card/50 border-white/10 text-muted-foreground hover:border-white/30',
+                        ? 'bg-black border-black text-white'
+                        : 'bg-white border-black/20 text-gray-500 hover:border-black',
                     )}
                   >
                     <Waves className="h-6 w-6" />
-                    <span className="text-sm font-medium">Surf</span>
+                    <span className="text-sm font-medium uppercase tracking-wider">Surf</span>
                   </button>
                   <button
                     type="button"
@@ -426,29 +423,29 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
                       setRegisterData({ ...registerData, favoriteDiscipline: 'Skate' })
                     }
                     className={cn(
-                      'p-4 rounded-xl flex flex-col items-center gap-2 transition-all border',
+                      'p-4 flex flex-col items-center gap-2 transition-all border',
                       registerData.favoriteDiscipline === 'Skate'
-                        ? 'bg-neon-magenta/20 border-neon-magenta text-neon-magenta'
-                        : 'bg-card/50 border-white/10 text-muted-foreground hover:border-white/30',
+                        ? 'bg-black border-black text-white'
+                        : 'bg-white border-black/20 text-gray-500 hover:border-black',
                     )}
                   >
                     <Sparkles className="h-6 w-6" />
-                    <span className="text-sm font-medium">Skate</span>
+                    <span className="text-sm font-medium uppercase tracking-wider">Skate</span>
                   </button>
                 </div>
               </div>
 
               <div>
-                <Label className="text-foreground/80">Contraseña</Label>
+                <Label className="text-black font-medium">Contraseña</Label>
                 <div className="relative mt-2">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
                     type="password"
                     value={registerData.password}
                     onChange={(e) =>
                       setRegisterData({ ...registerData, password: e.target.value })
                     }
-                    className="pl-12 py-6 bg-card/50 border-white/10 text-foreground placeholder:text-muted-foreground rounded-xl focus:border-neon-cyan"
+                    className="pl-12 py-6 bg-white border border-black/20 text-black placeholder:text-gray-400 focus:border-black"
                     placeholder="Mínimo 6 caracteres"
                     minLength={6}
                     required
@@ -459,7 +456,7 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-6 bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-lime text-background font-bold tracking-wider rounded-xl hover:opacity-90 transition-opacity"
+                className="w-full py-6 bg-black text-white font-bold tracking-wider hover:bg-gray-800 transition-opacity"
               >
                 {isLoading ? (
                   <>
@@ -475,18 +472,18 @@ export function MemberJoinPage({ variant }: { variant: MemberJoinVariant }) {
             </form>
           )}
 
-          <p className="mt-8 text-center text-muted-foreground text-sm">
+          <p className="mt-8 text-center text-gray-600 text-sm">
             Al registrarte, aceptás nuestros términos y condiciones
           </p>
 
           {variant === 'socios' && (
-            <p className="mt-4 text-center text-xs text-muted-foreground">
+            <p className="mt-4 text-center text-xs text-gray-600">
               ¿Solo querés el feed y la app social?{' '}
-              <Link href="/auth/sign-up" className="text-neon-cyan hover:underline">
+              <Link href="/auth/sign-up" className="text-black hover:underline font-medium">
                 Registrate acá
               </Link>{' '}
               ·{' '}
-              <Link href="/auth/login" className="text-neon-magenta hover:underline">
+              <Link href="/auth/login" className="text-black hover:underline font-medium">
                 Ingresar a la app
               </Link>
             </p>

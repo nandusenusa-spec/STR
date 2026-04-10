@@ -44,16 +44,16 @@ export function LiveEventPopup({ isOpen, onClose, event }: LiveEventPopupProps) 
   if (!event) return null
 
   const disciplineColors = {
-    surf: { bg: 'from-neon-cyan to-cyan-600', text: 'text-neon-cyan', glow: 'glow-cyan' },
-    skate: { bg: 'from-neon-magenta to-pink-600', text: 'text-neon-magenta', glow: 'glow-magenta' },
-    sup: { bg: 'from-neon-lime to-green-600', text: 'text-neon-lime', glow: 'glow-lime' },
+    surf: { bg: 'bg-black', text: 'text-black', glow: '' },
+    skate: { bg: 'bg-black', text: 'text-black', glow: '' },
+    sup: { bg: 'bg-black', text: 'text-black', glow: '' },
   }
 
   const colors = disciplineColors[event.discipline]
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl p-0 overflow-hidden bg-card border-2 border-neon-cyan/30 rounded-2xl">
+      <DialogContent className="max-w-2xl p-0 overflow-hidden bg-white border border-black/20">
         <DialogTitle className="sr-only">{event.title}</DialogTitle>
         
         {/* Header Image */}
@@ -64,26 +64,26 @@ export function LiveEventPopup({ isOpen, onClose, event }: LiveEventPopupProps) 
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/50 to-transparent" />
           
           {/* Live badge */}
           {event.isLive && (
-            <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-destructive/90 backdrop-blur-sm border border-destructive animate-pulse-live">
+            <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-red-600 animate-pulse">
               <Radio className="w-4 h-4 text-white" />
-              <span className="text-sm font-bold text-white tracking-wider">EN VIVO</span>
+              <span className="text-sm font-bold text-white tracking-wider uppercase">En vivo</span>
             </div>
           )}
 
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors"
+            className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 text-black" />
           </button>
 
           {/* Event type badge */}
-          <div className={`absolute bottom-4 left-4 px-3 py-1 rounded-full bg-gradient-to-r ${colors.bg} text-background text-sm font-bold uppercase`}>
+          <div className={`absolute bottom-4 left-4 px-3 py-1 ${colors.bg} text-white text-sm font-bold uppercase tracking-wider`}>
             {event.type} de {event.discipline}
           </div>
         </div>
@@ -92,50 +92,50 @@ export function LiveEventPopup({ isOpen, onClose, event }: LiveEventPopupProps) 
         <div className="p-6 space-y-6">
           {/* Title & Instructor */}
           <div>
-            <h2 className={`font-[var(--font-display)] text-4xl ${colors.text}`}>
+            <h2 className={`font-bold text-4xl ${colors.text} uppercase tracking-wide`}>
               {event.title}
             </h2>
             <div className="flex items-center gap-3 mt-3">
-              <Avatar className="w-10 h-10 border-2 border-neon-cyan">
+              <Avatar className="w-10 h-10 border-2 border-black">
                 <AvatarImage src={event.instructorAvatar} />
-                <AvatarFallback>{event.instructor[0]}</AvatarFallback>
+                <AvatarFallback className="bg-gray-100 text-black">{event.instructor[0]}</AvatarFallback>
               </Avatar>
               <div>
-                <p className="text-sm text-muted-foreground">Instructor</p>
-                <p className="font-medium">{event.instructor}</p>
+                <p className="text-sm text-gray-500 uppercase tracking-wider">Instructor</p>
+                <p className="font-bold text-black">{event.instructor}</p>
               </div>
             </div>
           </div>
 
           {/* Time & Location */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl bg-background/50 border border-border">
-              <div className="flex items-center gap-2 text-neon-cyan mb-2">
+            <div className="p-4 bg-gray-50 border border-black/10">
+              <div className="flex items-center gap-2 text-black mb-2">
                 <Clock className="w-4 h-4" />
-                <span className="text-sm font-medium">Horario</span>
+                <span className="text-sm font-medium uppercase tracking-wider">Horario</span>
               </div>
-              <p className="font-[var(--font-display)] text-2xl">{event.startTime}</p>
+              <p className="font-bold text-2xl text-black">{event.startTime}</p>
             </div>
             
             <a
               href={event.locationUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-4 rounded-xl bg-background/50 border border-border hover:border-neon-magenta transition-colors group"
+              className="p-4 bg-gray-50 border border-black/10 hover:border-black transition-colors group"
             >
-              <div className="flex items-center gap-2 text-neon-magenta mb-2">
+              <div className="flex items-center gap-2 text-black mb-2">
                 <MapPin className="w-4 h-4" />
-                <span className="text-sm font-medium">Ubicacion</span>
+                <span className="text-sm font-medium uppercase tracking-wider">Ubicacion</span>
                 <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <p className="font-medium text-sm truncate">{event.location}</p>
+              <p className="font-medium text-sm truncate text-black">{event.location}</p>
             </a>
           </div>
 
           {/* Google Maps Embed */}
-          <div className="relative h-40 rounded-xl overflow-hidden border border-border">
+          <div className="relative h-40 overflow-hidden border border-black/10">
             <iframe
-              src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d${event.coordinates.lng}!3d${event.coordinates.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDU0JzQ1LjAiUyA1NsKwMTAnMzAuMCJX!5e0!3m2!1sen!2suy!4v1234567890`}
+              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${event.coordinates.lat},${event.coordinates.lng}&zoom=15`}
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -144,21 +144,20 @@ export function LiveEventPopup({ isOpen, onClose, event }: LiveEventPopupProps) 
               referrerPolicy="no-referrer-when-downgrade"
               className="grayscale contrast-125"
             />
-            <div className="absolute inset-0 pointer-events-none border border-neon-cyan/20 rounded-xl" />
           </div>
 
           {/* Attendees */}
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-neon-lime" />
-                <span className="font-medium">Asistiendo</span>
-                <span className="text-muted-foreground">({event.attendees.length}/{event.maxAttendees})</span>
+                <Users className="w-5 h-5 text-black" />
+                <span className="font-bold text-black uppercase tracking-wider">Asistiendo</span>
+                <span className="text-gray-500">({event.attendees.length}/{event.maxAttendees})</span>
               </div>
               <div className="flex items-center gap-1">
                 {event.attendees.filter(a => a.isLive).length > 0 && (
-                  <span className="text-xs text-destructive flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-destructive animate-pulse" />
+                  <span className="text-xs text-red-600 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 bg-red-600 animate-pulse" />
                     {event.attendees.filter(a => a.isLive).length} en vivo
                   </span>
                 )}
@@ -173,13 +172,13 @@ export function LiveEventPopup({ isOpen, onClose, event }: LiveEventPopupProps) 
                   onMouseEnter={() => setHoveredAttendee(attendee.id)}
                   onMouseLeave={() => setHoveredAttendee(null)}
                 >
-                  <div className={`relative ${attendee.isLive ? 'ring-2 ring-destructive ring-offset-2 ring-offset-card' : ''}`}>
-                    <Avatar className="w-12 h-12 border-2 border-border group-hover:border-neon-cyan transition-colors cursor-pointer">
+                  <div className={`relative ${attendee.isLive ? 'ring-2 ring-red-600 ring-offset-2 ring-offset-white' : ''}`}>
+                    <Avatar className="w-12 h-12 border-2 border-black/10 group-hover:border-black transition-colors cursor-pointer">
                       <AvatarImage src={attendee.avatar} />
-                      <AvatarFallback>{attendee.name[0]}</AvatarFallback>
+                      <AvatarFallback className="bg-gray-100 text-black">{attendee.name[0]}</AvatarFallback>
                     </Avatar>
                     {attendee.isLive && (
-                      <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-destructive flex items-center justify-center">
+                      <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-red-600 flex items-center justify-center">
                         <Radio className="w-2.5 h-2.5 text-white" />
                       </span>
                     )}
@@ -187,15 +186,15 @@ export function LiveEventPopup({ isOpen, onClose, event }: LiveEventPopupProps) 
 
                   {/* Hover tooltip */}
                   {hoveredAttendee === attendee.id && (
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-3 rounded-xl bg-popover border border-neon-cyan/30 shadow-2xl z-50 min-w-[200px] animate-in fade-in slide-in-from-bottom-2">
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-3 bg-white border border-black/20 shadow-2xl z-50 min-w-[200px] animate-in fade-in slide-in-from-bottom-2">
                       <div className="flex items-center gap-3 mb-3">
                         <Avatar className="w-10 h-10">
                           <AvatarImage src={attendee.avatar} />
-                          <AvatarFallback>{attendee.name[0]}</AvatarFallback>
+                          <AvatarFallback className="bg-gray-100 text-black">{attendee.name[0]}</AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="font-medium text-sm">{attendee.name}</p>
-                          <p className="text-xs text-muted-foreground">@{attendee.username}</p>
+                          <p className="font-bold text-sm text-black">{attendee.name}</p>
+                          <p className="text-xs text-gray-500">@{attendee.username}</p>
                         </div>
                       </div>
                       
@@ -205,7 +204,7 @@ export function LiveEventPopup({ isOpen, onClose, event }: LiveEventPopupProps) 
                             href={`https://instagram.com/${attendee.instagram}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-medium hover:opacity-90 transition-opacity"
+                            className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-black text-white text-xs font-medium hover:bg-gray-800 transition-colors uppercase tracking-wider"
                           >
                             <Instagram className="w-3.5 h-3.5" />
                             Instagram
@@ -213,7 +212,7 @@ export function LiveEventPopup({ isOpen, onClose, event }: LiveEventPopupProps) 
                         )}
                         <Link
                           href={`/app/chat?dm=${attendee.id}`}
-                          className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-neon-cyan text-background text-xs font-medium hover:opacity-90 transition-opacity"
+                          className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-gray-100 text-black text-xs font-medium hover:bg-gray-200 transition-colors uppercase tracking-wider"
                         >
                           <MessageCircle className="w-3.5 h-3.5" />
                           Mensaje
@@ -229,14 +228,14 @@ export function LiveEventPopup({ isOpen, onClose, event }: LiveEventPopupProps) 
           {/* Actions */}
           <div className="flex gap-3 pt-2">
             <Button
-              className={`flex-1 bg-gradient-to-r ${colors.bg} text-background font-bold py-6 ${colors.glow} btn-neon`}
+              className="flex-1 bg-black text-white font-bold py-6 hover:bg-gray-800 uppercase tracking-wider"
             >
               <Zap className="w-5 h-5 mr-2" />
               UNIRME AL EVENTO
             </Button>
             <Button
               variant="outline"
-              className="border-border hover:border-neon-cyan hover:text-neon-cyan py-6"
+              className="border-black/20 hover:border-black hover:bg-gray-50 py-6"
             >
               <MessageCircle className="w-5 h-5" />
             </Button>

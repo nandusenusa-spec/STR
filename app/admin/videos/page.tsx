@@ -103,7 +103,7 @@ export default function AdminVideosPage() {
         </div>
         <Button 
           onClick={() => { setShowForm(!showForm); setEditingId(null); setFormData({ title: '', url: '', category: 'Surf' }) }}
-          className="bg-neon-cyan text-background hover:bg-neon-cyan/80"
+          className="bg-primary text-background hover:bg-primary/80"
         >
           <Plus className="w-4 h-4 mr-2" />
           Agregar Video
@@ -111,7 +111,7 @@ export default function AdminVideosPage() {
       </div>
 
       {showForm && (
-        <Card className="mb-8 border-neon-cyan/30 bg-card/50">
+        <Card className="mb-8 border-primary/30 bg-card/50">
           <CardHeader>
             <CardTitle>{editingId ? 'Editar Video' : 'Nuevo Video'}</CardTitle>
           </CardHeader>
@@ -142,7 +142,7 @@ export default function AdminVideosPage() {
                 </select>
               </div>
               <div className="flex gap-2">
-                <Button type="submit" className="bg-neon-lime text-background hover:bg-neon-lime/80">
+                <Button type="submit" className="bg-primary text-background hover:bg-primary/80">
                   {editingId ? 'Guardar Cambios' : 'Agregar'}
                 </Button>
                 <Button type="button" variant="outline" onClick={() => { setShowForm(false); setEditingId(null) }}>
@@ -159,13 +159,13 @@ export default function AdminVideosPage() {
           <Card key={video.id} className={`border-white/10 ${!video.visible ? 'opacity-50' : ''}`}>
             <CardContent className="flex items-center justify-between p-4">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-lg bg-neon-magenta/20 flex items-center justify-center">
-                  <Video className="w-6 h-6 text-neon-magenta" />
+                <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
+                  <Video className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <h3 className="font-medium text-foreground">{video.title}</h3>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span className="px-2 py-0.5 rounded bg-neon-cyan/20 text-neon-cyan text-xs">{video.category}</span>
+                    <span className="px-2 py-0.5 rounded bg-primary/20 text-primary text-xs">{video.category}</span>
                     <LinkIcon className="w-3 h-3" />
                     <span className="truncate max-w-[200px]">{video.url}</span>
                   </div>

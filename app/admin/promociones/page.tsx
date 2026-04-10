@@ -160,7 +160,7 @@ export default function AdminPromocionesPage() {
         </div>
         <Button 
           onClick={() => { setShowForm(!showForm); setEditingId(null); setFormData({ titulo: '', mensaje: '', tipo: 'popup', fechaInicio: '', fechaFin: '', color: 'cyan' }) }}
-          className="bg-neon-magenta text-background hover:bg-neon-magenta/80"
+          className="bg-primary text-background hover:bg-primary/80"
         >
           <Plus className="w-4 h-4 mr-2" />
           Nueva Promocion
@@ -168,7 +168,7 @@ export default function AdminPromocionesPage() {
       </div>
 
       {showForm && (
-        <Card className="mb-8 border-neon-magenta/30 bg-card/50">
+        <Card className="mb-8 border-primary/30 bg-card/50">
           <CardHeader>
             <CardTitle>{editingId ? 'Editar Promocion' : 'Nueva Promocion'}</CardTitle>
           </CardHeader>
@@ -230,7 +230,7 @@ export default function AdminPromocionesPage() {
                 </div>
               </div>
               <div className="flex gap-2">
-                <Button type="submit" className="bg-neon-lime text-background hover:bg-neon-lime/80">
+                <Button type="submit" className="bg-primary text-background hover:bg-primary/80">
                   {editingId ? 'Guardar Cambios' : 'Crear Promocion'}
                 </Button>
                 <Button type="button" variant="outline" onClick={() => { setShowForm(false); setEditingId(null) }}>
@@ -249,26 +249,26 @@ export default function AdminPromocionesPage() {
               <div className="flex items-start justify-between">
                 <div className="flex items-start gap-4">
                   <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                    promo.color === 'cyan' ? 'bg-neon-cyan/20' :
-                    promo.color === 'magenta' ? 'bg-neon-magenta/20' :
-                    'bg-neon-lime/20'
+                    promo.color === 'cyan' ? 'bg-primary/20' :
+                    promo.color === 'magenta' ? 'bg-primary/20' :
+                    'bg-primary/20'
                   }`}>
                     <Megaphone className={`w-6 h-6 ${
-                      promo.color === 'cyan' ? 'text-neon-cyan' :
-                      promo.color === 'magenta' ? 'text-neon-magenta' :
-                      'text-neon-lime'
+                      promo.color === 'cyan' ? 'text-primary' :
+                      promo.color === 'magenta' ? 'text-primary' :
+                      'text-primary'
                     }`} />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="font-medium text-foreground">{promo.titulo}</h3>
                       <span className={`px-2 py-0.5 rounded text-xs ${
-                        promo.tipo === 'popup' ? 'bg-neon-cyan/20 text-neon-cyan' : 'bg-neon-magenta/20 text-neon-magenta'
+                        promo.tipo === 'popup' ? 'bg-primary/20 text-primary' : 'bg-primary/20 text-primary'
                       }`}>
                         {promo.tipo.toUpperCase()}
                       </span>
                       {promo.activo && (
-                        <span className="px-2 py-0.5 rounded text-xs bg-neon-lime/20 text-neon-lime">
+                        <span className="px-2 py-0.5 rounded text-xs bg-primary/20 text-primary">
                           ACTIVO
                         </span>
                       )}

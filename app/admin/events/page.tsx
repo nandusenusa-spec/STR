@@ -10,25 +10,27 @@ export default function AdminEventsPage() {
   const [events, setEvents] = useState([
     {
       id: 1,
-      title: 'Clase de Surf',
-      description: 'Clase grupal para principiantes',
+      title: 'Clase de Skate',
+      description: 'Clase grupal en el skatepark',
       date: '2024-04-06',
-      time: '08:00',
-      location: 'Playa Pocitos',
+      time: '10:00',
+      location: 'Skate Park del Buceo',
       capacity: 10,
-      type: 'Surf',
+      type: 'Skate',
       price: 50,
+      instructor: 'German Garcia',
     },
     {
       id: 2,
-      title: 'Skate Session',
-      description: 'Sesion libre en el skatepark',
+      title: 'Surf Session',
+      description: 'Sesion de surf para intermedios',
       date: '2024-04-07',
-      time: '17:00',
-      location: 'Skatepark Central',
+      time: '08:00',
+      location: 'Playa Pocitos',
       capacity: 20,
-      type: 'Skate',
+      type: 'Surf',
       price: 0,
+      instructor: 'German Garcia',
     },
     {
       id: 3,
@@ -40,6 +42,7 @@ export default function AdminEventsPage() {
       capacity: 8,
       type: 'SUP',
       price: 35,
+      instructor: 'German Garcia',
     },
   ])
 
@@ -55,12 +58,13 @@ export default function AdminEventsPage() {
     capacity: 10,
     type: 'Surf',
     price: 0,
+    instructor: 'German Garcia',
   })
 
   const typeColors: Record<string, string> = {
-    Surf: 'bg-neon-cyan',
-    Skate: 'bg-neon-magenta',
-    SUP: 'bg-neon-lime',
+    Surf: 'bg-primary',
+    Skate: 'bg-primary',
+    SUP: 'bg-primary',
   }
 
   const startEdit = (event: any) => {
@@ -92,7 +96,7 @@ export default function AdminEventsPage() {
   return (
     <div className="min-h-screen bg-background p-4 sm:p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="font-[var(--font-display)] text-4xl text-neon-lime mb-2">
+        <h1 className="font-[var(--font-display)] text-4xl text-primary mb-2">
           Gestion de Eventos
         </h1>
         <p className="text-muted-foreground mb-8">Crea y administra clases, meetups y eventos de la comunidad</p>
@@ -100,7 +104,7 @@ export default function AdminEventsPage() {
         {/* Boton crear evento */}
         <Button
           onClick={() => setShowNewForm(true)}
-          className="w-full mb-6 bg-neon-lime text-background hover:bg-neon-lime/90 gap-2"
+          className="w-full mb-6 bg-primary text-background hover:bg-primary/90 gap-2"
         >
           <Plus className="w-4 h-4" />
           Crear Nuevo Evento
@@ -108,8 +112,8 @@ export default function AdminEventsPage() {
 
         {/* Formulario nuevo evento */}
         {showNewForm && (
-          <Card className="p-6 border-neon-lime/50 bg-card/50 mb-6">
-            <h3 className="font-[var(--font-display)] text-xl text-neon-lime mb-4">Nuevo Evento</h3>
+          <Card className="p-6 border-primary/50 bg-card/50 mb-6">
+            <h3 className="font-[var(--font-display)] text-xl text-primary mb-4">Nuevo Evento</h3>
             <div className="space-y-4">
               <div>
                 <label className="text-xs text-muted-foreground block mb-2">Titulo</label>
@@ -155,9 +159,19 @@ export default function AdminEventsPage() {
               <div>
                 <label className="text-xs text-muted-foreground block mb-2">Ubicacion</label>
                 <Input
-                  placeholder="Ej: Playa Pocitos"
+                  placeholder="Ej: Skate Park del Buceo"
                   value={newEvent.location}
                   onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })}
+                  className="bg-background border-white/10"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs text-muted-foreground block mb-2">Instructor</label>
+                <Input
+                  placeholder="Ej: German Garcia"
+                  value={newEvent.instructor}
+                  onChange={(e) => setNewEvent({ ...newEvent, instructor: e.target.value })}
                   className="bg-background border-white/10"
                 />
               </div>
@@ -200,7 +214,7 @@ export default function AdminEventsPage() {
               <div className="flex gap-2">
                 <Button
                   onClick={createEvent}
-                  className="flex-1 bg-neon-lime text-background hover:bg-neon-lime/90 gap-2"
+                  className="flex-1 bg-primary text-background hover:bg-primary/90 gap-2"
                   disabled={!newEvent.title || !newEvent.date || !newEvent.time}
                 >
                   <Save className="w-4 h-4" />
@@ -270,6 +284,15 @@ export default function AdminEventsPage() {
                     />
                   </div>
 
+                  <div>
+                    <label className="text-xs text-muted-foreground block mb-2">Instructor</label>
+                    <Input
+                      value={editForm.instructor}
+                      onChange={(e) => setEditForm({ ...editForm, instructor: e.target.value })}
+                      className="bg-background border-white/10"
+                    />
+                  </div>
+
                   <div className="grid grid-cols-3 gap-4">
                     <div>
                       <label className="text-xs text-muted-foreground block mb-2">Tipo</label>
@@ -306,7 +329,7 @@ export default function AdminEventsPage() {
                   </div>
 
                   <div className="flex gap-2">
-                    <Button onClick={saveEdit} className="flex-1 bg-neon-lime text-background hover:bg-neon-lime/90 gap-2">
+                    <Button onClick={saveEdit} className="flex-1 bg-primary text-background hover:bg-primary/90 gap-2">
                       <Save className="w-4 h-4" />
                       Guardar
                     </Button>
@@ -328,7 +351,7 @@ export default function AdminEventsPage() {
                         <span className="text-xs px-2 py-0.5 rounded bg-white/10 text-muted-foreground">{event.type}</span>
                       </div>
                       <div className="flex gap-2">
-                        <Button size="sm" onClick={() => startEdit(event)} className="bg-neon-magenta text-background hover:bg-neon-magenta/90">
+                        <Button size="sm" onClick={() => startEdit(event)} className="bg-primary text-background hover:bg-primary/90">
                           <Edit2 className="w-3 h-3" />
                         </Button>
                         <Button size="sm" variant="destructive" onClick={() => deleteEvent(event.id)}>
@@ -352,7 +375,7 @@ export default function AdminEventsPage() {
                         <Users className="w-3 h-3" />
                         {event.capacity} personas
                       </span>
-                      <span className="text-neon-lime font-medium">
+                      <span className="text-primary font-medium">
                         {event.price > 0 ? `$${event.price}` : 'Gratis'}
                       </span>
                     </div>

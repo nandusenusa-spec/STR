@@ -77,7 +77,7 @@ export default async function ProductDetailPage({
               </span>
             )}
             <h1 className="font-[var(--font-display)] text-4xl text-foreground">{product.name}</h1>
-            <p className="text-3xl font-bold text-neon-magenta">
+            <p className="text-3xl font-bold text-primary">
               ${Number(product.price || 0).toLocaleString('es-UY')}
             </p>
             <p className="text-muted-foreground whitespace-pre-wrap">
@@ -96,7 +96,7 @@ export default async function ProductDetailPage({
               </a>
               <Link
                 href="/checkout"
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-magenta text-background px-4 py-3 font-bold hover:opacity-90 transition-opacity"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary text-background px-4 py-3 font-bold hover:opacity-90 transition-opacity"
               >
                 <ShoppingBag className="w-4 h-4" />
                 Ir al checkout
@@ -120,7 +120,7 @@ export default async function ProductDetailPage({
                     />
                   </div>
                   <p className="mt-2 text-sm line-clamp-1">{item.name}</p>
-                  <p className="text-sm text-neon-magenta font-semibold">
+                  <p className="text-sm text-primary font-semibold">
                     ${Number(item.price || 0).toLocaleString('es-UY')}
                   </p>
                 </Link>

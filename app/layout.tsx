@@ -2,7 +2,6 @@ import React from "react"
 import type { Metadata } from 'next'
 import { Inter, Bebas_Neue, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { SonnerToaster } from '@/components/sonner-toaster'
 import './globals.css'
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -17,18 +16,17 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "700"]
 });
 export const metadata: Metadata = {
-  title: 'STR Comunidad | Surf Skate SUP',
-  description:
-    'Plataforma para entrenadores y alumnos: espacio compartido, clases, eventos, comunidad y tienda. Empezá en Fase 1 con la base actual.',
+  title: 'Comunidad | Surf Skate',
+  description: 'Comunidad de entrenamientos para Surf y Skate en Montevideo. Clases, viajes y tienda.',
   icons: {
-    icon: [{ url: '/images/logo.svg', type: 'image/svg+xml', sizes: 'any' }],
-    apple: '/images/logo.svg',
-    shortcut: '/images/logo.svg',
+    icon: [
+      { url: '/images/logo-white.png', type: 'image/png', sizes: '32x32' },
+      { url: '/images/logo-white.png', type: 'image/png', sizes: '16x16' },
+      { url: '/images/logo-white.png', type: 'image/png', sizes: 'any' }
+    ],
+    apple: '/images/logo-white.png',
+    shortcut: '/images/logo-white.png',
   },
-  openGraph: {
-    title: 'STR Comunidad',
-    description: 'Plataforma de Surf, Skate y SUP',
-  }
 }
 
 export default function RootLayout({
@@ -40,7 +38,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${bebasNeue.variable} ${jetbrainsMono.variable} font-sans antialiased dark`}>
         {children}
-        <SonnerToaster />
         <Analytics />
       </body>
     </html>

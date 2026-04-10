@@ -18,7 +18,8 @@ import {
   MessageSquare,
   CheckCircle,
   Gift,
-  Zap
+  Zap,
+  ExternalLink
 } from 'lucide-react'
 
 const ADMIN_PASSWORD = 'str2026'
@@ -133,7 +134,23 @@ export default function PanelLayout({
             })}
           </ul>
         </nav>
-        <div className="p-4 border-t border-white/10">
+        <div className="p-4 border-t border-white/10 space-y-3">
+          <Link
+            href="/app"
+            target="_blank"
+            className="flex items-center justify-center gap-2 w-full py-2 bg-white text-black text-sm font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors"
+          >
+            <Users className="w-4 h-4" />
+            App Suscriptores
+          </Link>
+          <Link
+            href="/"
+            target="_blank"
+            className="flex items-center justify-center gap-2 w-full py-2 bg-white/10 border border-white/20 text-white text-sm font-medium uppercase tracking-wider hover:bg-white/20 transition-colors"
+          >
+            <ExternalLink className="w-4 h-4" />
+            Ver Landing
+          </Link>
           <button 
             onClick={() => {
               sessionStorage.removeItem('panel_auth')

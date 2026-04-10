@@ -183,7 +183,7 @@ export default function AdminClasesEnVivoPage() {
               <Button
                 onClick={handleSave}
                 size="lg"
-                className="bg-gradient-to-r from-neon-cyan to-neon-magenta text-background font-bold"
+                className="bg-primary text-background font-bold"
               >
                 <Save className="w-4 h-4 mr-2" />
                 Guardar Cambios

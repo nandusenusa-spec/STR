@@ -46,15 +46,15 @@ export default function ManeuversPage() {
   ]
 
   const statusConfig = {
-    unlocked: { icon: CheckCircle, label: 'Desbloqueado', color: 'text-neon-cyan', border: 'border-neon-cyan/40', bg: 'bg-neon-cyan/5', badge: 'bg-neon-cyan/20 text-neon-cyan' },
-    pending:  { icon: Clock,        label: 'Pendiente revisión', color: 'text-neon-magenta', border: 'border-neon-magenta/40', bg: 'bg-neon-magenta/5', badge: 'bg-neon-magenta/20 text-neon-magenta' },
+    unlocked: { icon: CheckCircle, label: 'Desbloqueado', color: 'text-primary', border: 'border-primary/40', bg: 'bg-primary/5', badge: 'bg-primary/20 text-primary' },
+    pending:  { icon: Clock,        label: 'Pendiente revisión', color: 'text-primary', border: 'border-primary/40', bg: 'bg-primary/5', badge: 'bg-primary/20 text-primary' },
     locked:   { icon: AlertCircle,  label: 'Bloqueado', color: 'text-muted-foreground', border: 'border-white/10', bg: 'bg-background/50 opacity-70', badge: 'bg-white/10 text-muted-foreground' },
   }
 
   return (
     <div className="min-h-screen bg-background p-4 sm:p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="font-[var(--font-display)] text-4xl text-neon-cyan mb-1">
+        <h1 className="font-[var(--font-display)] text-4xl text-primary mb-1">
           Maniobras & Niveles
         </h1>
         <p className="text-muted-foreground mb-8 text-sm">Aprende, practica y sube de nivel con validación del instructor</p>
@@ -123,7 +123,7 @@ export default function ManeuversPage() {
                             <Button
                               size="sm"
                               variant="outline"
-                              className="gap-1.5 border-neon-cyan/50 text-neon-cyan hover:bg-neon-cyan hover:text-background text-xs h-8 px-3"
+                              className="gap-1.5 border-primary/50 text-primary hover:bg-primary hover:text-background text-xs h-8 px-3"
                             >
                               <Share2 className="w-3.5 h-3.5" />
                               Postear
@@ -133,7 +133,7 @@ export default function ManeuversPage() {
                           {/* Botón subir video — SIEMPRE visible */}
                           <Button
                             size="sm"
-                            className="gap-1.5 bg-neon-magenta hover:bg-neon-magenta/90 text-background text-xs h-8 px-3"
+                            className="gap-1.5 bg-primary hover:bg-primary/90 text-background text-xs h-8 px-3"
                           >
                             <Upload className="w-3.5 h-3.5" />
                             Subir Video
@@ -160,8 +160,8 @@ export default function ManeuversPage() {
 
                   {/* ── Tips ── */}
                   {maneuver.tips && (
-                    <div className="mt-4 bg-background/50 border border-neon-lime/20 rounded-lg px-4 py-3">
-                      <p className="text-xs font-semibold text-neon-lime mb-1">Tips del Instructor</p>
+                    <div className="mt-4 bg-background/50 border border-primary/20 rounded-lg px-4 py-3">
+                      <p className="text-xs font-semibold text-primary mb-1">Tips del Instructor</p>
                       <p className="text-xs text-muted-foreground leading-relaxed">{maneuver.tips}</p>
                     </div>
                   )}
@@ -184,7 +184,7 @@ export default function ManeuversPage() {
 
         {/* Instrucciones */}
         <Card className="mt-10 p-5 border-white/10 bg-card/50">
-          <h3 className="font-[var(--font-display)] text-lg text-neon-lime mb-3">Como desbloquear maniobras</h3>
+          <h3 className="font-[var(--font-display)] text-lg text-primary mb-3">Como desbloquear maniobras</h3>
           <ol className="space-y-1.5 text-sm text-muted-foreground list-decimal list-inside">
             <li>Mira el <span className="text-foreground">video tutorial</span> del instructor (click en el thumbnail para expandir)</li>
             <li>Lee los <span className="text-foreground">tips</span> y practica la técnica</li>

@@ -114,17 +114,17 @@ export default function AdminManeuversPage() {
   return (
     <div className="min-h-screen bg-background p-4 sm:p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="font-[var(--font-display)] text-4xl text-neon-magenta mb-2">Gestion de Maniobras</h1>
+        <h1 className="font-[var(--font-display)] text-4xl text-primary mb-2">Gestion de Maniobras</h1>
         <p className="text-muted-foreground mb-8">Asigna videos tutoriales de YouTube a cada maniobra para que los alumnos aprendan</p>
 
-        <Button onClick={() => setShowNewForm(true)} className="w-full mb-6 bg-neon-cyan text-background hover:bg-neon-cyan/90 gap-2">
+        <Button onClick={() => setShowNewForm(true)} className="w-full mb-6 bg-primary text-background hover:bg-primary/90 gap-2">
           <Plus className="w-4 h-4" />
           Crear Nueva Maniobra
         </Button>
 
         {showNewForm && (
-          <Card className="p-6 border-neon-cyan/50 bg-card/50 mb-6">
-            <h3 className="font-[var(--font-display)] text-xl text-neon-cyan mb-4">Nueva Maniobra</h3>
+          <Card className="p-6 border-primary/50 bg-card/50 mb-6">
+            <h3 className="font-[var(--font-display)] text-xl text-primary mb-4">Nueva Maniobra</h3>
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <Input placeholder="Nombre" value={newManeuver.name} onChange={(e) => setNewManeuver({ ...newManeuver, name: e.target.value })} className="bg-background border-white/10" />
@@ -134,7 +134,7 @@ export default function AdminManeuversPage() {
               <Input value={newManeuver.youtubeUrl} onChange={(e) => setNewManeuver({ ...newManeuver, youtubeUrl: convertYoutubeUrl(e.target.value) })} className="bg-background border-white/10" placeholder="URL YouTube" />
               <textarea value={newManeuver.tips} onChange={(e) => setNewManeuver({ ...newManeuver, tips: e.target.value })} className="w-full px-3 py-2 rounded border border-white/10 bg-background text-foreground text-sm resize-none h-20" />
               <div className="flex gap-2">
-                <Button onClick={addNewManeuver} className="flex-1 bg-neon-lime text-background hover:bg-neon-lime/90 gap-2" disabled={!newManeuver.name || !newManeuver.description}>
+                <Button onClick={addNewManeuver} className="flex-1 bg-primary text-background hover:bg-primary/90 gap-2" disabled={!newManeuver.name || !newManeuver.description}>
                   <Save className="w-4 h-4" />
                   Guardar Maniobra
                 </Button>
@@ -157,7 +157,7 @@ export default function AdminManeuversPage() {
                   <Input value={editForm?.youtubeUrl || ''} onChange={(e) => setEditForm((prev) => (prev ? { ...prev, youtubeUrl: convertYoutubeUrl(e.target.value) } : prev))} className="bg-background border-white/10" />
                   <textarea value={editForm?.tips || ''} onChange={(e) => setEditForm((prev) => (prev ? { ...prev, tips: e.target.value } : prev))} className="w-full px-3 py-2 rounded border border-white/10 bg-background text-foreground text-sm resize-none h-24" />
                   <div className="flex gap-2">
-                    <Button onClick={saveEdit} className="flex-1 bg-neon-lime text-background hover:bg-neon-lime/90 gap-2">
+                    <Button onClick={saveEdit} className="flex-1 bg-primary text-background hover:bg-primary/90 gap-2">
                       <Save className="w-4 h-4" />
                       Guardar
                     </Button>
@@ -175,7 +175,7 @@ export default function AdminManeuversPage() {
                       <p className="text-sm text-muted-foreground">Nivel {maneuver.level}</p>
                     </div>
                     <div className="flex gap-2">
-                      <Button onClick={() => startEdit(maneuver)} className="bg-neon-magenta text-background hover:bg-neon-magenta/90 gap-2">
+                      <Button onClick={() => startEdit(maneuver)} className="bg-primary text-background hover:bg-primary/90 gap-2">
                         <Edit2 className="w-4 h-4" />
                         Editar
                       </Button>
@@ -200,8 +200,8 @@ export default function AdminManeuversPage() {
                     </div>
                   )}
                   {maneuver.tips && (
-                    <div className="bg-background/50 border border-neon-lime/20 rounded-lg p-3">
-                      <p className="text-xs text-neon-lime font-medium mb-1">Tips Asignados:</p>
+                    <div className="bg-background/50 border border-primary/20 rounded-lg p-3">
+                      <p className="text-xs text-primary font-medium mb-1">Tips Asignados:</p>
                       <p className="text-sm text-muted-foreground">{maneuver.tips}</p>
                     </div>
                   )}

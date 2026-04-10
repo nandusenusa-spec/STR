@@ -46,15 +46,9 @@ const FORUM_SLUG_BY_UI_ID: Record<string, string> = {
 interface CreatePostDialogProps {
   userId: string
   onPostCreated: (post: any) => void
-  /** Foro de un espacio: categoría única (omitir selector) */
-  fixedCategoryId?: string
 }
 
-export default function CreatePostDialog({
-  userId,
-  onPostCreated,
-  fixedCategoryId,
-}: CreatePostDialogProps) {
+export default function CreatePostDialog({ userId, onPostCreated }: CreatePostDialogProps) {
   const supabase = createClient()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -71,42 +65,36 @@ export default function CreatePostDialog({
 
     setLoading(true)
     try {
-      let categoryId: string | undefined = fixedCategoryId
+      // Get category ID
+      const slug = FORUM_SLUG_BY_UI_ID[category] || category
+      const { data: categoryData } = await supabase
+        .from('forum_categories')
+        .select('id')
+        .eq('slug', slug)
+        .single()
 
-      if (!categoryId) {
-        const slug = FORUM_SLUG_BY_UI_ID[category] || category
-        const { data: categoryData } = await supabase
-          .from('forum_categories')
-          .select('id')
-          .eq('slug', slug)
-          .single()
-        categoryId = categoryData?.id
-      }
-
+      const categoryId = categoryData?.id
       if (!categoryId) {
         toast.error('Categoría no encontrada')
         setLoading(false)
         return
       }
 
-      const postRes = await fetch('/api/community/forum-post', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({
-          category_id: categoryId,
-          title: title.trim(),
-          content: content.trim(),
-        }),
-      })
-      const postJson = (await postRes.json().catch(() => ({}))) as {
-        error?: string
-        post?: Record<string, unknown>
-      }
-      if (!postRes.ok || !postJson.post) {
-        throw new Error(postJson.error || 'No se pudo crear el post')
-      }
-      const post = postJson.post
+      // Create post
+      const { data: post, error } = await supabase
+        .from('forum_posts')
+        .insert([
+          {
+            user_id: userId,
+            category_id: categoryId,
+            title: title.trim(),
+            content: content.trim(),
+          },
+        ])
+        .select('*')
+        .single()
+
+      if (error) throw error
 
       const { data: cat } = await supabase
         .from('forum_categories')
@@ -147,23 +135,22 @@ export default function CreatePostDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {!fixedCategoryId && (
-            <div className="space-y-2">
-              <Label htmlFor="category">Categoría</Label>
-              <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger id="category">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map((cat) => (
-                    <SelectItem key={cat.id} value={cat.id}>
-                      {cat.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )}
+          {/* Category */}
+          <div className="space-y-2">
+            <Label htmlFor="category">Categoría</Label>
+            <Select value={category} onValueChange={setCategory}>
+              <SelectTrigger id="category">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map((cat) => (
+                  <SelectItem key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
           {/* Title */}
           <div className="space-y-2">

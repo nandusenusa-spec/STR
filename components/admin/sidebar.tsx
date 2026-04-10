@@ -76,7 +76,7 @@ export function AdminSidebar() {
                   href={item.href}
                   className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors rounded-lg ${
                     isActive 
-                      ? 'bg-neon-cyan/20 text-neon-cyan border border-neon-cyan/30' 
+                      ? 'bg-primary/20 text-primary border border-primary/30' 
                       : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
                   }`}
                 >

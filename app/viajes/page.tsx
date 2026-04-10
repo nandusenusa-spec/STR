@@ -5,8 +5,7 @@ import Image from 'next/image'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { CartDrawer } from '@/components/cart-drawer'
-import { Instagram, Phone, CheckCircle, Loader2, Calendar, Plane } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Instagram, Phone, CheckCircle, Loader2, Plane } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
 const fallbackTrips = [
@@ -137,167 +136,134 @@ export default function ViajesPage() {
   return (
     <>
       <Header />
-      <main className="pt-16">
-        {/* Hero */}
-        <section className="relative h-[60vh] min-h-[400px]">
-          <Image
-            src="/images/surf-action-1.jpg"
-            alt="Surf Trips"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-foreground/40" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-            <p className="text-background/80 text-sm tracking-[0.2em] mb-4">
-              SURF TRIPS 2026
-            </p>
-            <h1 className="font-[var(--font-display)] text-5xl sm:text-6xl lg:text-7xl text-background mb-4">
-              VIAJES
-            </h1>
-            <p className="text-background/80 max-w-lg">
-              Experiencias de surf con todo incluido. Traslados, alojamiento, comidas y las mejores olas.
-            </p>
-          </div>
-        </section>
-
-        {/* Equipo · acondicionamiento (viajes) */}
-        <section className="py-10 bg-background border-y border-white/5">
-          <div className="mx-auto max-w-3xl px-4 text-center">
-            <p className="text-xs font-mono text-neon-cyan tracking-wider mb-2">ACONDICIONAMIENTO EN VIAJES</p>
-            <h2 className="font-[var(--font-display)] text-2xl sm:text-3xl text-foreground mb-2">Germán García</h2>
-            <p className="text-sm text-muted-foreground">
-              Trabajo físico específico para surfistas en cada salida: fuerza, movilidad y recuperación entre sesiones.
-            </p>
-          </div>
-        </section>
-
-        {/* Viajes — carrusel horizontal, miniaturas 9:16 */}
-        <section className="py-16 sm:py-24 bg-background">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-10">
-              <p className="text-sm tracking-[0.2em] text-muted-foreground mb-3">PROXIMOS DESTINOS</p>
-              <h2 className="font-[var(--font-display)] text-4xl sm:text-5xl text-foreground">
-                RESERVA TU LUGAR
-              </h2>
-              <p className="text-sm text-muted-foreground mt-3">Deslizá para ver fechas</p>
+      <main>
+        {/* Header Section - ESPACIOS Style */}
+        <div className="pt-32 px-4 sm:px-6 lg:px-8 pb-8 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-8">
+              <h1 className="text-5xl sm:text-7xl font-bold mb-2 uppercase tracking-wide text-black">
+                VIAJES
+              </h1>
+              <p className="text-gray-600 text-lg">Experiencias de surf con todo incluido</p>
             </div>
+          </div>
+        </div>
 
-            {loadingTrips ? (
-              <div className="text-center text-muted-foreground text-sm py-8">Cargando viajes...</div>
-            ) : (
-            <div className="overflow-x-auto pb-4 -mx-4 px-4 scroll-smooth [scrollbar-width:thin]">
-              <div className="flex gap-4 snap-x snap-mandatory w-max max-w-full min-w-0 pr-4">
+        {/* Trips Horizontal Carousel - Vertical Cards */}
+        <section className="py-8 bg-white">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {loadingTrips && (
+              <div className="text-center text-gray-500 text-sm py-12">
+                Cargando viajes...
+              </div>
+            )}
+            <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
               {trips.map((trip) => (
-                <div key={trip.id} className="snap-center shrink-0 w-[200px] sm:w-[220px]">
-                  <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden border border-white/10 mb-4 shadow-lg">
-                    <Image
-                      src={trip.image}
-                      alt={trip.destination}
-                      fill
-                      className="object-cover"
-                      sizes="220px"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-                    <div className="absolute bottom-3 left-3 right-3">
-                      <h3 className="font-[var(--font-display)] text-xl sm:text-2xl text-foreground drop-shadow-md">
+                <div key={trip.id} className="group flex-shrink-0 w-72 snap-start">
+                  <div className="h-full bg-white border border-black/10 overflow-hidden hover:border-black transition-colors">
+                    {/* Vertical Image - Instagram Stories aspect ratio */}
+                    <div className="relative aspect-[9/16] overflow-hidden bg-gray-100">
+                      <Image
+                        src={trip.image}
+                        alt={trip.destination}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <span className="absolute bottom-3 right-3 px-2 py-1 bg-black text-white text-xs font-medium uppercase tracking-wider">
+                        {trip.dates.split(' - ')[0]}
+                      </span>
+                      {/* Play button overlay for video */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center">
+                          <Plane className="w-6 h-6 text-black" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-4 flex flex-col flex-1">
+                      <h3 className="text-lg font-bold text-black mb-1 uppercase tracking-wide">
                         {trip.destination}
                       </h3>
-                    </div>
-                  </div>
+                      <p className="text-sm text-gray-600 mb-4 line-clamp-2 flex-1">
+                        {trip.description}
+                      </p>
 
-                  <div className="text-center px-1">
-                    <div className="flex items-center justify-center gap-2 text-accent mb-3">
-                      <Calendar className="h-4 w-4" />
-                      <span className="text-sm font-medium">{trip.dates}</span>
+                      {/* Success state */}
+                      {successTrip === trip.id ? (
+                        <div className="bg-green-50 border border-green-200 p-3 text-center">
+                          <CheckCircle className="h-5 w-5 text-green-600 mx-auto mb-1" />
+                          <p className="text-xs text-gray-700">
+                            Te contactamos pronto
+                          </p>
+                        </div>
+                      ) : selectedTrip === trip.id ? (
+                        /* Subscription form */
+                        <div className="space-y-2">
+                          <div className="relative">
+                            <Instagram className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                            <input
+                              type="text"
+                              value={instagram}
+                              onChange={(e) => setInstagram(e.target.value)}
+                              placeholder="@tuusuario"
+                              className="w-full border border-black/20 py-2 pl-10 pr-3 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-black"
+                            />
+                          </div>
+                          <div className="relative">
+                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                            <input
+                              type="tel"
+                              value={whatsapp}
+                              onChange={(e) => setWhatsapp(e.target.value)}
+                              placeholder="+598 99 123 456"
+                              className="w-full border border-black/20 py-2 pl-10 pr-3 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-black"
+                            />
+                          </div>
+                          {error && <p className="text-red-600 text-xs">{error}</p>}
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => setSelectedTrip(null)}
+                              className="flex-1 py-2 border border-black/20 text-black hover:bg-gray-50 transition-colors text-xs font-medium uppercase tracking-wider"
+                            >
+                              Cancelar
+                            </button>
+                            <button
+                              onClick={() => handleSubscribe(trip.id, trip.subscriptionType)}
+                              disabled={isSubmitting || !instagram || !whatsapp}
+                              className="flex-1 py-2 bg-black text-white hover:bg-gray-800 transition-colors text-xs font-medium uppercase tracking-wider disabled:opacity-50"
+                            >
+                              {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin inline" /> : 'Enviar'}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-gray-500">
+                            8 confirmados
+                          </span>
+                          <button
+                            onClick={() => setSelectedTrip(trip.id)}
+                            className="text-xs px-2 py-1 bg-black text-white uppercase tracking-wider hover:bg-gray-800 transition-colors"
+                          >
+                            Quiero ir →
+                          </button>
+                        </div>
+                      )}
                     </div>
-                    <p className="text-muted-foreground text-sm mb-6">
-                      {trip.description}
-                    </p>
-
-                    {/* Success state */}
-                    {successTrip === trip.id ? (
-                      <div className="bg-green-500/10 border border-green-500/30 p-4 text-center">
-                        <CheckCircle className="h-6 w-6 text-green-500 mx-auto mb-2" />
-                        <p className="text-sm">
-                          Te contactamos por WhatsApp pronto
-                        </p>
-                      </div>
-                    ) : selectedTrip === trip.id ? (
-                      /* Subscription form */
-                      <div className="space-y-3 text-left">
-                        <div className="relative">
-                          <Instagram className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <input
-                            type="text"
-                            value={instagram}
-                            onChange={(e) => setInstagram(e.target.value)}
-                            placeholder="@tuusuario"
-                            className="w-full border border-border py-2.5 pl-10 pr-3 text-sm focus:outline-none focus:border-foreground"
-                          />
-                        </div>
-                        <div className="relative">
-                          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <input
-                            type="tel"
-                            value={whatsapp}
-                            onChange={(e) => setWhatsapp(e.target.value)}
-                            placeholder="+598 99 123 456"
-                            className="w-full border border-border py-2.5 pl-10 pr-3 text-sm focus:outline-none focus:border-foreground"
-                          />
-                        </div>
-                        {error && <p className="text-red-500 text-xs">{error}</p>}
-                        <div className="flex gap-2">
-                          <Button
-                            onClick={() => setSelectedTrip(null)}
-                            variant="outline"
-                            size="sm"
-                            className="flex-1"
-                          >
-                            Cancelar
-                          </Button>
-                          <Button
-                            onClick={() => handleSubscribe(trip.id, trip.subscriptionType)}
-                            disabled={isSubmitting || !instagram || !whatsapp}
-                            size="sm"
-                            className="flex-1 bg-foreground text-background hover:bg-foreground/90"
-                          >
-                            {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Enviar'}
-                          </Button>
-                        </div>
-                      </div>
-                    ) : (
-                      /* Action button */
-                      <Button
-                        onClick={() => setSelectedTrip(trip.id)}
-                        className="bg-foreground text-background hover:bg-foreground/90"
-                      >
-                        <Plane className="h-4 w-4 mr-2" />
-                        Quiero ir
-                      </Button>
-                    )}
                   </div>
                 </div>
               ))}
-              </div>
-            </div>
-            )}
-
-            {/* Note */}
-            <div className="text-center mt-12">
-              <p className="text-muted-foreground text-sm">
-                Revisamos tu perfil de Instagram y te contactamos por WhatsApp con toda la info del viaje.
-              </p>
             </div>
           </div>
         </section>
 
         {/* What's Included */}
-        <section className="py-16 sm:py-24 bg-secondary/30">
+        <section className="py-16 sm:py-24 bg-gray-50">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <p className="text-sm tracking-[0.2em] text-muted-foreground mb-3">TODO INCLUIDO</p>
-              <h2 className="font-[var(--font-display)] text-4xl sm:text-5xl text-foreground">
+              <p className="text-sm tracking-[0.2em] text-gray-500 mb-3 uppercase">Todo incluido</p>
+              <h2 className="font-bold text-4xl sm:text-5xl text-black uppercase tracking-wide">
                 QUE INCLUYE
               </h2>
             </div>
@@ -310,8 +276,8 @@ export default function ViajesPage() {
                 { title: 'Guias', desc: 'Locales expertos' },
               ].map((item) => (
                 <div key={item.title}>
-                  <h3 className="font-[var(--font-display)] text-xl mb-1">{item.title}</h3>
-                  <p className="text-muted-foreground text-sm">{item.desc}</p>
+                  <h3 className="font-bold text-xl mb-1 text-black uppercase">{item.title}</h3>
+                  <p className="text-gray-600 text-sm">{item.desc}</p>
                 </div>
               ))}
             </div>

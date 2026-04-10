@@ -152,20 +152,3 @@ export interface SocialPost {
   user: UserProfile | null
   liked_by_me: boolean
 }
-
-/** Fase 2 — espacio por entrenador (`public.spaces`) */
-export interface Space {
-  id: string
-  slug: string
-  name: string
-  description: string | null
-  owner_id: string
-  is_public: boolean
-  /** Fase 3: invitación por código/link */
-  invite_code?: string | null
-  invite_enabled?: boolean
-  created_at: string
-  updated_at: string
-}
-
-export type SpaceMemberRole = 'owner' | 'instructor' | 'student'

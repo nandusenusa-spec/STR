@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 import { createClient as createAdminClient } from '@supabase/supabase-js'
-import { moderateImageBuffer } from '@/lib/moderation/image-moderation'
 
 type QuiverMeta = {
   galleryUrls?: string[]
@@ -70,14 +69,9 @@ export async function POST(request: NextRequest) {
 
   const uploadedUrls: string[] = []
   for (const file of files) {
-    const bytes = await file.arrayBuffer()
-    const mod = await moderateImageBuffer(bytes, file.type)
-    if (!mod.ok) {
-      return NextResponse.json({ error: mod.reason }, { status: 422 })
-    }
-
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
     const path = `${user.id}/${quiverId}/${Date.now()}-${safeName}`
+    const bytes = await file.arrayBuffer()
     const { error: uploadError } = await admin.storage
       .from(BUCKET)
       .upload(path, bytes, { contentType: file.type, upsert: false })

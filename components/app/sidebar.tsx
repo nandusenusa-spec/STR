@@ -36,7 +36,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 
 const mainRoutes = [
-  { label: 'Mis espacios', href: '/espacios', icon: Layers },
+  { label: 'Mis espacios', href: '/app/espacios', icon: Layers },
   { label: 'Dashboard', href: '/app', icon: Home },
   { label: 'Mi Perfil', href: '/app/profile', icon: User },
   { label: 'Maniobras', href: '/app/maneuvers', icon: Zap },
@@ -87,7 +87,10 @@ export default function AppSidebar() {
             <SidebarMenu>
               {mainRoutes.map((route) => {
                 const Icon = route.icon
-                const isActive = pathname === route.href
+                const isActive =
+                  route.href === '/app/espacios'
+                    ? pathname.startsWith('/app/espacios')
+                    : pathname === route.href
                 return (
                   <SidebarMenuItem key={route.href}>
                     <SidebarMenuButton

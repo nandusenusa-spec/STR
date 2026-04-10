@@ -161,42 +161,52 @@ export default function ViajesPage() {
           </div>
         </section>
 
-        {/* Trips Grid */}
+        {/* Equipo · acondicionamiento (viajes) */}
+        <section className="py-10 bg-background border-y border-white/5">
+          <div className="mx-auto max-w-3xl px-4 text-center">
+            <p className="text-xs font-mono text-neon-cyan tracking-wider mb-2">ACONDICIONAMIENTO EN VIAJES</p>
+            <h2 className="font-[var(--font-display)] text-2xl sm:text-3xl text-foreground mb-2">Germán García</h2>
+            <p className="text-sm text-muted-foreground">
+              Trabajo físico específico para surfistas en cada salida: fuerza, movilidad y recuperación entre sesiones.
+            </p>
+          </div>
+        </section>
+
+        {/* Viajes — carrusel horizontal, miniaturas 9:16 */}
         <section className="py-16 sm:py-24 bg-background">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
+            <div className="text-center mb-10">
               <p className="text-sm tracking-[0.2em] text-muted-foreground mb-3">PROXIMOS DESTINOS</p>
               <h2 className="font-[var(--font-display)] text-4xl sm:text-5xl text-foreground">
                 RESERVA TU LUGAR
               </h2>
+              <p className="text-sm text-muted-foreground mt-3">Deslizá para ver fechas</p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {loadingTrips && (
-                <div className="col-span-full text-center text-muted-foreground text-sm">
-                  Cargando viajes...
-                </div>
-              )}
+            {loadingTrips ? (
+              <div className="text-center text-muted-foreground text-sm py-8">Cargando viajes...</div>
+            ) : (
+            <div className="overflow-x-auto pb-4 -mx-4 px-4 scroll-smooth [scrollbar-width:thin]">
+              <div className="flex gap-4 snap-x snap-mandatory w-max max-w-full min-w-0 pr-4">
               {trips.map((trip) => (
-                <div key={trip.id} className="group">
-                  {/* Image */}
-                  <div className="relative aspect-[4/3] overflow-hidden mb-6">
+                <div key={trip.id} className="snap-center shrink-0 w-[200px] sm:w-[220px]">
+                  <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden border border-white/10 mb-4 shadow-lg">
                     <Image
                       src={trip.image}
                       alt={trip.destination}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="object-cover"
+                      sizes="220px"
                     />
-                    <div className="absolute inset-0 bg-foreground/20 group-hover:bg-foreground/30 transition-colors" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <h3 className="font-[var(--font-display)] text-5xl text-background">
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                    <div className="absolute bottom-3 left-3 right-3">
+                      <h3 className="font-[var(--font-display)] text-xl sm:text-2xl text-foreground drop-shadow-md">
                         {trip.destination}
                       </h3>
                     </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="text-center">
+                  <div className="text-center px-1">
                     <div className="flex items-center justify-center gap-2 text-accent mb-3">
                       <Calendar className="h-4 w-4" />
                       <span className="text-sm font-medium">{trip.dates}</span>
@@ -269,7 +279,9 @@ export default function ViajesPage() {
                   </div>
                 </div>
               ))}
+              </div>
             </div>
+            )}
 
             {/* Note */}
             <div className="text-center mt-12">

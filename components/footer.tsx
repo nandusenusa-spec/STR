@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Instagram, Facebook, Mail, MapPin, Phone } from 'lucide-react'
+import { Instagram, Facebook, MapPin, Phone } from 'lucide-react'
 
 const footerLinks = {
   shop: [
@@ -26,7 +26,6 @@ const footerLinks = {
 
 const WHATSAPP_NUMBER = '598099046165'
 
-/** URL para Meta/Facebook: env absoluto o /privacidad */
 function privacyHref(): string {
   const u = process.env.NEXT_PUBLIC_PRIVACY_POLICY_URL?.trim()
   if (u && /^https?:\/\//i.test(u)) return u
@@ -54,10 +53,8 @@ function PrivacyLink({ className }: { className?: string }) {
 export function Footer() {
   return (
     <footer className="bg-foreground text-background">
-      {/* Main Footer */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
-          {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-6">
               <Image
@@ -73,7 +70,7 @@ export function Footer() {
               Plataforma STR: entrenadores con su espacio e invitación a alumnos. Surf, skate y SUP.
             </p>
             <div className="flex gap-4">
-              <a 
+              <a
                 href="https://www.instagram.com/comunidad_str/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -82,7 +79,7 @@ export function Footer() {
               >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a 
+              <a
                 href="https://facebook.com/strcommunity"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -94,7 +91,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Shop Links */}
           <div>
             <h4 className="text-sm font-medium mb-4">Tienda</h4>
             <ul className="space-y-3">
@@ -111,7 +107,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Experience Links */}
           <div>
             <h4 className="text-sm font-medium mb-4">Experiencia</h4>
             <ul className="space-y-3">
@@ -128,7 +123,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Info */}
           <div>
             <h4 className="text-sm font-medium mb-4">Info</h4>
             <ul className="space-y-3">
@@ -145,12 +139,11 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
             <h4 className="text-sm font-medium mb-4">Contacto</h4>
             <ul className="space-y-3">
               <li>
-                <a 
+                <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -161,7 +154,7 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a 
+                <a
                   href="https://www.instagram.com/comunidad_str/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -182,7 +175,6 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="border-t border-background/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-background/40">

@@ -29,20 +29,14 @@ export function Header() {
   }, [])
 
   return (
-    <header 
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-background border-b border-border' 
-          : 'bg-background'
+        scrolled ? 'bg-background border-b border-border' : 'bg-background'
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo y Brand - Left */}
-          <Link 
-            href="/"
-            className="flex items-center gap-2"
-          >
+          <Link href="/" className="flex items-center gap-2">
             <Image
               src="/logo.svg"
               alt="Comunidad"
@@ -56,7 +50,6 @@ export function Header() {
             </div>
           </Link>
 
-          {/* Desktop Navigation - Center */}
           <nav className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link) => (
               <Link
@@ -69,7 +62,6 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden p-2 -ml-2 text-foreground"
@@ -78,9 +70,7 @@ export function Header() {
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
 
-          {/* Right Actions */}
           <div className="flex items-center gap-1">
-            {/* Search */}
             <button
               className="hidden sm:flex p-2 text-foreground hover:text-muted-foreground transition-colors"
               aria-label="Buscar"
@@ -88,7 +78,6 @@ export function Header() {
               <Search className="h-5 w-5" />
             </button>
 
-            {/* Portal */}
             <Link
               href="/socios"
               className="hidden sm:flex p-2 text-foreground hover:text-muted-foreground transition-colors"
@@ -97,7 +86,6 @@ export function Header() {
               <User className="h-5 w-5" />
             </Link>
 
-            {/* Cart */}
             <button
               onClick={toggleCart}
               className="relative p-2 text-foreground hover:text-muted-foreground transition-colors"
@@ -114,8 +102,7 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div 
+      <div
         className={`lg:hidden overflow-hidden transition-all duration-300 bg-background ${
           mobileMenuOpen ? 'max-h-[380px] border-b border-border' : 'max-h-0'
         }`}

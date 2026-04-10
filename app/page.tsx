@@ -210,17 +210,27 @@ export default function HomePage() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 mt-16 max-w-3xl mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto">
               {[
+                { value: '50', label: 'Raiders', color: 'text-neon-lime', shadow: 'drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]' },
                 { value: stats.members, label: 'Miembros', color: 'text-neon-cyan', shadow: 'drop-shadow-[0_0_10px_rgba(0,255,255,0.5)]' },
                 { value: stats.videos, label: 'Videos', color: 'text-neon-magenta', shadow: 'drop-shadow-[0_0_10px_rgba(255,0,255,0.5)]' },
-                { value: stats.chat, label: 'Chat Activo', color: 'text-neon-lime', shadow: 'drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]' },
+                { value: stats.chat, label: 'Chat Activo', color: 'text-neon-orange', shadow: 'drop-shadow-[0_0_10px_rgba(255,165,0,0.4)]' },
               ].map((stat, i) => (
                 <div key={i} className="text-center group">
-                  <div className={`font-[var(--font-display)] text-3xl sm:text-6xl ${stat.color} ${stat.shadow} group-hover:scale-110 transition-transform`}>{stat.value}</div>
+                  <div className={`font-[var(--font-display)] text-3xl sm:text-5xl ${stat.color} ${stat.shadow} group-hover:scale-110 transition-transform`}>{stat.value}</div>
                   <div className="text-xs sm:text-sm text-muted-foreground mt-2 uppercase tracking-widest">{stat.label}</div>
                 </div>
               ))}
+            </div>
+            <div className="mt-6 text-center">
+              <Link
+                href="/socios"
+                className="inline-flex items-center gap-2 text-sm font-mono text-neon-cyan hover:text-neon-magenta transition-colors"
+              >
+                Ver más
+                <ChevronRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
 

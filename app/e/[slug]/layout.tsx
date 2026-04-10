@@ -22,7 +22,7 @@ export default async function EspacioSlugLayout({ children, params }: Props) {
             STR
           </Link>
           <div className="flex items-center gap-3">
-            <Link href="/espacios" className="text-sm text-neon-cyan hover:underline">
+            <Link href="/app/espacios" className="text-sm text-neon-cyan hover:underline">
               Mis espacios
             </Link>
           </div>

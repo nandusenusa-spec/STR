@@ -5,8 +5,10 @@ import Image from 'next/image'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { CartDrawer } from '@/components/cart-drawer'
-import { Instagram, Phone, CheckCircle, Loader2, Calendar } from 'lucide-react'
+import Link from 'next/link'
+import { Instagram, Phone, CheckCircle, Loader2, Calendar, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { createClient } from '@/lib/supabase/client'
 
 const fallbackDisciplines = [
@@ -158,7 +160,7 @@ export default function ClasesPage() {
           </div>
         </section>
 
-        {/* Disciplines */}
+        {/* Disciplines — estilo “espacios” (cards) */}
         <section className="py-16 sm:py-24 bg-background">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -168,29 +170,36 @@ export default function ClasesPage() {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 list-none p-0 m-0">
               {disciplines.map((discipline) => (
-                <div key={discipline.id} className="group">
-                  <div className="relative aspect-[3/4] overflow-hidden mb-4">
-                    <Image
-                      src={discipline.image}
-                      alt={discipline.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-foreground/20 group-hover:bg-foreground/30 transition-colors" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <h3 className="font-[var(--font-display)] text-5xl text-background">
-                        {discipline.title}
-                      </h3>
+                <li key={discipline.id} className="h-full min-h-0">
+                  <div className="rounded-2xl border border-white/10 bg-card/30 overflow-hidden flex flex-col h-full">
+                    <div className="relative aspect-[16/10] w-full">
+                      <Image
+                        src={discipline.image}
+                        alt={discipline.title}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute top-3 left-3">
+                        <Badge className="bg-background/80 text-foreground border border-white/20 font-[var(--font-display)] tracking-wide">
+                          {discipline.title}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-5 flex flex-col flex-1 gap-4">
+                      <p className="text-sm text-muted-foreground flex-1">{discipline.description}</p>
+                      <Button asChild variant="outline" className="w-full border-neon-cyan/40 text-neon-cyan shrink-0">
+                        <Link href="/auth/login?redirect=/app">
+                          Entrar
+                          <ArrowRight className="h-4 w-4 ml-2" />
+                        </Link>
+                      </Button>
                     </div>
                   </div>
-                  <p className="text-muted-foreground text-sm text-center">
-                    {discipline.description}
-                  </p>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
 

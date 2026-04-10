@@ -33,6 +33,7 @@ const fallbackLiveEvent = {
 }
 
 export default function HomePage() {
+  // Landing Page - STR Comunidad
   const [showEventPopup, setShowEventPopup] = useState(false)
   const [liveEvent, setLiveEvent] = useState(fallbackLiveEvent)
   const [stats, setStats] = useState({

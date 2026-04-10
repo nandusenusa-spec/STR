@@ -36,7 +36,6 @@ export default function HomePage() {
   const [showEventPopup, setShowEventPopup] = useState(false)
   const [liveEvent, setLiveEvent] = useState(fallbackLiveEvent)
   const [stats, setStats] = useState({
-    members: '500+',
     videos: '120',
     chat: '24/7',
   })
@@ -44,7 +43,7 @@ export default function HomePage() {
   useEffect(() => {
     const load = async () => {
       const supabase = createClient()
-      const [{ data: event }, { count: members }, { count: videos }] = await Promise.all([
+      const [{ data: event }, { count: videos }] = await Promise.all([
         supabase
           .from('events')
           .select('*')
@@ -52,7 +51,6 @@ export default function HomePage() {
           .order('start_date', { ascending: true })
           .limit(1)
           .maybeSingle(),
-        supabase.from('user_profiles').select('id', { count: 'exact', head: true }),
         supabase.from('social_posts').select('id', { count: 'exact', head: true }),
       ])
 
@@ -71,7 +69,6 @@ export default function HomePage() {
       }
 
       setStats({
-        members: members ? `${members}+` : '500+',
         videos: videos ? `${videos}` : '120',
         chat: '24/7',
       })
@@ -181,7 +178,7 @@ export default function HomePage() {
             </h1>
 
             <p className="text-base sm:text-2xl text-muted-foreground max-w-2xl mx-auto mb-6 leading-relaxed animate-entry-subtitle px-2">
-              Plataforma STR: entrenadores abren su espacio e invitan a sus alumnos.
+              STR: entrenadores abren su espacio e invitan a sus alumnos.
               <span className="text-foreground font-medium"> Misma comunidad para surf, skate y SUP — clases, vivo, chat y viajes.</span>
             </p>
             <p className="text-sm text-muted-foreground/90 max-w-xl mx-auto mb-8 px-2">
@@ -213,7 +210,7 @@ export default function HomePage() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto">
               {[
                 { value: '50', label: 'Raiders', color: 'text-neon-lime', shadow: 'drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]' },
-                { value: stats.members, label: 'Miembros', color: 'text-neon-cyan', shadow: 'drop-shadow-[0_0_10px_rgba(0,255,255,0.5)]' },
+                { value: '50', label: 'Raiders', color: 'text-neon-cyan', shadow: 'drop-shadow-[0_0_10px_rgba(0,255,255,0.5)]' },
                 { value: stats.videos, label: 'Videos', color: 'text-neon-magenta', shadow: 'drop-shadow-[0_0_10px_rgba(255,0,255,0.5)]' },
                 { value: stats.chat, label: 'Chat Activo', color: 'text-neon-orange', shadow: 'drop-shadow-[0_0_10px_rgba(255,165,0,0.4)]' },
               ].map((stat, i) => (
@@ -312,7 +309,7 @@ export default function HomePage() {
                   description: 'Canales por disciplina. Habla con otros surfers, skaters y paddlers en tiempo real.',
                   color: 'from-neon-cyan to-cyan-600',
                   borderColor: 'hover:border-neon-cyan/50',
-                  href: '/app/chat',
+                  href: '/socios',
                 },
                 {
                   icon: Video,
@@ -320,7 +317,7 @@ export default function HomePage() {
                   description: 'Aprende tecnicas, trucos y maniobras con nuestros videos exclusivos.',
                   color: 'from-neon-magenta to-pink-600',
                   borderColor: 'hover:border-neon-magenta/50',
-                  href: '/app/feed',
+                  href: '/socios',
                 },
                 {
                   icon: Radio,
@@ -328,7 +325,7 @@ export default function HomePage() {
                   description: 'Sesiones en vivo desde la playa, el skatepark o el rio.',
                   color: 'from-destructive to-red-600',
                   borderColor: 'hover:border-destructive/50',
-                  href: '/app',
+                  href: '/socios',
                 },
                 {
                   icon: Calendar,
@@ -336,7 +333,7 @@ export default function HomePage() {
                   description: 'Clases presenciales, viajes grupales y meetups de la comunidad.',
                   color: 'from-neon-lime to-green-600',
                   borderColor: 'hover:border-neon-lime/50',
-                  href: '/app/events',
+                  href: '/socios',
                 },
                 {
                   icon: Users,
@@ -344,7 +341,7 @@ export default function HomePage() {
                   description: 'Conecta con otros atletas, comparte tus sesiones y crece juntos.',
                   color: 'from-neon-orange to-orange-600',
                   borderColor: 'hover:border-neon-orange/50',
-                  href: '/app/members',
+                  href: '/socios',
                 },
                 {
                   icon: ShoppingBag,

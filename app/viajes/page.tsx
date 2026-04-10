@@ -186,17 +186,16 @@ export default function ViajesPage() {
             {loadingTrips ? (
               <div className="text-center text-muted-foreground text-sm py-8">Cargando viajes...</div>
             ) : (
-            <div className="overflow-x-auto pb-4 -mx-4 px-4 scroll-smooth scrollbar-hide">
-              <div className="flex gap-4 snap-x snap-mandatory w-max max-w-full min-w-0 pr-4">
+            <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
               {trips.map((trip) => (
-                <div key={trip.id} className="snap-center shrink-0 w-[200px] sm:w-[220px]">
+                <div key={trip.id} className="w-72 flex-shrink-0 snap-center">
                   <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden border border-white/10 mb-4 shadow-lg">
                     <Image
                       src={trip.image}
                       alt={trip.destination}
                       fill
                       className="object-cover"
-                      sizes="220px"
+                      sizes="288px"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                     <div className="absolute bottom-3 left-3 right-3">
@@ -279,7 +278,6 @@ export default function ViajesPage() {
                   </div>
                 </div>
               ))}
-              </div>
             </div>
             )}
 

@@ -20,7 +20,7 @@ import {
   Zap
 } from 'lucide-react'
 
-const ADMIN_PASSWORD = (process.env.NEXT_PUBLIC_ADMIN_PANEL_PASSWORD || 'str2026').trim()
+const ADMIN_PASSWORD = 'str2026'
 
 const menuItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
@@ -106,8 +106,22 @@ export default function PanelLayout({
     <div className="min-h-screen bg-gray-100 flex">
       {/* Sidebar */}
       <aside className="w-64 bg-black text-white flex flex-col">
-        <div className="p-4 border-b border-white/10">
+        <div className="p-4 border-b border-white/10 space-y-3">
           <h1 className="text-lg font-bold uppercase tracking-wider">Panel STR</h1>
+          <div className="flex flex-col gap-2">
+            <Link
+              href="/app"
+              className="block w-full text-center py-2 px-3 text-sm bg-white text-black font-medium hover:bg-white/90 transition-colors"
+            >
+              App Suscriptores
+            </Link>
+            <Link
+              href="/"
+              className="block w-full text-center py-2 px-3 text-sm border border-white/30 text-white hover:bg-white/10 transition-colors"
+            >
+              Landing
+            </Link>
+          </div>
         </div>
         <nav className="flex-1 p-4 overflow-y-auto">
           <ul className="space-y-1">

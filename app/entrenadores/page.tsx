@@ -14,16 +14,25 @@ const WHATSAPP_NEW_COACH = 'https://wa.me/598099046165?text=Hola%2C%20quiero%20i
 
 const equipo = [
   {
+    id: 'german-surf',
+    nombre: 'Germán García',
+    rol: 'Surf',
+    bio: 'Entrenamiento y técnica en el agua, lectura de olas y sesiones progresivas.',
+    imagen: '/images/trainers/german-garcia.jpg',
+  },
+  {
+    id: 'diego-skate',
+    nombre: 'Diego Ottonello',
+    rol: 'Skate',
+    bio: 'Técnica de skate y transferencia al surf: equilibrio, líneas y confianza en la tabla.',
+    imagen: '/images/trainers/diego-ottonello.jpg',
+  },
+  {
+    id: 'german-fisico',
     nombre: 'Germán García',
     rol: 'Acondicionamiento físico',
     bio: 'Preparación física orientada al surf y deportes de tabla: fuerza, movilidad y prevención.',
     imagen: '/images/trainers/german-garcia.jpg',
-  },
-  {
-    nombre: 'Diego Ottonello',
-    rol: 'Surf · Entrenamiento',
-    bio: 'Entrenamiento técnico y acompañamiento en el agua. Experiencia en grupos y viajes STR.',
-    imagen: '/images/trainers/diego-ottonello.jpg',
   },
 ]
 
@@ -64,7 +73,7 @@ export default function EntrenadoresPage() {
           <span className="block text-neon-magenta text-glow-magenta">QUE TE LLEVAN AL AGUA</span>
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mb-10 leading-relaxed">
-          Dos referentes de la casa: preparación física y surf. ¿Querés sumarte como instructor? Escribinos por WhatsApp.
+          Germán y Diego: surf, skate y preparación física. ¿Querés sumarte como instructor? Escribinos por WhatsApp.
         </p>
 
         <a
@@ -79,14 +88,14 @@ export default function EntrenadoresPage() {
           </Button>
         </a>
 
-        <div className="grid sm:grid-cols-2 gap-6 mb-14">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
           {equipo.map((p) => (
             <div
-              key={p.nombre}
+              key={p.id}
               className="rounded-2xl border border-white/10 bg-card/40 overflow-hidden flex flex-col"
             >
               <div className="relative aspect-[4/3] w-full">
-                <Image src={p.imagen} alt={p.nombre} fill className="object-cover" />
+                <Image src={p.imagen} alt={`${p.nombre} — ${p.rol}`} fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
               </div>
               <div className="p-6 flex flex-col flex-1">

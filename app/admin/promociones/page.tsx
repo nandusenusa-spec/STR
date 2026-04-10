@@ -47,10 +47,17 @@ export default function AdminPromocionesPage() {
   const [promos, setPromos] = useState<Promocion[]>(initialPromos)
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
-  const [formData, setFormData] = useState({ 
+  const [formData, setFormData] = useState<{
+    titulo: string
+    mensaje: string
+    tipo: 'popup' | 'banner'
+    fechaInicio: string
+    fechaFin: string
+    color: string
+  }>({ 
     titulo: '', 
     mensaje: '', 
-    tipo: 'popup' as const, 
+    tipo: 'popup', 
     fechaInicio: '', 
     fechaFin: '',
     color: 'cyan'

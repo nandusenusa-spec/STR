@@ -186,7 +186,7 @@ export default function ViajesPage() {
             {loadingTrips ? (
               <div className="text-center text-muted-foreground text-sm py-8">Cargando viajes...</div>
             ) : (
-            <div className="overflow-x-auto pb-4 -mx-4 px-4 scroll-smooth [scrollbar-width:thin]">
+            <div className="overflow-x-auto pb-4 -mx-4 px-4 scroll-smooth scrollbar-hide">
               <div className="flex gap-4 snap-x snap-mandatory w-max max-w-full min-w-0 pr-4">
               {trips.map((trip) => (
                 <div key={trip.id} className="snap-center shrink-0 w-[200px] sm:w-[220px]">

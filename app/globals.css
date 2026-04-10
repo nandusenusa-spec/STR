@@ -431,3 +431,12 @@
 .particle-glow {
   animation: pulseGlow 2s ease-in-out infinite;
 }
+
+/* Ocultar scrollbar (carruseles horizontales, etc.) */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

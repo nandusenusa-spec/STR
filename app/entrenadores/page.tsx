@@ -17,13 +17,13 @@ const equipo = [
     nombre: 'Germán García',
     rol: 'Acondicionamiento físico',
     bio: 'Preparación física orientada al surf y deportes de tabla: fuerza, movilidad y prevención.',
-    imagen: '/images/hero-surf.jpg',
+    imagen: '/images/trainers/german-garcia.jpg',
   },
   {
     nombre: 'Diego Ottonello',
     rol: 'Surf · Entrenamiento',
     bio: 'Entrenamiento técnico y acompañamiento en el agua. Experiencia en grupos y viajes STR.',
-    imagen: '/images/surf-action-1.jpg',
+    imagen: '/images/trainers/diego-ottonello.jpg',
   },
 ]
 

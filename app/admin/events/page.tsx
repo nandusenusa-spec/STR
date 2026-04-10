@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Save, Edit2, X, Plus, Trash2, Calendar, MapPin, Users } from 'lucide-react'
+import { Save, Edit2, X, Plus, Trash2, Calendar, MapPin, Users, User } from 'lucide-react'
 
 export default function AdminEventsPage() {
   const [events, setEvents] = useState([
@@ -18,6 +18,7 @@ export default function AdminEventsPage() {
       capacity: 10,
       type: 'Surf',
       price: 50,
+      instructor: 'Germán García',
     },
     {
       id: 2,
@@ -29,6 +30,7 @@ export default function AdminEventsPage() {
       capacity: 20,
       type: 'Skate',
       price: 0,
+      instructor: 'Diego Ottonello',
     },
     {
       id: 3,
@@ -40,6 +42,7 @@ export default function AdminEventsPage() {
       capacity: 8,
       type: 'SUP',
       price: 35,
+      instructor: 'Germán García',
     },
   ])
 
@@ -55,6 +58,7 @@ export default function AdminEventsPage() {
     capacity: 10,
     type: 'Surf',
     price: 0,
+    instructor: '',
   })
 
   const typeColors: Record<string, string> = {
@@ -81,7 +85,7 @@ export default function AdminEventsPage() {
   const createEvent = () => {
     const id = Math.max(...events.map(e => e.id)) + 1
     setEvents([...events, { ...newEvent, id }])
-    setNewEvent({ title: '', description: '', date: '', time: '', location: '', capacity: 10, type: 'Surf', price: 0 })
+    setNewEvent({ title: '', description: '', date: '', time: '', location: '', capacity: 10, type: 'Surf', price: 0, instructor: '' })
     setShowNewForm(false)
   }
 
@@ -158,6 +162,16 @@ export default function AdminEventsPage() {
                   placeholder="Ej: Playa Pocitos"
                   value={newEvent.location}
                   onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })}
+                  className="bg-background border-white/10"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs text-muted-foreground block mb-2">Instructor</label>
+                <Input
+                  placeholder="Nombre del instructor"
+                  value={newEvent.instructor}
+                  onChange={(e) => setNewEvent({ ...newEvent, instructor: e.target.value })}
                   className="bg-background border-white/10"
                 />
               </div>
@@ -270,6 +284,16 @@ export default function AdminEventsPage() {
                     />
                   </div>
 
+                  <div>
+                    <label className="text-xs text-muted-foreground block mb-2">Instructor</label>
+                    <Input
+                      value={editForm.instructor ?? ''}
+                      onChange={(e) => setEditForm({ ...editForm, instructor: e.target.value })}
+                      className="bg-background border-white/10"
+                      placeholder="Nombre del instructor"
+                    />
+                  </div>
+
                   <div className="grid grid-cols-3 gap-4">
                     <div>
                       <label className="text-xs text-muted-foreground block mb-2">Tipo</label>
@@ -347,6 +371,10 @@ export default function AdminEventsPage() {
                       <span className="flex items-center gap-1">
                         <MapPin className="w-3 h-3" />
                         {event.location}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <User className="w-3 h-3" />
+                        {event.instructor || '—'}
                       </span>
                       <span className="flex items-center gap-1">
                         <Users className="w-3 h-3" />

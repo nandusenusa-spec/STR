@@ -25,6 +25,10 @@ export const metadata: Metadata = {
     apple: '/images/logo.svg',
     shortcut: '/images/logo.svg',
   },
+  openGraph: {
+    title: 'STR Comunidad',
+    description: 'Plataforma de Surf, Skate y SUP',
+  }
 }
 
 export default function RootLayout({

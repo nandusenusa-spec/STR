@@ -61,7 +61,7 @@ export default function AdminSchedulePage() {
       day_of_week: item.day_of_week,
       start_time: item.start_time,
       end_time: item.end_time,
-      discipline: item.discipline,
+      'surf' | 'skate' | 'sup',
       location: item.location,
       location_lat: item.location_lat,
       location_lng: item.location_lng,

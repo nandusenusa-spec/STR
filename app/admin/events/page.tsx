@@ -85,7 +85,7 @@ export default function AdminEventsPage() {
   const createEvent = () => {
     const id = Math.max(...events.map(e => e.id)) + 1
     setEvents([...events, { ...newEvent, id }])
-    setNewEvent({ title: '', description: '', date: '', time: '', location: '', capacity: 10, type: 'Surf', price: 0 })
+    setNewEvent({ title: '', description: '', date: '', time: '', location: '', capacity: 10, type: 'Surf', price: 0, instructor: '' })
     setShowNewForm(false)
   }
 

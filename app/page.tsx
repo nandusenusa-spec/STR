@@ -36,7 +36,7 @@ export default function HomePage() {
   const [showEventPopup, setShowEventPopup] = useState(false)
   const [liveEvent, setLiveEvent] = useState(fallbackLiveEvent)
   const [stats, setStats] = useState({
-    members: '500+',
+    members: '50',
     videos: '120',
     chat: '24/7',
   })
@@ -71,7 +71,7 @@ export default function HomePage() {
       }
 
       setStats({
-        members: members ? `${members}+` : '500+',
+        members: members ? `${members}` : '50',
         videos: videos ? `${videos}` : '120',
         chat: '24/7',
       })
@@ -210,10 +210,9 @@ export default function HomePage() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto">
+            <div className="grid grid-cols-3 gap-4 mt-16 max-w-3xl mx-auto">
               {[
-                { value: '50', label: 'Raiders', color: 'text-neon-lime', shadow: 'drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]' },
-                { value: stats.members, label: 'Miembros', color: 'text-neon-cyan', shadow: 'drop-shadow-[0_0_10px_rgba(0,255,255,0.5)]' },
+                { value: stats.members, label: 'Raiders', color: 'text-neon-lime', shadow: 'drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]' },
                 { value: stats.videos, label: 'Videos', color: 'text-neon-magenta', shadow: 'drop-shadow-[0_0_10px_rgba(255,0,255,0.5)]' },
                 { value: stats.chat, label: 'Chat Activo', color: 'text-neon-orange', shadow: 'drop-shadow-[0_0_10px_rgba(255,165,0,0.4)]' },
               ].map((stat, i) => (
@@ -312,7 +311,7 @@ export default function HomePage() {
                   description: 'Canales por disciplina. Habla con otros surfers, skaters y paddlers en tiempo real.',
                   color: 'from-neon-cyan to-cyan-600',
                   borderColor: 'hover:border-neon-cyan/50',
-                  href: '/app/chat',
+                  href: '/socios',
                 },
                 {
                   icon: Video,
@@ -320,7 +319,7 @@ export default function HomePage() {
                   description: 'Aprende tecnicas, trucos y maniobras con nuestros videos exclusivos.',
                   color: 'from-neon-magenta to-pink-600',
                   borderColor: 'hover:border-neon-magenta/50',
-                  href: '/app/feed',
+                  href: '/socios',
                 },
                 {
                   icon: Radio,
@@ -328,7 +327,7 @@ export default function HomePage() {
                   description: 'Sesiones en vivo desde la playa, el skatepark o el rio.',
                   color: 'from-destructive to-red-600',
                   borderColor: 'hover:border-destructive/50',
-                  href: '/app',
+                  href: '/socios',
                 },
                 {
                   icon: Calendar,
@@ -336,7 +335,7 @@ export default function HomePage() {
                   description: 'Clases presenciales, viajes grupales y meetups de la comunidad.',
                   color: 'from-neon-lime to-green-600',
                   borderColor: 'hover:border-neon-lime/50',
-                  href: '/app/events',
+                  href: '/socios',
                 },
                 {
                   icon: Users,
@@ -344,7 +343,7 @@ export default function HomePage() {
                   description: 'Conecta con otros atletas, comparte tus sesiones y crece juntos.',
                   color: 'from-neon-orange to-orange-600',
                   borderColor: 'hover:border-neon-orange/50',
-                  href: '/app/members',
+                  href: '/socios',
                 },
                 {
                   icon: ShoppingBag,
@@ -549,7 +548,7 @@ export default function HomePage() {
               <Link href="/tienda" className="hover:text-neon-magenta transition-colors">Shop</Link>
               <a href="https://instagram.com/comunidad_str" target="_blank" rel="noopener noreferrer" className="hover:text-neon-lime transition-colors">Instagram</a>
               <a href="https://wa.me/59899123456" target="_blank" rel="noopener noreferrer" className="hover:text-neon-orange transition-colors">WhatsApp</a>
-              <Link href="/admin" className="hover:text-white transition-colors opacity-50 hover:opacity-100">Admin</Link>
+              <Link href="/panel" className="hover:text-white transition-colors opacity-50 hover:opacity-100">Admin</Link>
             </div>
           </div>
         </div>

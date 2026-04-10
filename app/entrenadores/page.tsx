@@ -15,15 +15,21 @@ const WHATSAPP_NEW_COACH = 'https://wa.me/598099046165?text=Hola%2C%20quiero%20i
 const equipo = [
   {
     nombre: 'Germán García',
-    rol: 'Acondicionamiento físico',
-    bio: 'Preparación física orientada al surf y deportes de tabla: fuerza, movilidad y prevención.',
-    imagen: '/images/hero-surf.jpg',
+    rol: 'Surf',
+    bio: 'Instructor de surf y skate. Fundador de la comunidad STR.',
+    imagen: '/images/trainers/german-garcia.jpg',
   },
   {
     nombre: 'Diego Ottonello',
-    rol: 'Surf · Entrenamiento',
-    bio: 'Entrenamiento técnico y acompañamiento en el agua. Experiencia en grupos y viajes STR.',
-    imagen: '/images/surf-action-1.jpg',
+    rol: 'Skate',
+    bio: 'Especialista en skate y acondicionamiento físico para riders.',
+    imagen: '/images/trainers/diego-ottonello.jpg',
+  },
+  {
+    nombre: 'Germán García',
+    rol: 'Acondicionamiento Físico',
+    bio: 'Preparación física especializada para surfers y skaters.',
+    imagen: '/images/trainers/german-garcia.jpg',
   },
 ]
 

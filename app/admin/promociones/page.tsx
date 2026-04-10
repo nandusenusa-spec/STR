@@ -133,7 +133,7 @@ export default function AdminPromocionesPage() {
     setFormData({ 
       titulo: promo.titulo, 
       mensaje: promo.mensaje, 
-      tipo: promo.tipo,
+      tipo: 'popup' | 'banner',
       fechaInicio: promo.fechaInicio,
       fechaFin: promo.fechaFin,
       color: promo.color

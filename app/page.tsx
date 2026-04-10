@@ -207,10 +207,9 @@ export default function HomePage() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-16 max-w-3xl mx-auto">
               {[
                 { value: '50', label: 'Raiders', color: 'text-neon-lime', shadow: 'drop-shadow-[0_0_10px_rgba(0,255,0,0.5)]' },
-                { value: '50', label: 'Raiders', color: 'text-neon-cyan', shadow: 'drop-shadow-[0_0_10px_rgba(0,255,255,0.5)]' },
                 { value: stats.videos, label: 'Videos', color: 'text-neon-magenta', shadow: 'drop-shadow-[0_0_10px_rgba(255,0,255,0.5)]' },
                 { value: stats.chat, label: 'Chat Activo', color: 'text-neon-orange', shadow: 'drop-shadow-[0_0_10px_rgba(255,165,0,0.4)]' },
               ].map((stat, i) => (
@@ -349,7 +348,7 @@ export default function HomePage() {
                   description: 'Merch oficial, cursos premium y reservas de viajes.',
                   color: 'from-neon-purple to-purple-600',
                   borderColor: 'hover:border-neon-purple/50',
-                  href: '/tienda',
+                  href: '/socios',
                 },
               ].map((feature, i) => (
                 <Link 
@@ -546,7 +545,7 @@ export default function HomePage() {
               <Link href="/tienda" className="hover:text-neon-magenta transition-colors">Shop</Link>
               <a href="https://instagram.com/comunidad_str" target="_blank" rel="noopener noreferrer" className="hover:text-neon-lime transition-colors">Instagram</a>
               <a href="https://wa.me/59899123456" target="_blank" rel="noopener noreferrer" className="hover:text-neon-orange transition-colors">WhatsApp</a>
-              <Link href="/admin" className="hover:text-white transition-colors opacity-50 hover:opacity-100">Admin</Link>
+              <Link href="/panel" className="hover:text-white transition-colors opacity-50 hover:opacity-100">Admin</Link>
             </div>
           </div>
         </div>

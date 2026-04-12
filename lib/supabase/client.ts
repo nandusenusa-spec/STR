@@ -13,10 +13,8 @@ export function createClient() {
     return createBrowserClient(url, key)
   }
 
-  if (typeof window !== 'undefined') {
-    console.error(
-      'Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY — add them to .env.local',
-    )
+  if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+    console.warn('[supabase] Using placeholder credentials - set env vars in production')
   }
 
   return createBrowserClient(PLACEHOLDER_URL, PLACEHOLDER_ANON)
